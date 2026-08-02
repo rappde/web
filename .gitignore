@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build output
+dist
+dist-ssr
+.vite
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# AI coding tool config + continuity docs — local dev aid for future Claude
+# Code sessions, not meant to be public. Kept on disk, not in git.
+.claude/
+CLAUDE.md
+AI_CONTEXT.md
+PROJECT_STATE.md
+ARCHITECTURE.md
+DEVELOPMENT_RULES.md
+FEATURES.md
+TODO.md
+KNOWN_ISSUES.md
+DECISIONS.md
+FILE_INDEX.md
+REDESIGN-BRIEF.md
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Image source masters — kept locally, only used by `npm run optimize:images`.
+# The optimised web assets in public/images are committed; the heavy masters are
+# NOT (they would otherwise bloat the repo and get deployed from public/).
+image-masters/
+
+# MOSH_UNIT video/GIF source masters — heavy (~1.85 GB), local only, used by
+# `npm run optimize:videos`. Only the optimised public/mosh/ outputs are committed.
+media_moshunit/

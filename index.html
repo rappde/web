@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Security hardening. GitHub Pages cannot send HTTP headers, so the CSP
+         lives in a meta tag. Everything is self-hosted (fonts, images, JS),
+         so only 'self' plus the SSG's inline scripts/styles are allowed;
+         ws: keeps Vite dev-server HMR working and is harmless in production.
+         static.itch.io is the one deliberate exception: it is itch.io's
+         official widget script (see ItchBuyButton.tsx) that opens the
+         MOSH_UNIT purchase flow in a real popup window, not an iframe, so
+         frame-src stays 'none'. It is only requested on /mosh_unit. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.itch.io; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Favicons & share assets (placeholders generated from the glitch signature
+         via `npm run gen:assets`; final set to be supplied by Demien — §9b). -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#F2F0EB" />
+    <meta name="color-scheme" content="light" />
+
+    <meta name="google-site-verification" content="t8_tD1L_p0x3-C9pL8I-jF6X-O8N0y3V1O3P1HhWfD6" />
+
+    <!-- Title and meta description are injected per route via react-helmet-async
+         (see src/components/Seo.tsx) so each language gets its own. -->
+  </head>
+  <body>
+    <!-- Flag JS so the scroll-reveal hidden state only applies with JS enabled. -->
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
+
+    <!-- Language auto-detect: visitors whose browser prefers German get /de.
+         Only on the root page, only when entering from outside the site, and
+         never when the visitor has made an explicit EN/DE choice (localStorage,
+         set by the language switcher). English-first browsers and all other
+         languages stay on the English default. Crawlers (en-US) are unaffected,
+         and /de is never redirected away, so SEO/hreflang stay intact. -->
+    <script>
+      ;(function () {
+        try {
+          if (location.pathname !== '/') return
+          if (document.referrer.indexOf(location.origin) === 0) return
+          var pref = localStorage.getItem('lang')
+          if (pref === 'en') return
+          if (pref === 'de') { location.replace('/de'); return }
+          var langs = navigator.languages || [navigator.language || '']
+          for (var i = 0; i < langs.length; i++) {
+            if (/^de/i.test(langs[i])) { location.replace('/de'); return }
+            if (/^en/i.test(langs[i])) return
+          }
+        } catch (e) { /* private mode etc. — stay on English */ }
+      })()
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

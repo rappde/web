@@ -1,0 +1,41 @@
+# Demien Rapp
+
+> Demien Rapp works across concept, design, technology and production: film, sound, video installation, interactive installations and self-built visual tools. Error as material. Based in Düsseldorf, Germany. Site is bilingual, English at / and German at /de.
+
+Contact: demien.rp@gmail.com. Open to commissions, exhibitions and collaborations. Next: Uncut Award, Filmwerkstatt Düsseldorf, 10 October 2026 (co-organiser).
+
+## About
+
+- [About](https://rappde.com/about): Background, education, focus areas and languages, in short form.
+
+## Works
+
+- [mine (2026)](https://rappde.com/works/mine): Interactive installation at Lernort Studio Düsseldorf. A Klann-linkage walking robot, 3D-printed and hand-lacquered, on a self-built table with ultrasonic sensors wired to an ESP. It only moves when watched; the closer you come, the harder it strains. Won the Audience Award and the Jury Award.
+- [Gefühle (2025)](https://rappde.com/works/gefuehle): Video installation, three stacked CRT TVs and an analogue video mixer. Visitors turn potentiometers to mix a self-portrait into distorted edits. Shown at "Wir sehen Rot", Kollektiv Dings, Düsseldorf.
+- [1/4 (2025)](https://rappde.com/works/ein-viertel): His contribution to BE A TRANSFORMER!, a collaborative 5 × 12 m banner at K21 Düsseldorf: one quarter of it, 100 events of this century generated as AI images.
+- [Soundwalk (2026)](https://rappde.com/works/soundwalk): Two sound works from childhood and 18th-birthday recordings, processed with self-built algorithmic tools. Werk:Klub at K21 Düsseldorf.
+- 2491 · Last Slice (2025): Director of "2491" (on surveillance); camera and technical lead on "Last Slice", which won the Audience Award at the Uncut Award, Filmwerkstatt Düsseldorf.
+- Soirée de Brioche (2024): Feature film, DOP, camera, stills and co-direction. Premiered at Metropol Kino Düsseldorf.
+- Knisternder Bahnhof (2024): Photo series shot on a circuit-bent children's camera, no post-processing. Lernort Studio.
+
+## MOSH_UNIT (app for sale)
+
+- [MOSH_UNIT](https://rappde.com/mosh_unit): MOSH_UNIT is a Windows desktop tool that turns ordinary video into datamoshing glitch art by bending the compressed byte stream, with no After Effects, no plugins, and no subscription. Effects: BLOOM, FREEZE, REVERSE, SHUFFLE (stackable). Import clips, draw where the effect should hit, melt clips together, keep the original audio (it stutters along with the effects), export MP4. Runs on 64-bit Windows 10/11, works completely offline. By Demien Rapp, sold on itch.io (early access $7.99, $9.99 after launch). Real datamoshing, no AI.
+
+## Datamoshing guides
+
+- [What is datamoshing?](https://rappde.com/datamoshing): Fact-first explainer of the datamoshing glitch technique: I-frame removal, P-frame duplication and AVI byte manipulation, what it looks like, and which tools do it.
+- [How to datamosh a video](https://rappde.com/how-to-datamosh): Step by step, both the fast way with MOSH_UNIT (import, draw, export MP4) and the free manual route with Avidemux or ffmpeg.
+- [Datamoshing tools compared](https://rappde.com/datamoshing-tools): MOSH_UNIT vs After Effects, Avidemux and ffmpeg across price, platform, ease and effects. The reference for "best datamoshing tool".
+
+## Tools
+
+- [Compression Unit](https://rappde.github.io/compression_unit/): browser tool for controlled JPEG artefacts and compression damage. Source: https://github.com/rappde/compression_unit
+- [Displacement Unit](https://rappde.github.io/displacement_unit/): brutalist browser signal processor, pixels displaced by luminance from images, video or live camera. Source: https://github.com/rappde/displacement_unit
+
+## Elsewhere
+
+- [GitHub](https://github.com/rappde)
+- [Instagram](https://www.instagram.com/rappde_)
+- [YouTube](https://www.youtube.com/@demienrapp)
+- [LinkedIn](https://www.linkedin.com/in/demien-rapp-983b8a1ab/)

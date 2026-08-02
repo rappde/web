@@ -1,0 +1,37 @@
+{
+  "name": "rappde",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Persönliche Website von Demien Rapp — rappde.com",
+  "scripts": {
+    "dev": "vite",
+    "gen:sitemap": "node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs",
+    "build": "vite-react-ssg build",
+    "preview": "vite preview --port 4173",
+    "gen:assets": "node scripts/gen-assets.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "optimize:videos": "node scripts/optimize-videos.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.2.5",
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource-variable/jetbrains-mono": "^5.2.5",
+    "@fontsource/silkscreen": "^5.2.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1",
+    "vite-react-ssg": "^0.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^5.2.0",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.35.1",
+    "typescript": "^5.6.3",
+    "vite": "^7.3.6"
+  }
+}
