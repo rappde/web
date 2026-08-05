@@ -8,13 +8,18 @@
          lives in a meta tag. Everything is self-hosted (fonts, images, JS),
          so only 'self' plus the SSG's inline scripts/styles are allowed;
          ws: keeps Vite dev-server HMR working and is harmless in production.
-         static.itch.io is the one deliberate exception: it is itch.io's
-         official widget script (see ItchBuyButton.tsx) that opens the
-         MOSH_UNIT purchase flow in a real popup window, not an iframe, so
-         frame-src stays 'none'. It is only requested on /mosh_unit. -->
+         Two deliberate exceptions, both only reachable on /mosh_unit:
+           - script-src https://static.itch.io: itch.io's official widget
+             script (see ItchBuyButton.tsx) that opens the purchase flow in a
+             real popup window, not an iframe.
+           - frame-src https://www.youtube-nocookie.com: the install & usage
+             tutorial is a click-to-load embed (see VideoEmbed.tsx). Nothing is
+             framed until the visitor clicks play; the poster is self-hosted, so
+             youtube is never contacted before then. img-src stays 'self' (no
+             img.youtube.com), so youtube-nocookie is the only added domain. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.itch.io; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.itch.io; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 

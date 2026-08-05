@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import type { Lang } from '@/content/types'
 import { content } from '@/content'
 import type { MoshUnitContent, MoshEffect } from '@/content/mosh-unit'
-import { moshUnit, ITCH_URL, ITCH_USER, ITCH_GAME } from '@/content/mosh-unit'
+import { moshUnit, ITCH_URL, ITCH_USER, ITCH_GAME, TUTORIAL_VIDEO_ID, TUTORIAL_THUMB } from '@/content/mosh-unit'
 import { MoshUnitSeo } from '@/components/MoshUnitSeo'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { Reveal } from '@/components/Reveal'
 import { RichText } from '@/components/RichText'
 import { VideoLoop } from '@/components/VideoLoop'
+import { VideoEmbed } from '@/components/VideoEmbed'
 import { ItchBuyButton } from '@/components/ItchBuyButton'
 import { MoshStickyBuy } from '@/components/MoshStickyBuy'
 import { cx } from '@/lib/cx'
@@ -266,6 +267,29 @@ export default function MoshUnit({ lang }: { lang: Lang }) {
               </Link>
             ))}
           </p>
+        </section>
+
+        {/* ---------------- tutorial (install & usage), lite-facade embed ---------------- */}
+        <section className="section container mosh-tutorial" aria-labelledby="tutorial-title">
+          <div className="section-head">
+            <h2 className="section-title" id="tutorial-title">
+              {c.tutorial.title}
+            </h2>
+            <p className="lede section-head__lede">{c.tutorial.lede}</p>
+          </div>
+          <p className="mosh-tutorial__runtime meta">{c.tutorial.runtime}</p>
+
+          <VideoEmbed
+            videoId={TUTORIAL_VIDEO_ID}
+            title={`MOSH_UNIT · ${c.tutorial.title}`}
+            thumbnail={TUTORIAL_THUMB}
+            thumbAlt={c.tutorial.thumbAlt}
+            chapters={c.tutorial.chapters}
+            chaptersLabel={c.tutorial.chaptersLabel}
+            playLabel={c.tutorial.playLabel}
+            jumpLabel={c.tutorial.jumpLabel}
+            watchOnYouTube={c.tutorial.watchOnYouTube}
+          />
         </section>
       </main>
 

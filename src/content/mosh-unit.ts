@@ -7,6 +7,16 @@ export const ITCH_USER = 'rappde'
 export const ITCH_GAME = 'mosh-unit'
 export const ITCH_URL = `https://${ITCH_USER}.itch.io/${ITCH_GAME}`
 
+/* Tutorial video (install & usage), lite-facade YouTube embed at the end of the
+   page. No iframe/third-party request until the visitor clicks (site rule #7);
+   the poster below is self-hosted. TODO(Demien): replace TUTORIAL_VIDEO_ID with
+   the real 11-char YouTube id, drop the 1280x720 poster at public/assets/, and
+   adjust the chapter timecodes in `tutorial.chapters` (en + de) to the cut. */
+export const TUTORIAL_VIDEO_ID = 'VIDEO_ID' // <-- replace with the YouTube id
+export const TUTORIAL_THUMB = '/assets/mosh-unit-tutorial.webp' // 1280x720, 16:9
+export const TUTORIAL_DURATION_ISO = 'PT7M' // ~7 min, for VideoObject JSON-LD
+export const TUTORIAL_UPLOAD_DATE = '2026-07-15' // first public date of the video
+
 /* Canonical MOSH_UNIT description — the single source of truth for the product
    entity. Reused verbatim by the product-page <meta>, the SoftwareApplication
    JSON-LD (MoshUnitSeo) and public/llms.txt so the entity reads identically
@@ -109,6 +119,25 @@ export interface MoshUnitContent {
   learn: {
     label: string
     links: { label: string; href: string }[]
+  }
+  /** install & usage video (lite-facade YouTube embed) at the end of the page */
+  tutorial: {
+    title: string
+    lede: string
+    /** short runtime chip next to the heading, e.g. "7 min" */
+    runtime: string
+    /** small heading above the chapter list */
+    chaptersLabel: string
+    /** aria-label prefix for the poster play button */
+    playLabel: string
+    /** aria-label prefix for a chapter jump button */
+    jumpLabel: string
+    /** <noscript> link text */
+    watchOnYouTube: string
+    /** alt text for the self-hosted poster */
+    thumbAlt: string
+    /** chapters (timecodes are placeholders, adjust to the final cut) */
+    chapters: { time: string; seconds: number; label: string }[]
   }
 }
 
@@ -286,6 +315,25 @@ export const moshUnit: Record<MoshLang, MoshUnitContent> = {
         { label: 'Tools compared', href: '/datamoshing-tools' },
       ],
     },
+    tutorial: {
+      title: 'Installation & usage',
+      lede: 'A short walkthrough: about two minutes to install, then the tool in action. Jump straight to the demo with the chapters.',
+      runtime: '7 min',
+      chaptersLabel: 'Chapters',
+      playLabel: 'Play tutorial video',
+      jumpLabel: 'Jump to',
+      watchOnYouTube: 'Watch the tutorial on YouTube',
+      thumbAlt: 'MOSH_UNIT tutorial: install the Windows tool, then datamosh a first clip.',
+      chapters: [
+        { time: '00:00', seconds: 0, label: 'Download' },
+        { time: '00:40', seconds: 40, label: 'Installation' },
+        { time: '02:10', seconds: 130, label: 'Import your first clip' },
+        { time: '02:50', seconds: 170, label: 'Draw an effect' },
+        { time: '03:40', seconds: 220, label: 'Stack effects' },
+        { time: '04:40', seconds: 280, label: 'Melt / transition' },
+        { time: '05:30', seconds: 330, label: 'Export MP4' },
+      ],
+    },
   },
 
   de: {
@@ -373,6 +421,25 @@ export const moshUnit: Record<MoshLang, MoshUnitContent> = {
         { label: 'Was ist Datamoshing?', href: '/datamoshing' },
         { label: 'How to datamosh', href: '/how-to-datamosh' },
         { label: 'Tools im Vergleich', href: '/datamoshing-tools' },
+      ],
+    },
+    tutorial: {
+      title: 'Installation & Benutzung',
+      lede: 'Ein kurzer Durchlauf: rund zwei Minuten Installation, danach das Tool in Aktion. Mit den Kapiteln direkt zum Demo-Teil springen.',
+      runtime: '7 Min',
+      chaptersLabel: 'Kapitel',
+      playLabel: 'Tutorial-Video abspielen',
+      jumpLabel: 'Springe zu',
+      watchOnYouTube: 'Tutorial auf YouTube ansehen',
+      thumbAlt: 'MOSH_UNIT-Tutorial: das Windows-Tool installieren, dann den ersten Clip datamoshen.',
+      chapters: [
+        { time: '00:00', seconds: 0, label: 'Download' },
+        { time: '00:40', seconds: 40, label: 'Installation' },
+        { time: '02:10', seconds: 130, label: 'Erste Datei moshen' },
+        { time: '02:50', seconds: 170, label: 'Effekt aufmalen' },
+        { time: '03:40', seconds: 220, label: 'Effekte stapeln' },
+        { time: '04:40', seconds: 280, label: 'Melt / Übergang' },
+        { time: '05:30', seconds: 330, label: 'MP4 exportieren' },
       ],
     },
   },

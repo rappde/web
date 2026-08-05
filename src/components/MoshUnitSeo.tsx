@@ -1,6 +1,12 @@
 import { Head } from 'vite-react-ssg'
 import type { MoshUnitContent } from '@/content/mosh-unit'
-import { ITCH_URL } from '@/content/mosh-unit'
+import {
+  ITCH_URL,
+  TUTORIAL_VIDEO_ID,
+  TUTORIAL_THUMB,
+  TUTORIAL_DURATION_ISO,
+  TUTORIAL_UPLOAD_DATE,
+} from '@/content/mosh-unit'
 import { SITE_URL, personRef } from './Seo'
 
 const OG_IMAGE = `${SITE_URL}/og-mosh-unit.jpg`
@@ -75,6 +81,23 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
       isPartOf: { '@id': APP_ID },
     }))
 
+  /* The install & usage tutorial (lite-facade YouTube embed at the end of the
+     page). Added alongside the demo VideoObjects, not overwriting them: this one
+     is hosted on YouTube, so embedUrl points at youtube-nocookie and the poster
+     is the self-hosted thumbnail. */
+  const tutorialVideoLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: `MOSH_UNIT ${content.tutorial.title}`,
+    description: content.tutorial.lede,
+    thumbnailUrl: abs(TUTORIAL_THUMB),
+    uploadDate: TUTORIAL_UPLOAD_DATE,
+    duration: TUTORIAL_DURATION_ISO,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${TUTORIAL_VIDEO_ID}`,
+    creator: personRef,
+    isPartOf: { '@id': APP_ID },
+  }
+
   const faqLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -113,6 +136,7 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
 
       <script type="application/ld+json">{JSON.stringify(appLd)}</script>
       <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(tutorialVideoLd)}</script>
       {videoLd.map((ld, i) => (
         <script type="application/ld+json" key={`video-${i}`}>{JSON.stringify(ld)}</script>
       ))}

@@ -278,6 +278,13 @@ export const de: Content = {
         href: 'https://rappde.github.io/displacement_unit/',
         hrefLabel: 'Öffnen',
       },
+      {
+        id: 'paint-unit',
+        name: 'Paint Unit',
+        body: 'Ein destruktives Paint-Tool: Pixel im eigenen Bild verschmieren, verschieben oder stempeln.',
+        href: 'https://rappde.github.io/paint_unit/',
+        hrefLabel: 'Öffnen',
+      },
     ],
     githubLabel: 'Alle Repositories',
     githubHref: GITHUB,

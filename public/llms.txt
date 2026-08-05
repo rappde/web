@@ -32,6 +32,7 @@ Contact: demien.rp@gmail.com. Open to commissions, exhibitions and collaboration
 
 - [Compression Unit](https://rappde.github.io/compression_unit/): browser tool for controlled JPEG artefacts and compression damage. Source: https://github.com/rappde/compression_unit
 - [Displacement Unit](https://rappde.github.io/displacement_unit/): brutalist browser signal processor, pixels displaced by luminance from images, video or live camera. Source: https://github.com/rappde/displacement_unit
+- [Paint Unit](https://rappde.github.io/paint_unit/): destructive browser paint tool, smear/slide/stamp pixels off any image. Source: https://github.com/rappde/paint_unit
 
 ## Elsewhere
 

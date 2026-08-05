@@ -277,6 +277,13 @@ export const en: Content = {
         href: 'https://rappde.github.io/displacement_unit/',
         hrefLabel: 'Open',
       },
+      {
+        id: 'paint-unit',
+        name: 'Paint Unit',
+        body: 'A destructive paint tool: smear, slide or stamp pixels straight off your own image.',
+        href: 'https://rappde.github.io/paint_unit/',
+        hrefLabel: 'Open',
+      },
     ],
     githubLabel: 'All repositories',
     githubHref: GITHUB,
