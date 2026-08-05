@@ -269,28 +269,31 @@ export default function MoshUnit({ lang }: { lang: Lang }) {
           </p>
         </section>
 
-        {/* ---------------- tutorial (install & usage), lite-facade embed ---------------- */}
-        <section className="section container mosh-tutorial" aria-labelledby="tutorial-title">
-          <div className="section-head">
-            <h2 className="section-title" id="tutorial-title">
-              {c.tutorial.title}
-            </h2>
-            <p className="lede section-head__lede">{c.tutorial.lede}</p>
-          </div>
-          <p className="mosh-tutorial__runtime meta">{c.tutorial.runtime}</p>
+        {/* ---------------- tutorial (install & usage), lite-facade embed ----------------
+            Rendered only once the video exists; see TUTORIAL_VIDEO_ID. */}
+        {TUTORIAL_VIDEO_ID ? (
+          <section className="section container mosh-tutorial" aria-labelledby="tutorial-title">
+            <div className="section-head">
+              <h2 className="section-title" id="tutorial-title">
+                {c.tutorial.title}
+              </h2>
+              <p className="lede section-head__lede">{c.tutorial.lede}</p>
+            </div>
+            <p className="mosh-tutorial__runtime meta">{c.tutorial.runtime}</p>
 
-          <VideoEmbed
-            videoId={TUTORIAL_VIDEO_ID}
-            title={`MOSH_UNIT · ${c.tutorial.title}`}
-            thumbnail={TUTORIAL_THUMB}
-            thumbAlt={c.tutorial.thumbAlt}
-            chapters={c.tutorial.chapters}
-            chaptersLabel={c.tutorial.chaptersLabel}
-            playLabel={c.tutorial.playLabel}
-            jumpLabel={c.tutorial.jumpLabel}
-            watchOnYouTube={c.tutorial.watchOnYouTube}
-          />
-        </section>
+            <VideoEmbed
+              videoId={TUTORIAL_VIDEO_ID}
+              title={`MOSH_UNIT · ${c.tutorial.title}`}
+              thumbnail={TUTORIAL_THUMB}
+              thumbAlt={c.tutorial.thumbAlt}
+              chapters={c.tutorial.chapters}
+              chaptersLabel={c.tutorial.chaptersLabel}
+              playLabel={c.tutorial.playLabel}
+              jumpLabel={c.tutorial.jumpLabel}
+              watchOnYouTube={c.tutorial.watchOnYouTube}
+            />
+          </section>
+        ) : null}
       </main>
 
       <MoshStickyBuy price={c.pricing.priceNow} cta={c.hero.ctaPrimary} note={c.hero.priceNote} />

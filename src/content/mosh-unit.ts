@@ -9,10 +9,16 @@ export const ITCH_URL = `https://${ITCH_USER}.itch.io/${ITCH_GAME}`
 
 /* Tutorial video (install & usage), lite-facade YouTube embed at the end of the
    page. No iframe/third-party request until the visitor clicks (site rule #7);
-   the poster below is self-hosted. TODO(Demien): replace TUTORIAL_VIDEO_ID with
-   the real 11-char YouTube id, drop the 1280x720 poster at public/assets/, and
-   adjust the chapter timecodes in `tutorial.chapters` (en + de) to the cut. */
-export const TUTORIAL_VIDEO_ID = 'VIDEO_ID' // <-- replace with the YouTube id
+   the poster below is self-hosted.
+
+   Empty id = tutorial not published yet. While it is '', the whole tutorial
+   section (MoshUnit.tsx) and its VideoObject JSON-LD (MoshUnitSeo.tsx) are
+   skipped. Do not put a placeholder id back: it shipped a dead youtube link,
+   a 404 poster and an invalid VideoObject to production.
+   TODO(Demien): to publish, set the real 11-char YouTube id here, drop the
+   1280x720 poster at public/assets/mosh-unit-tutorial.webp, and adjust the
+   chapter timecodes in `tutorial.chapters` (en + de) to the cut. */
+export const TUTORIAL_VIDEO_ID: string = ''
 export const TUTORIAL_THUMB = '/assets/mosh-unit-tutorial.webp' // 1280x720, 16:9
 export const TUTORIAL_DURATION_ISO = 'PT7M' // ~7 min, for VideoObject JSON-LD
 export const TUTORIAL_UPLOAD_DATE = '2026-07-15' // first public date of the video

@@ -34,8 +34,33 @@ jobs:
       - name: Build (static pre-render)
         run: npm run build
 
+      # GitHub Pages serves 404.html (status 404) for unknown paths, so the SPA
+      # router can still resolve them client-side. But the file is ALSO reachable
+      # at the literal /404.html with status 200, where it looks like a duplicate
+      # homepage: Google files that as "Soft 404". The noindex kills that without
+      # affecting the real 404 responses (a 404 is never indexed anyway).
       - name: SPA fallback for unknown routes
-        run: cp dist/index.html dist/404.html
+        run: sed 's|<head>|<head><meta name="robots" content="noindex">|' dist/index.html > dist/404.html
+
+      # vite-react-ssg emits flat files (about.html), which GitHub Pages serves at
+      # /about. The trailing-slash form /about/ looks for about/index.html, finds
+      # nothing and returns 404 -- so every shared link with a trailing slash dies
+      # and Google logs it as "Not found (404)".
+      #
+      # The obvious fix is to mirror every page into its own directory. Unverified
+      # risk: GitHub Pages 301-redirects /foo -> /foo/ when foo/index.html exists
+      # (that is how project-site URLs behave). If it does that even when foo.html
+      # is also present, every canonical URL on this site turns into a redirect,
+      # which is worse than the trailing-slash 404s.
+      #
+      # So: canary first, on /datenschutz only. That page is noindex, so nothing
+      # is at stake if the redirect happens. After a deploy, check both forms:
+      #   curl -so /dev/null -w '%{http_code} %{redirect_url}\n' https://rappde.com/datenschutz
+      #   curl -so /dev/null -w '%{http_code} %{redirect_url}\n' https://rappde.com/datenschutz/
+      # 200 + 200  -> flat file wins, roll this out to every page.
+      # 301 + 200  -> directory wins, drop this step, keep the flat files.
+      - name: Trailing-slash twin (canary, noindex page only)
+        run: mkdir -p dist/datenschutz && cp dist/datenschutz.html dist/datenschutz/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
