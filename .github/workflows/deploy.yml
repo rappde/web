@@ -45,22 +45,26 @@ jobs:
       # vite-react-ssg emits flat files (about.html), which GitHub Pages serves at
       # /about. The trailing-slash form /about/ looks for about/index.html, finds
       # nothing and returns 404 -- so every shared link with a trailing slash dies
-      # and Google logs it as "Not found (404)".
+      # and Google logs it as "Not found (404)". Mirror each page into its own
+      # directory so both forms answer 200.
       #
-      # The obvious fix is to mirror every page into its own directory. Unverified
-      # risk: GitHub Pages 301-redirects /foo -> /foo/ when foo/index.html exists
-      # (that is how project-site URLs behave). If it does that even when foo.html
-      # is also present, every canonical URL on this site turns into a redirect,
-      # which is worse than the trailing-slash 404s.
-      #
-      # So: canary first, on /datenschutz only. That page is noindex, so nothing
-      # is at stake if the redirect happens. After a deploy, check both forms:
-      #   curl -so /dev/null -w '%{http_code} %{redirect_url}\n' https://rappde.com/datenschutz
-      #   curl -so /dev/null -w '%{http_code} %{redirect_url}\n' https://rappde.com/datenschutz/
-      # 200 + 200  -> flat file wins, roll this out to every page.
-      # 301 + 200  -> directory wins, drop this step, keep the flat files.
-      - name: Trailing-slash twin (canary, noindex page only)
-        run: mkdir -p dist/datenschutz && cp dist/datenschutz.html dist/datenschutz/index.html
+      # Measured on the /datenschutz canary (deploy 48131d6), because GitHub Pages
+      # 301-redirects /foo -> /foo/ for project sites and doing that here would
+      # turn every canonical URL into a redirect: with both datenschutz.html and
+      # datenschutz/index.html present, /datenschutz stayed 200 with no redirect
+      # and /datenschutz/ became 200. The flat file wins, the twin is additive.
+      # Both forms carry the same self-referencing canonical, so Google
+      # consolidates them instead of seeing duplicate content.
+      - name: Trailing-slash twins
+        run: |
+          cd dist
+          find . -name '*.html' ! -name 'index.html' ! -name '404.html' > /tmp/pages.txt
+          while IFS= read -r f; do
+            d="${f%.html}"
+            mkdir -p "$d"
+            cp "$f" "$d/index.html"
+          done < /tmp/pages.txt
+          test -f about/index.html && test -f de/index.html && test -f works/mine/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
