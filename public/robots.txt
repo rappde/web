@@ -1,0 +1,70 @@
+# rappde.com — Demien Rapp, artist & maker in Düsseldorf.
+# Search engines and AI answer-engine crawlers are welcome: being crawled is
+# how this site gets cited in AI answers. A machine-readable summary lives at
+# https://rappde.com/llms.txt
+
+User-agent: *
+Allow: /
+
+# Classic search engines (explicit, though the wildcard above already allows them)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# OpenAI (ChatGPT training, ChatGPT Search, and live user fetches)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity (index crawler + live user fetches)
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Anthropic / Claude (index crawler + live user fetches; older UAs kept for coverage)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google Gemini / Vertex grounding
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl (feeds many downstream LLM datasets)
+User-agent: CCBot
+Allow: /
+
+# ByteDance (TikTok search / Doubao)
+User-agent: Bytespider
+Allow: /
+
+# Amazon (Alexa / Rufus)
+User-agent: Amazonbot
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+Sitemap: https://rappde.com/sitemap.xml

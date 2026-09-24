@@ -1,0 +1,83 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment, cancel in-progress runs for new pushes.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (static pre-render)
+        run: npm run build
+
+      # GitHub Pages serves 404.html (status 404) for unknown paths, so the SPA
+      # router can still resolve them client-side. But the file is ALSO reachable
+      # at the literal /404.html with status 200, where it looks like a duplicate
+      # homepage: Google files that as "Soft 404". The noindex kills that without
+      # affecting the real 404 responses (a 404 is never indexed anyway).
+      - name: SPA fallback for unknown routes
+        run: sed 's|<head>|<head><meta name="robots" content="noindex">|' dist/index.html > dist/404.html
+
+      # vite-react-ssg emits flat files (about.html), which GitHub Pages serves at
+      # /about. The trailing-slash form /about/ looks for about/index.html, finds
+      # nothing and returns 404 -- so every shared link with a trailing slash dies
+      # and Google logs it as "Not found (404)". Mirror each page into its own
+      # directory so both forms answer 200.
+      #
+      # Measured on the /datenschutz canary (deploy 48131d6), because GitHub Pages
+      # 301-redirects /foo -> /foo/ for project sites and doing that here would
+      # turn every canonical URL into a redirect: with both datenschutz.html and
+      # datenschutz/index.html present, /datenschutz stayed 200 with no redirect
+      # and /datenschutz/ became 200. The flat file wins, the twin is additive.
+      # Both forms carry the same self-referencing canonical, so Google
+      # consolidates them instead of seeing duplicate content.
+      - name: Trailing-slash twins
+        run: |
+          cd dist
+          find . -name '*.html' ! -name 'index.html' ! -name '404.html' > /tmp/pages.txt
+          while IFS= read -r f; do
+            d="${f%.html}"
+            mkdir -p "$d"
+            cp "$f" "$d/index.html"
+          done < /tmp/pages.txt
+          test -f about/index.html && test -f de/index.html && test -f works/mine/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
