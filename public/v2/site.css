@@ -1,0 +1,172 @@
+/* ============================================================
+   Geteiltes Stylesheet fuer v2.html und tools.html.
+
+   Keine Kaesten. Nur zwei Linien tragen die Struktur:
+     1. senkrecht zwischen Taskbar und Inhalt
+     2. waagerecht unter jeder Ueberschrift
+   Umschalten per :target, also ohne JavaScript, und jede Auswahl hat eine
+   eigene teilbare URL.
+   ============================================================ */
+:root{
+  --gap:24px;
+  --line:24px;
+  --ink:#000;
+  --paper:#fff;
+  --bar:240px;        /* Breite des linken Fensters */
+}
+@media (max-width:1023px){ :root{ --gap:18px; --bar:200px } }
+@media (max-width:767px){  :root{ --gap:12px } }
+
+*{box-sizing:border-box}
+
+@font-face{
+  font-family:"Endless";
+  src:url("fonts/Endless.ttf") format("truetype");
+  font-display:swap;
+}
+
+html{background:var(--paper)}
+body{
+  margin:0;padding:var(--gap);
+  color:var(--ink);
+  font-family:"Endless",Arial,Helvetica,sans-serif;
+  font-size:20px;line-height:var(--line);
+  -webkit-font-smoothing:none;
+  text-rendering:optimizeSpeed;
+}
+
+/* ---------- Typografie auf 24px-Baseline ---------- */
+h1,h2,h3,p,ul{margin:0}
+h1{font-size:48px;line-height:calc(var(--line) * 2);font-weight:400}
+p+p{margin-top:var(--line)}
+a{color:#00e}
+@media (max-width:767px){ h1{font-size:32px;line-height:calc(var(--line) * 1.5)} }
+
+.skip{position:absolute;left:-9999px}
+.skip:focus{position:static;left:auto;display:inline-block;margin-bottom:var(--line)}
+
+/* Visuell versteckt, bleibt fuer Screenreader und als Sprungziel im DOM. */
+.vh{
+  position:absolute;width:1px;height:1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+}
+
+/* ---------- Fenster ---------- */
+.layout{
+  display:grid;
+  grid-template-columns:var(--bar) 1fr;
+  gap:var(--gap);
+  align-items:start;
+}
+@media (max-width:767px){ .layout{grid-template-columns:1fr} }
+
+.win{
+  display:flex;flex-direction:column;
+  min-width:0;                 /* sonst sprengt breiter Inhalt die Grid-Spalte */
+}
+/* Ueberschrift mit Linie darunter, kein schwarzer Balken. */
+.winbar{
+  font-size:14px;line-height:20px;font-weight:400;
+  letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:3px solid var(--ink);
+  padding-bottom:calc(var(--line) / 2);
+  margin-bottom:var(--line);
+}
+.winbody{display:flex;flex-direction:column;flex:1}
+
+/* ---------- Linkes Fenster ---------- */
+/* Der senkrechte Strich. Am Handy liegt die Taskbar oben, dort wird er
+   waagerecht. */
+.taskbar{
+  position:sticky;top:var(--gap);
+  border-right:3px solid var(--ink);
+  padding-right:var(--gap);
+}
+@media (max-width:767px){
+  .taskbar{
+    position:static;
+    border-right:0;border-bottom:3px solid var(--ink);
+    padding:0 0 var(--line);
+  }
+}
+.taskbar ul{list-style:none;padding:0;margin:0 0 var(--line)}
+.taskbar li a{display:block;padding:6px 8px;margin:0 -8px;text-decoration:none;color:var(--ink)}
+.taskbar li a:hover,.taskbar li a:focus-visible{background:var(--ink);color:var(--paper)}
+/* Kategorie, klein und in Grossbuchstaben, gruppiert die Namen darunter. */
+.kind{
+  font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;
+  margin:0 0 4px;
+}
+/* margin-top:auto drueckt den letzten Eintrag an die Unterkante des Fensters. */
+.foot{margin-top:auto;padding-top:var(--line);font-size:16px}
+
+/* ---------- Rechtes Fenster: Panels ---------- */
+.panel{display:none}
+.panel:target{display:flex}
+/* .start ist der Zustand beim Laden. :not(:target) verhindert, dass es sich
+   selbst ausblendet, wenn genau dieses Panel angewaehlt wird. */
+.panel.start{display:flex}
+.viewer:has(.panel:target) .panel.start:not(:target){display:none}
+
+.meta{
+  font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;
+  margin-top:var(--line);
+}
+.desc{margin-top:calc(var(--line) / 2);max-width:70ch}
+.hint{margin-top:var(--line);font-size:16px;max-width:70ch}
+
+/* Medien sitzen ganz oben im Fenster, direkt unter der Titelzeile. */
+.frame{aspect-ratio:16/10;display:block}
+.frame iframe{width:100%;height:100%;border:0;display:block;background:var(--paper)}
+.shot{display:block;width:100%;height:auto}
+/* Platzhalter, solange ein Bild fehlt. */
+.shotph{
+  aspect-ratio:3/2;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:var(--ink);color:var(--paper);
+  padding:var(--gap);font-size:28px;
+}
+@media (max-width:767px){ .shotph{font-size:20px} }
+
+.actions{display:flex;flex-wrap:wrap;gap:var(--gap);margin-top:var(--line)}
+.actions a{
+  font-size:16px;
+  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:8px 14px;text-decoration:none;
+}
+.actions a:hover,.actions a:focus-visible{background:var(--ink);color:var(--paper)}
+
+/* ---------- Feature-Liste im Panel ---------- */
+.feat{list-style:none;padding:0;margin:var(--line) 0 0;max-width:70ch}
+.feat li{padding-left:1.4em;position:relative}
+.feat li::before{content:"▓";position:absolute;left:0}
+
+/* ---------- Preis und Kauf ---------- */
+.price{margin-top:var(--line);font-size:16px;max-width:70ch}
+/* Der Kauf-Knopf ist invertiert, damit er sich von den Nebenlinks abhebt. */
+.actions a.buy{background:var(--ink);color:var(--paper)}
+.actions a.buy:hover,.actions a.buy:focus-visible{background:var(--paper);color:var(--ink)}
+
+/* ---------- Effekt-Demo ---------- */
+/* Schwarzer Kasten oben im Fenster, darin das Demo-Video. object-fit:contain,
+   damit nichts beschnitten wird, egal welches Format du exportierst. */
+.demo{
+  aspect-ratio:16/10;
+  background:var(--ink);
+  display:block;
+}
+.demo video{width:100%;height:100%;display:block;object-fit:contain;background:var(--ink)}
+
+.effects{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:var(--line);
+}
+.effects button{
+  font:inherit;font-size:14px;line-height:20px;
+  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:5px 10px;cursor:pointer;
+}
+.effects button:hover,.effects button:focus-visible{background:var(--ink);color:var(--paper)}
+/* Der aktive Effekt ist invertiert. aria-pressed traegt zugleich den Zustand
+   fuer Screenreader, darum kein zweites Markup dafuer. */
+.effects button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}

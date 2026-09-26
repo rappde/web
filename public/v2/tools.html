@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tools. Demien Rapp</title>
+<meta name="description" content="Self-built tools by Demien Rapp. Datamosh, compression, displacement and painting utilities.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+
+<link rel="stylesheet" href="site.css">
+<style>
+/* Platzhalter im Demo-Kasten, solange kein Clip geladen ist. */
+.demo{position:relative}
+.demoHold{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--paper);font-size:16px;letter-spacing:.12em;text-transform:uppercase;
+  pointer-events:none;
+}
+
+/* ---------- Banner unter dem Tool ---------- */
+/* Der Pfeil blendet den Textblock aus. Absichtlich ohne Wiederaufklappen:
+   zurueck kommt er durch Neuladen oder durch erneutes Anwaehlen des Tools.
+   padding-right haelt den Text aus dem Weg des Pfeils. */
+/* Der Pfeil steht als letzter Knopf in der Reihe, gleiche Hoehe wie die
+   Links daneben. */
+.dismiss{
+  font:inherit;font-size:20px;line-height:24px;
+  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:8px 14px;cursor:pointer;
+}
+.dismiss:hover,.dismiss:focus-visible{background:var(--ink);color:var(--paper)}
+
+/* ---------- Desktop: alles auf einen Schirm ---------- */
+/* Die Seite wird genau so hoch wie das Fenster, der Demo-Kasten nimmt die
+   Resthoehe. Dadurch scrollt die Seite selbst nie. Passt der Text trotzdem
+   nicht, scrollt nur der Fensterinhalt, nicht das Dokument. */
+@media (min-width:1024px){
+  html,body{height:100%}
+  body{overflow:hidden;display:flex;flex-direction:column}
+
+  .layout{flex:1;min-height:0;align-items:stretch}
+  .win{max-height:100%}
+  .taskbar{overflow:auto}
+
+  .viewer{min-height:0;display:flex;flex-direction:column}
+  .panel{flex:1;min-height:0}
+  .panel .winbody{min-height:0;overflow:auto}
+
+  /* Video statt festem 16:10 einfach der Rest, der uebrig bleibt. */
+  .demo{flex:1;min-height:120px;aspect-ratio:auto}
+  .frame{flex:1;min-height:120px;aspect-ratio:auto}
+
+  /* Halbiert die Hoehe der Feature-Liste. */
+  .feat{columns:2;column-gap:var(--gap)}
+  .feat li{break-inside:avoid}
+
+  /* Enger, damit der Text in die Resthoehe passt. */
+  .meta{margin-top:calc(var(--line) / 2)}
+  .desc{margin-top:calc(var(--line) / 2)}
+  .price{margin-top:calc(var(--line) / 2)}
+  .feat{margin-top:calc(var(--line) / 2)}
+  .effects{margin-top:calc(var(--line) / 2)}
+  .actions{margin-top:var(--line);margin-bottom:var(--line)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#viewer">Skip to content</a>
+
+<div class="layout">
+
+  <!-- ====== Linkes Fenster ====== -->
+  <nav class="win taskbar" aria-label="Tools">
+    <h1 class="winbar">Tools</h1>
+    <div class="winbody">
+      <p class="kind">Browser tools</p>
+      <ul>
+        <li><a href="#compression-unit">Compression Unit</a></li>
+        <li><a href="#displacement-unit">Displacement Unit</a></li>
+        <li><a href="#paint-unit">Paint Unit</a></li>
+      </ul>
+
+      <p class="kind">Desktop tools</p>
+      <ul>
+        <li><a href="#mosh-unit">MOSH_UNIT</a></li>
+      </ul>
+
+      <p class="foot"><a href="./">Back to works</a></p>
+    </div>
+  </nav>
+
+  <!-- ====== Rechtes Fenster ====== -->
+  <div class="viewer" id="viewer">
+
+    <article class="win panel start">
+      <h2 class="vh">Self-built tools</h2>
+      <div class="winbody">
+        <p class="desc">Pick a tool on the left. It starts right here in this window. The button underneath opens it in its own tab.</p>
+        <p class="hint">MOSH_UNIT is a desktop program and comes as a download instead.</p>
+      </div>
+    </article>
+
+    <article class="win panel" id="compression-unit">
+      <h2 class="vh">Compression Unit</h2>
+      <div class="winbody">
+        <div class="frame">
+          <iframe
+            title="Compression Unit"
+            data-src="https://rappde.github.io/compression_unit/"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"
+            allow="camera; fullscreen"
+            referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="banner">
+        <p class="meta">Browser tool, uses your camera on request</p>
+        <p class="desc">Real-time video signal processing. Source is the live camera or a CRT filter. Controls for compression level, resolution, RGB offset, static noise, contrast and saturation. Saves stills as PNG or records video.</p>
+        <div class="actions">
+          <a href="https://rappde.github.io/compression_unit/" target="_blank" rel="noopener">Open in its own tab</a>
+          <a href="https://github.com/rappde/compression_unit" target="_blank" rel="noopener">Source on GitHub</a>
+          <button type="button" class="dismiss" aria-label="Hide details" title="Hide details">▼</button>
+        </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="win panel" id="displacement-unit">
+      <h2 class="vh">Displacement Unit</h2>
+      <div class="winbody">
+        <div class="frame">
+          <iframe
+            title="Displacement Unit"
+            data-src="https://rappde.github.io/displacement_unit/"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"
+            allow="camera; fullscreen"
+            referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="banner">
+        <p class="meta">Browser tool, uses your camera on request</p>
+        <p class="desc">Displacement mapping for images and video. Source is the live camera or an imported map. Controls for X strength, Y strength and threshold. Saves stills as PNG or records video.</p>
+        <div class="actions">
+          <a href="https://rappde.github.io/displacement_unit/" target="_blank" rel="noopener">Open in its own tab</a>
+          <a href="https://github.com/rappde/displacement_unit" target="_blank" rel="noopener">Source on GitHub</a>
+          <button type="button" class="dismiss" aria-label="Hide details" title="Hide details">▼</button>
+        </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="win panel" id="paint-unit">
+      <h2 class="vh">Paint Unit</h2>
+      <div class="winbody">
+        <div class="frame">
+          <iframe
+            title="Paint Unit"
+            data-src="https://rappde.github.io/paint_unit/"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"
+            allow="fullscreen"
+            referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="banner">
+        <p class="meta">Browser tool</p>
+        <p class="desc">Digital painting on an imported source image. Three modes: Smear, Slide, Stamp. Brush size slider, canvas reset. Saves stills as PNG or records video.</p>
+        <div class="actions">
+          <a href="https://rappde.github.io/paint_unit/" target="_blank" rel="noopener">Open in its own tab</a>
+          <a href="https://github.com/rappde/paint_unit" target="_blank" rel="noopener">Source on GitHub</a>
+          <button type="button" class="dismiss" aria-label="Hide details" title="Hide details">▼</button>
+        </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Desktop-Programm, laeuft nicht im Browser, also kein iframe.
+         Verkauf laeuft ueber itch.io, der Knopf ist ein reiner externer Link.
+         Damit findet auf dieser Seite kein Vertragsschluss statt. -->
+    <article class="win panel" id="mosh-unit">
+      <h2 class="vh">MOSH_UNIT</h2>
+      <div class="winbody">
+        <!-- Clips und Poster liegen in video/, uebernommen aus dem alten Repo
+             unter dist/mosh/. Bloom ist vorausgewaehlt, die anderen laden
+             erst auf Klick. -->
+        <div class="demo">
+          <video id="moshDemo" muted loop playsinline controls preload="metadata"
+                 poster="/mosh/moshunit-bloom-datamosh-demo.jpg"
+                 src="/mosh/moshunit-bloom-datamosh-demo.mp4"
+                 aria-label="MOSH_UNIT effect demo"></video>
+          <p class="demoHold" hidden>Loading</p>
+        </div>
+
+        <div class="effects" role="group" aria-label="Effects">
+          <button type="button" aria-pressed="true"
+            data-src="/mosh/moshunit-bloom-datamosh-demo.mp4"
+            data-poster="/mosh/moshunit-bloom-datamosh-demo.jpg">Bloom</button>
+          <button type="button" aria-pressed="false"
+            data-src="/mosh/moshunit-reverse-datamosh-demo.mp4"
+            data-poster="/mosh/moshunit-reverse-datamosh-demo.jpg">Reverse</button>
+          <button type="button" aria-pressed="false"
+            data-src="/mosh/moshunit-shuffle-datamosh-demo.mp4"
+            data-poster="/mosh/moshunit-shuffle-datamosh-demo.jpg">Shuffle</button>
+          <button type="button" aria-pressed="false"
+            data-src="/mosh/moshunit-stacked-datamosh-demo.mp4"
+            data-poster="/mosh/moshunit-stacked-datamosh-demo.jpg">Stacked</button>
+          <button type="button" aria-pressed="false"
+            data-src="/mosh/moshunit-melt-transition-datamosh-demo.mp4"
+            data-poster="/mosh/moshunit-melt-transition-datamosh-demo.jpg">Melt / Transition</button>
+        </div>
+
+        <div class="banner">
+        <p class="meta">Desktop tool, Windows 10/11 64-bit</p>
+        <p class="desc">Break videos. Create something new. Draw glitch effects straight onto your video and watch it come apart.</p>
+
+        <ul class="feat">
+          <li>Real datamoshing. Bends the compressed video stream instead of laying a filter on top.</li>
+          <li>Draw effects straight onto the timeline, no keyframes.</li>
+          <li>Stack and reorder several effects.</li>
+          <li>MP4 export with the audio still in sync.</li>
+          <li>Runs offline. FFmpeg is bundled, nothing to install.</li>
+        </ul>
+
+        <!-- TODO Demien: Preis pruefen, sobald Early Access endet. Steht auch
+             auf itch.io und muss dort und hier gleich sein. -->
+        <p class="price">7.99 USD, one-time. Early access price, 9.99 USD later. Sold and handled by itch.io.</p>
+
+        <div class="actions">
+          <a class="buy" href="https://rappde.itch.io/mosh-unit" target="_blank" rel="noopener">Buy on itch.io</a>
+          <a href="https://rappde.com/datamoshing" target="_blank" rel="noopener">What is datamoshing</a>
+          <button type="button" class="dismiss" aria-label="Hide details" title="Hide details">▼</button>
+        </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<script>
+/* Der iframe steht ohne src im Dokument. Erst wenn ein Tool angewaehlt wird,
+   setzt dieses Skript die Adresse. Zwei Gruende:
+   1. Ein iframe mit src laedt auch in einem versteckten Panel. Ohne das hier
+      wuerden beim Seitenaufruf alle vier Tools gleichzeitig starten.
+   2. Solange niemand ein Tool anwaehlt, geht keine Anfrage an github.io raus
+      und keine IP dorthin. Darum braucht die Seite keinen Einwilligungsdialog. */
+function openTool() {
+  if (!location.hash) return;
+  var panel = document.querySelector(location.hash);
+  if (!panel) return;
+  var frame = panel.querySelector('iframe[data-src]');
+  if (!frame) return;
+  frame.src = frame.dataset.src;
+  frame.removeAttribute('data-src');
+}
+window.addEventListener('hashchange', openTool);
+openTool();
+
+/* Effekt-Umschalter im MOSH_UNIT-Panel. Ein einziges video-Element, der Klick
+   tauscht nur die Quelle. Sechs video-Elemente im DOM wuerden sechs Dateien
+   laden, auch die, die niemand ansieht. */
+(function () {
+  var video = document.getElementById('moshDemo');
+  var group = document.querySelector('.effects');
+  if (!video || !group) return;
+
+  /* Dauerschleifen sind fuer Menschen mit Bewegungsempfindlichkeit ein Problem.
+     Bei prefers-reduced-motion laeuft nichts von allein, die controls bleiben. */
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hold = document.querySelector('.demoHold');
+
+  /* Fehlt die Datei noch, sagt der Kasten das, statt einen leeren Player zu
+     zeigen. Die 404-Meldung in der Konsole bleibt, die laesst sich nicht
+     unterdruecken, sobald eine Datei wirklich angefordert wird. */
+  video.addEventListener('error', function () {
+    if (hold) hold.textContent = 'Clip not uploaded yet';
+    video.hidden = true;
+  });
+  video.addEventListener('loadeddata', function () {
+    if (hold) hold.hidden = true;
+    video.hidden = false;
+  });
+
+  group.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-src]');
+    if (!btn) return;
+    group.querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b === btn));
+    });
+    if (hold) { hold.hidden = false; hold.textContent = 'Loading'; }
+    video.poster = btn.dataset.poster || '';
+    video.src = btn.dataset.src;
+    if (!still) video.play().catch(function () {});
+  });
+})();
+
+/* Pfeil im Banner blendet den Textblock aus. Kein Wiederaufklappen: zurueck
+   kommt er beim Neuladen oder beim erneuten Anwaehlen eines Tools. */
+document.addEventListener('click', function (e) {
+  var btn = e.target.closest('.dismiss');
+  if (!btn) return;
+  btn.closest('.banner').hidden = true;
+});
+
+/* Zwei Aufgaben in einem Listener:
+   1. Banner zuruecksetzen. Ein zweiter Klick auf dasselbe Tool aendert den
+      Hash nicht, feuert also kein hashchange.
+   2. Den Ankersprung abfangen. Sonst scrollt der Browser bei jedem Klick zum
+      Panel. Hash wird trotzdem gesetzt, damit :target und die teilbare URL
+      erhalten bleiben. */
+document.querySelector('.taskbar').addEventListener('click', function (e) {
+  document.querySelectorAll('.banner[hidden]').forEach(function (b) { b.hidden = false; });
+
+  var link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+  e.preventDefault();
+  var y = window.scrollY;
+  location.hash = link.getAttribute('href');
+  window.scrollTo(0, y);
+});
+</script>
+
+</body>
+</html>
