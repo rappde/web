@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hintergrund-Lab v3 — rappde</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  :root {
+    --paper: #f2f0eb;
+    --ink: #0b0b0c;
+    --muted: #56565b;
+    --line: #d7d4cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  canvas#bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    display: block;
+  }
+
+  .toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .toolbar button {
+    font-family: ui-monospace, 'SFMono-Regular', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.6em 0.9em;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+  }
+  .toolbar button:hover,
+  .toolbar button.is-active { background: var(--ink); color: var(--paper); }
+
+  .toolbar .sep { width: 1px; height: 1.6em; background: var(--line); margin: 0 0.25rem; }
+
+  .toolbar label {
+    font-family: ui-monospace, monospace;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .toolbar input[type=range] { width: 90px; accent-color: var(--ink); }
+
+  .toolbar .cost {
+    font-family: ui-monospace, monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    flex-basis: 100%;
+    margin-top: 0.15rem;
+  }
+
+  main { padding: 7rem 1.5rem 4rem; max-width: 900px; margin-inline: auto; }
+
+  .mock-eyebrow {
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.5rem;
+  }
+
+  h1.mock-name {
+    font-size: clamp(2.6rem, 1.2rem + 8vw, 7rem);
+    font-weight: 800; line-height: 0.95; letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .mock-lede { font-size: 1.15rem; line-height: 1.5; max-width: 46ch; margin-bottom: 2rem; }
+
+  .mock-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+  .mock-actions button {
+    font-family: ui-monospace, monospace; font-size: 0.78rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9em 1.5em;
+    border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer;
+  }
+  .mock-actions button.primary { background: var(--ink); color: var(--paper); }
+
+  .mock-block {
+    height: 40vh; border-top: 1px solid var(--line); display: flex; align-items: center;
+    font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  #fps {
+    position: fixed; bottom: 1rem; left: 1rem; z-index: 100;
+    font-family: ui-monospace, monospace; font-size: 0.68rem; color: var(--muted);
+    background: var(--paper); border: 1px solid var(--line); padding: 0.4em 0.6em;
+  }
+  .hint {
+    position: fixed; bottom: 1rem; right: 1rem; z-index: 100;
+    font-family: ui-monospace, monospace; font-size: 0.68rem; color: var(--muted);
+    background: var(--paper); border: 1px solid var(--line); padding: 0.6em 0.8em; max-width: 30ch;
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="toolbar" id="toolbar">
+    <button data-variant="off" class="is-active">Aus</button>
+    <button data-variant="ink">A · Reaktive Tinte</button>
+    <button data-variant="block">B · Lebender Block</button>
+    <button data-variant="seam">C · Lebende Kante</button>
+    <span class="sep"></span>
+    <label>Stärke <input type="range" id="amt" min="0" max="100" value="55"></label>
+    <span class="cost" id="cost"></span>
+  </div>
+
+  <div id="fps">-- fps</div>
+  <div class="hint">Maus bewegen — die Bewegung reagiert (A am deutlichsten).</div>
+
+  <main>
+    <p class="mock-eyebrow">— probelauf / reduziert · kontrasthart · interaktiv</p>
+    <h1 class="mock-name">DEMIEN<br>RAPP</h1>
+    <p class="mock-lede">
+      Ruhig im Ruhezustand, lebendig bei Interaktion. Nur reines Schwarz auf Papier,
+      harte Kanten, kein Grau-Verlauf. Die Fläche bleibt größtenteils leer — die Typo
+      bleibt der Held.
+    </p>
+    <div class="mock-actions">
+      <button class="primary">Kontakt aufnehmen →</button>
+      <button>Arbeiten ansehen</button>
+    </div>
+    <div class="mock-block">scroll runter — wirkung über längere fläche prüfen</div>
+    <div class="mock-block">zweiter block</div>
+  </main>
+
+<script>
+(function () {
+  var canvas = document.getElementById('bg');
+  var gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'low-power' });
+  var costEl = document.getElementById('cost');
+  var fpsEl = document.getElementById('fps');
+  var amtEl = document.getElementById('amt');
+
+  var COSTS = {
+    off:   'Referenz — leeres Papier. So sieht die Seite jetzt aus.',
+    ink:   'A — Ein einzelner tintenschwarzer Fleck folgt dem Cursor mit Nachlauf, Rand organisch verzerrt. Ruht in der Ecke, wenn die Maus still ist. Interaktion = lebendig, Leere = ruhig. 1 GPU-Pass.',
+    block: 'B — Der EINE invertierte Block aus dem Brief, aber seine Kanten leben: die Silhouette morpht langsam wie schwere Tinte. Fest verortet, kontrasthart, kein Grau. 1 GPU-Pass.',
+    seam:  'C — Papier trifft auf ein schwarzes Feld entlang EINER langsam reißenden Kante. Maximale Geste, minimale Mittel — die halbe Fläche ist der invertierte Moment. 1 GPU-Pass.'
+  };
+
+  var vertSrc = [
+    '#version 300 es',
+    'const vec2 verts[3] = vec2[3](vec2(-1.0,-1.0), vec2(3.0,-1.0), vec2(-1.0,3.0));',
+    'void main() { gl_Position = vec4(verts[gl_VertexID], 0.0, 1.0); }'
+  ].join('\n');
+
+  var noiseGLSL = [
+    'vec3 mod289(vec3 x){return x - floor(x*(1.0/289.0))*289.0;}',
+    'vec2 mod289(vec2 x){return x - floor(x*(1.0/289.0))*289.0;}',
+    'vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}',
+    'float snoise(vec2 v){',
+    '  const vec4 C = vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);',
+    '  vec2 i=floor(v+dot(v,C.yy)); vec2 x0=v-i+dot(i,C.xx);',
+    '  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);',
+    '  vec4 x12=x0.xyxy+C.xxzz; x12.xy-=i1; i=mod289(i);',
+    '  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));',
+    '  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);',
+    '  m=m*m; m=m*m;',
+    '  vec3 x=2.0*fract(p*C.www)-1.0; vec3 h=abs(x)-0.5; vec3 ox=floor(x+0.5); vec3 a0=x-ox;',
+    '  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);',
+    '  vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw;',
+    '  return 130.0*dot(m,g);',
+    '}',
+    'float fbm(vec2 p){ float v=0.0; float a=0.5; for(int i=0;i<4;i++){ v+=a*snoise(p); p*=2.03; a*=0.5; } return v; }'
+  ].join('\n');
+
+  var fragHead = [
+    '#version 300 es',
+    'precision highp float;',
+    'uniform vec2 uRes; uniform float uTime; uniform float uAmt;',
+    'uniform vec2 uPointer; uniform vec3 uPaper; uniform vec3 uInk;',
+    'out vec4 fragColor;',
+    noiseGLSL
+  ].join('\n');
+
+  var shaders = {
+    // A — reactive ink blob: pure ink metaball following pointer, liquid edge, mostly empty
+    ink: fragHead + [
+      'void main(){',
+      '  vec2 uv = gl_FragCoord.xy / uRes.y;',
+      '  vec2 p = uv - uPointer;',
+      '  float ang = atan(p.y, p.x);',
+      '  float wobble = 0.06 * fbm(vec2(ang*1.6, uTime*0.4)) + 0.04*fbm(uv*3.0 + uTime*0.2);',
+      '  float radius = 0.16 + 0.12 * uAmt;',
+      '  float d = length(p) - radius - wobble;',
+      '  float ink = 1.0 - smoothstep(-0.004, 0.010, d);',
+      '  vec3 col = mix(uPaper, uInk, ink);',
+      '  fragColor = vec4(col, 1.0);',
+      '}'
+    ].join('\n'),
+
+    // B — living inverted block: fixed rect, edges displaced by slow noise, hard fill
+    block: fragHead + [
+      'void main(){',
+      '  vec2 uv = gl_FragCoord.xy / uRes.y;',
+      '  float aspect = uRes.x / uRes.y;',
+      '  vec2 c = vec2(aspect*0.62, 0.52);',
+      '  vec2 half = vec2(0.30, 0.34) * (0.55 + 0.9*uAmt);',
+      '  vec2 q = uv - c;',
+      '  float edge = 0.05 * fbm(uv*2.2 + uTime*0.18) * (0.4 + uAmt);',
+      '  vec2 dd = abs(q) - half;',
+      '  float box = length(max(dd,0.0)) + min(max(dd.x,dd.y),0.0);',
+      '  float ink = 1.0 - smoothstep(-0.006, 0.006, box - edge);',
+      '  vec3 col = mix(uPaper, uInk, ink);',
+      '  fragColor = vec4(col, 1.0);',
+      '}'
+    ].join('\n'),
+
+    // C — living seam: paper vs ink split along a slowly tearing boundary
+    seam: fragHead + [
+      'void main(){',
+      '  vec2 uv = gl_FragCoord.xy / uRes.y;',
+      '  float aspect = uRes.x / uRes.y;',
+      '  float x = uv.x / aspect;',
+      '  float boundary = 0.42 + (uAmt-0.5)*0.3;',
+      '  boundary += 0.10 * fbm(vec2(uv.y*1.6, uTime*0.12));',
+      '  boundary += 0.04 * fbm(vec2(uv.y*5.0, uTime*0.25));',
+      '  float ink = smoothstep(boundary+0.004, boundary-0.004, x);',
+      '  vec3 col = mix(uPaper, uInk, ink);',
+      '  fragColor = vec4(col, 1.0);',
+      '}'
+    ].join('\n')
+  };
+
+  function compile(src, type) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  function buildProgram(f) {
+    var prog = gl.createProgram();
+    gl.attachShader(prog, compile(vertSrc, gl.VERTEX_SHADER));
+    gl.attachShader(prog, compile(f, gl.FRAGMENT_SHADER));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) console.error(gl.getProgramInfoLog(prog));
+    return prog;
+  }
+
+  var programs = {};
+  Object.keys(shaders).forEach(function (k) { programs[k] = buildProgram(shaders[k]); });
+
+  var current = 'off';
+  var startTime = performance.now();
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var qualityScale = 0.66;
+
+  function resize() {
+    var w = Math.max(1, Math.floor(window.innerWidth * Math.min(devicePixelRatio, 2) * qualityScale));
+    var h = Math.max(1, Math.floor(window.innerHeight * Math.min(devicePixelRatio, 2) * qualityScale));
+    canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h);
+  }
+  window.addEventListener('resize', resize); resize();
+
+  function hexToVec3(hex){ return [parseInt(hex.slice(1,3),16)/255,parseInt(hex.slice(3,5),16)/255,parseInt(hex.slice(5,7),16)/255]; }
+  var PAPER = hexToVec3('#f2f0eb'), INK = hexToVec3('#0b0b0c');
+
+  // pointer in uv space (x in [0,aspect], y in [0,1]); smoothed with lag
+  var aspect = window.innerWidth / window.innerHeight;
+  var ptrTarget = [aspect*0.5, 0.5];
+  var ptr = [aspect*0.5, 0.5];
+  var lastMove = 0;
+  window.addEventListener('pointermove', function (e) {
+    aspect = window.innerWidth / window.innerHeight;
+    ptrTarget[0] = (e.clientX / window.innerHeight);
+    ptrTarget[1] = 1.0 - (e.clientY / window.innerHeight);
+    lastMove = performance.now();
+  });
+
+  var raf = null, frames = 0, lastFpsT = performance.now();
+
+  function render(now) {
+    if (current === 'off') { raf = null; return; }
+
+    // idle wander when mouse is still, so it never feels dead
+    if (now - lastMove > 1600) {
+      aspect = window.innerWidth / window.innerHeight;
+      var tt = now * 0.0004;
+      ptrTarget[0] = aspect * (0.5 + 0.16 * Math.cos(tt));
+      ptrTarget[1] = 0.5 + 0.14 * Math.sin(tt * 1.3);
+    }
+    ptr[0] += (ptrTarget[0] - ptr[0]) * 0.06;
+    ptr[1] += (ptrTarget[1] - ptr[1]) * 0.06;
+
+    var prog = programs[current];
+    gl.useProgram(prog);
+    gl.uniform2f(gl.getUniformLocation(prog,'uRes'), canvas.width, canvas.height);
+    var t = reduceMotion ? 0.0 : (now - startTime) / 1000;
+    gl.uniform1f(gl.getUniformLocation(prog,'uTime'), t);
+    gl.uniform1f(gl.getUniformLocation(prog,'uAmt'), parseInt(amtEl.value,10)/100);
+    gl.uniform2f(gl.getUniformLocation(prog,'uPointer'), ptr[0], ptr[1]);
+    gl.uniform3f(gl.getUniformLocation(prog,'uPaper'), PAPER[0],PAPER[1],PAPER[2]);
+    gl.uniform3f(gl.getUniformLocation(prog,'uInk'), INK[0],INK[1],INK[2]);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    frames++;
+    if (now - lastFpsT > 500) {
+      fpsEl.textContent = Math.round((frames*1000)/(now-lastFpsT)) + ' fps';
+      frames = 0; lastFpsT = now;
+    }
+
+    if (!reduceMotion && !document.hidden) raf = requestAnimationFrame(render);
+    else raf = null;
+  }
+
+  function setVariant(name) {
+    current = name;
+    document.querySelectorAll('.toolbar button').forEach(function (b) {
+      b.classList.toggle('is-active', b.dataset.variant === name);
+    });
+    costEl.textContent = COSTS[name] || '';
+    if (name === 'off') {
+      gl.clearColor(PAPER[0],PAPER[1],PAPER[2],1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      fpsEl.textContent = '-- fps';
+      return;
+    }
+    if (!raf) raf = requestAnimationFrame(render);
+    else if (reduceMotion) render(performance.now());
+  }
+
+  document.querySelectorAll('.toolbar button').forEach(function (b) {
+    b.addEventListener('click', function () { setVariant(b.dataset.variant); });
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && current !== 'off' && !raf && !reduceMotion) raf = requestAnimationFrame(render);
+  });
+
+  setVariant('off');
+})();
+</script>
+
+</body>
+</html>
