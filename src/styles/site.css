@@ -506,37 +506,35 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
    Startseite am Handy: kein Menue, sondern eine Wisch-Galerie.
    Oben Name, ein Satz, Kontakt. Darunter die Werke nebeneinander,
    jedes als Karte mit Bild zuerst, dann Titel und Text. Die naechste
-   Karte schaut rechts ein Stueck herein, damit klar ist: hier wischt man.
+   Karte schaut rechts herein, darunter Quadrate als Punkte: hier wischt man.
    ============================================================ */
-.count{display:none}
+.dots,.onlyMobile{display:none}
 
 @media (max-width:767px){
   /* Den eigenen QR-Code kann man mit dem eigenen Handy nicht scannen. */
   .home .qrCell{display:none}
   .home .intro h1{font-size:40px;line-height:calc(var(--line) * 2)}
-  /* Alle fuenf Kontakt-Links in eine Zeile. */
-  .home .socials{gap:0 14px;font-size:16px}
+  /* Am Handy nur, was man dort wirklich antippt. */
+  .home .socials{gap:0 18px}
+  .home .socials .noMobile{display:none}
+  .onlyMobile{display:inline}
 
-  /* Werkliste weg, "Tools" bleibt und rutscht unter die Galerie. */
-  .home .taskbar{order:2;border-bottom:0;border-top:3px solid var(--ink);padding:var(--line) 0 0}
-  .home .taskbar .winbody > ul:first-child{display:none}
-  .home .taskbar .foot{padding-top:0}
+  /* Keine Taskbar: die Werke wischt man, Tools steht im Footer. */
+  .home .taskbar{display:none}
 
   .home .viewer{
-    order:1;
     display:flex;gap:var(--gap);align-items:flex-start;
-    overflow-x:auto;scroll-snap-type:x mandatory;
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
     margin:0 calc(var(--gap) * -1);padding:0 var(--gap) var(--line);
     scrollbar-width:none;
+    transition:height .3s ease;
   }
   .home .viewer::-webkit-scrollbar{display:none}
 
   /* !important: am Handy sind alle Werke gleichzeitig da, das
      Umschalten per :target gilt nur am Desktop. */
-  .home .viewer > .panel{display:flex !important;flex:0 0 86%;scroll-snap-align:start}
+  .home .viewer > .panel{display:flex !important;flex:0 0 80%;scroll-snap-align:start}
   .home .viewer > .panel:last-child{scroll-snap-align:end}
-
-  .home .count{display:block;font-size:12px;line-height:16px;letter-spacing:.12em;margin:0 0 8px}
 
   /* Bild zuerst, dann Text. */
   .home .panel .winbody{display:flex;flex-direction:column}
@@ -546,4 +544,10 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
   .home .workRow{gap:calc(var(--line) / 2)}
   .home .workTitle{font-size:28px;margin-bottom:calc(var(--line) / 4)}
   .home .desc{font-size:16px;line-height:22px}
+
+  /* Punkte: kleine Quadrate wie die Aufzaehlungszeichen. */
+  .home .dots{display:flex;gap:10px;justify-content:center;padding-bottom:var(--line)}
+  .home .dots button{width:10px;height:10px;padding:0;border:2px solid var(--ink);background:var(--paper);cursor:pointer}
+  .home .dots button.on{background:var(--ink)}
 }
+@media (max-width:767px) and (prefers-reduced-motion:reduce){ .home .viewer{transition:none} }

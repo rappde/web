@@ -104,7 +104,12 @@ function Group({ group, here }: { group: NavGroup; here: string }) {
 
 /** Fusszeile, auf jeder Seite gleich. children landen rechts daneben. */
 export function SiteFooter({ lang = 'en', children }: { lang?: Lang; children?: ReactNode }) {
-  const links = [{ href: lang === 'de' ? '/de/mosh_unit' : '/mosh_unit', label: 'MOSH_UNIT' }, ...MORE]
+  // Tools nur am Handy: dort gibt es keine Taskbar, am Desktop steht es schon dort.
+  const links = [
+    { href: '/tools', label: 'Tools', mobileOnly: true },
+    { href: lang === 'de' ? '/de/mosh_unit' : '/mosh_unit', label: 'MOSH_UNIT' },
+    ...MORE,
+  ]
   return (
     <footer>
       <p>
@@ -117,9 +122,12 @@ export function SiteFooter({ lang = 'en', children }: { lang?: Lang; children?: 
         <summary>{lang === 'de' ? 'Mehr' : 'More'}</summary>
         <span>
           {links.map((m, i) => (
-            <span key={m.href}>
-              {i > 0 && ' · '}
+            // Der Trenner steht hinter dem Handy-Eintrag, damit am Desktop
+            // (Eintrag ausgeblendet) kein verwaistes " · " vorne bleibt.
+            <span key={m.href} className={'mobileOnly' in m ? 'onlyMobile' : undefined}>
+              {i > 1 && ' · '}
               <Link to={m.href}>{m.label}</Link>
+              {'mobileOnly' in m && ' · '}
             </span>
           ))}
         </span>
