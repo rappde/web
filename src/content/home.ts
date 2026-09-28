@@ -7,7 +7,8 @@
 import type { Lang } from './types'
 
 /** Ein Absatz. `lead` wird kursiv vorangestellt, mit Zeilenumbruch (`break`)
-    oder direkt davor. */
+    oder direkt davor. In `text` und `lead` wird [Wort](https://…) zum Link,
+    der in einem neuen Tab aufgeht. */
 export interface HomePara {
   lead?: string
   break?: boolean
@@ -86,7 +87,7 @@ export const home: Record<Lang, HomeContent> = {
         year: '2025',
         desc: [
           P('Three stacked CRT TVs run through an analogue video mixer. Visitors turn potentiometers to mix a self-portrait into heavily distorted edits of nature and city, a “dirty mix” of my world.'),
-          P('It won the Audience Award at the 18th Gestaltungswettbewerb at Lernort Studio Düsseldorf.'),
+          P('It won the Audience Award at the [18th Gestaltungswettbewerb at Lernort Studio Düsseldorf](https://lernort-studio.de/18_gestaltungswettbewerb/).'),
         ],
         image: {
           src: '/images/gefuehle.jpg',
@@ -99,7 +100,7 @@ export const home: Record<Lang, HomeContent> = {
         title: 'Soundwalk',
         year: '2026',
         desc: [
-          P('Two sound works built from childhood and 18th-birthday recordings, processed with self-built algorithmic tools that layer and deform the sound. Memory as something that reshapes with every playback. Made in the Werk:Klub at K21 Düsseldorf.'),
+          P('Two sound works built from childhood and 18th-birthday recordings, processed with self-built algorithmic tools that layer and deform the sound. Memory as something that reshapes with every playback. Made in the Werk:Klub at [K21 Düsseldorf](https://www.kunstsammlung.de/en/).'),
           { lead: 'Nr. 5 · 5 min', break: true, text: 'Memory does not produce a past. It produces you. Chaotic. Unclear. Foggy.' },
           { lead: 'Nr. 7 · 7 min', break: true, text: 'Memory is not a storage device. It invents. Again and again. What you held to be true may never have been so.' },
         ],
@@ -114,7 +115,7 @@ export const home: Record<Lang, HomeContent> = {
         title: '1/4',
         year: '2025',
         desc: [
-          P('BE A TRANSFORMER! is a collaborative 5 × 12 m banner shown at K21. 1/4 is my part of it: 100 socially and politically significant events of this century, generated as AI images and composed into a single picture.'),
+          P('[BE A TRANSFORMER!](https://lernort-studio.de/be-a-transformer/) is a collaborative 5 × 12 m banner shown at [K21](https://www.kunstsammlung.de/en/). 1/4 is my part of it: 100 socially and politically significant events of this century, generated as AI images and composed into a single picture.'),
         ],
         gallery: [
           {
@@ -131,7 +132,7 @@ export const home: Record<Lang, HomeContent> = {
         title: '2491',
         year: '2025',
         desc: [
-          P('I made the short film 2491 and submitted it to the Uncut Award 2025 at the Filmwerkstatt Düsseldorf. A project against surveillance.'),
+          P('I made the short film [2491](https://youtu.be/7R7Ini7Ibq8) and submitted it to the [Uncut Award](https://www.uncut-award.de/) 2025 at the [Filmwerkstatt Düsseldorf](https://www.filmwerkstatt-duesseldorf.de/). A project against surveillance.'),
           { lead: 'Also in 2025:', text: 'I was the cameraman on the film project Last Slice, which went on to win the Audience Award.' },
         ],
         image: { src: '/images/uncut-2025.jpg', alt: 'Still from the short film 2491, shown at the Uncut Award.' },
@@ -153,7 +154,7 @@ export const home: Record<Lang, HomeContent> = {
         year: '2024',
         desc: [
           P('I reinvented a cheap camera by circuit bending it, and shot a photo series with it in Düsseldorf.'),
-          { lead: 'Circuit bending:', text: 'deliberately short-circuiting and altering a device’s electronics until it malfunctions in unpredictable ways. That is where these glitched, noisy, intensely colourful images come from.' },
+          { lead: '[Circuit bending](https://en.wikipedia.org/wiki/Circuit_bending):', text: 'deliberately short-circuiting and altering a device’s electronics until it malfunctions in unpredictable ways. That is where these glitched, noisy, intensely colourful images come from.' },
         ],
         gallery: [
           {
@@ -169,7 +170,7 @@ export const home: Record<Lang, HomeContent> = {
         title: 'Uncut Award',
         year: '2026',
         desc: [
-          P('Co-organiser of the Uncut Award at the Filmwerkstatt Düsseldorf, technology, presentation, social media. Taking place 10 October 2026.'),
+          P('Coming soon…'),
         ],
         placeholder: 'Uncut Award 2026',
       },
@@ -214,7 +215,7 @@ export const home: Record<Lang, HomeContent> = {
         year: '2025',
         desc: [
           P('Drei gestapelte Röhrenfernseher laufen über einen analogen Video-Mixer. Besucher mixen per Potentiometer ein Selbstporträt in stark verzerrte Edits aus Natur und Stadt, ein „dirty mix“ meiner Welt.'),
-          P('Ausgezeichnet mit dem Publikumspreis beim 18. Gestaltungswettbewerb im Lernort Studio Düsseldorf.'),
+          P('Ausgezeichnet mit dem Publikumspreis beim [18. Gestaltungswettbewerb im Lernort Studio Düsseldorf](https://lernort-studio.de/18_gestaltungswettbewerb/).'),
         ],
         image: {
           src: '/images/gefuehle.jpg',
@@ -227,7 +228,7 @@ export const home: Record<Lang, HomeContent> = {
         title: 'Soundwalk',
         year: '2026',
         desc: [
-          P('Zwei Soundarbeiten aus Aufnahmen von Kindheit und 18. Geburtstag, verarbeitet mit selbst gebauten algorithmischen Tools, die den Ton schichten und verformen. Erinnerung als etwas, das sich mit jeder Wiedergabe neu formt. Entstanden im Werk:Klub im K21 Düsseldorf.'),
+          P('Zwei Soundarbeiten aus Aufnahmen von Kindheit und 18. Geburtstag, verarbeitet mit selbst gebauten algorithmischen Tools, die den Ton schichten und verformen. Erinnerung als etwas, das sich mit jeder Wiedergabe neu formt. Entstanden im Werk:Klub im [K21 Düsseldorf](https://www.kunstsammlung.de/de/).'),
           { lead: 'Nr. 5 · 5 min', break: true, text: 'Erinnerung erzeugt keine Vergangenheit. Sie erzeugt dich. Chaotisch. Unklar. Nebelig.' },
           { lead: 'Nr. 7 · 7 min', break: true, text: 'Erinnerung ist kein Speicher. Sie erfindet. Immer wieder. Was du für wahr hältst war vielleicht nie so.' },
         ],
@@ -242,7 +243,7 @@ export const home: Record<Lang, HomeContent> = {
         title: '1/4',
         year: '2025',
         desc: [
-          P('BE A TRANSFORMER! ist ein gemeinschaftliches 5 × 12 m großes Banner im K21. 1/4 ist mein Teil davon: 100 gesellschaftlich und politisch relevante Ereignisse dieses Jahrhunderts, als KI-Bilder generiert und zu einem Bild zusammengesetzt.'),
+          P('[BE A TRANSFORMER!](https://lernort-studio.de/be-a-transformer/) ist ein gemeinschaftliches 5 × 12 m großes Banner im [K21](https://www.kunstsammlung.de/de/). 1/4 ist mein Teil davon: 100 gesellschaftlich und politisch relevante Ereignisse dieses Jahrhunderts, als KI-Bilder generiert und zu einem Bild zusammengesetzt.'),
         ],
         gallery: [
           {
@@ -259,7 +260,7 @@ export const home: Record<Lang, HomeContent> = {
         title: '2491',
         year: '2025',
         desc: [
-          P('Ich habe den Kurzfilm 2491 gemacht und beim Uncut Award 2025 in der Filmwerkstatt Düsseldorf eingereicht. Ein Projekt gegen Überwachung.'),
+          P('Ich habe den Kurzfilm [2491](https://youtu.be/7R7Ini7Ibq8) gemacht und beim [Uncut Award](https://www.uncut-award.de/) 2025 in der [Filmwerkstatt Düsseldorf](https://www.filmwerkstatt-duesseldorf.de/) eingereicht. Ein Projekt gegen Überwachung.'),
           { lead: 'Außerdem 2025:', text: 'Beim Filmprojekt Last Slice war ich Kameramann, der Film hat den Publikumspreis gewonnen.' },
         ],
         image: { src: '/images/uncut-2025.jpg', alt: 'Standbild aus dem Kurzfilm 2491, gezeigt beim Uncut Award.' },
@@ -281,7 +282,7 @@ export const home: Record<Lang, HomeContent> = {
         year: '2024',
         desc: [
           P('Ich habe eine billige Kamera neu erfunden, indem ich sie per Circuit Bending umgebaut habe, und damit eine Fotoserie in Düsseldorf gemacht.'),
-          { lead: 'Circuit Bending:', text: 'das gezielte Kurzschließen und Verändern der Elektronik eines Geräts, bis es unvorhersehbar fehlerhaft arbeitet. Daher kommen diese glitchenden, verrauschten, sehr bunten Bilder.' },
+          { lead: '[Circuit Bending](https://en.wikipedia.org/wiki/Circuit_bending):', text: 'das gezielte Kurzschließen und Verändern der Elektronik eines Geräts, bis es unvorhersehbar fehlerhaft arbeitet. Daher kommen diese glitchenden, verrauschten, sehr bunten Bilder.' },
         ],
         gallery: [
           {
@@ -297,7 +298,7 @@ export const home: Record<Lang, HomeContent> = {
         title: 'Uncut Award',
         year: '2026',
         desc: [
-          P('Mitorganisator des Uncut Award an der Filmwerkstatt Düsseldorf, Technik, Darstellung, Social Media. Findet am 10. Oktober 2026 statt.'),
+          P('Coming soon…'),
         ],
         placeholder: 'Uncut Award 2026',
       },

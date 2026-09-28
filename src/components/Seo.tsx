@@ -97,7 +97,7 @@ export function Seo({ c }: { c: HomeContent }) {
         '@type': 'CreativeWork',
         name: w.title,
         dateCreated: w.year,
-        description: w.desc[0].text,
+        description: w.desc[0].text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'),
         creator: personRef,
         url: `${url}#${w.id}`,
         ...(w.image || w.gallery ? { image: `${SITE_URL}${(w.image ?? w.gallery![0]).src}` } : {}),

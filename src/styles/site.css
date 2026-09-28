@@ -515,9 +515,8 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
   /* Den eigenen QR-Code kann man mit dem eigenen Handy nicht scannen. */
   .home .qrCell{display:none}
   .home .intro h1{font-size:40px;line-height:calc(var(--line) * 2)}
-  /* Am Handy nur, was man dort wirklich antippt. */
-  .home .socials{gap:0 18px}
-  .home .socials .noMobile{display:none}
+  /* Alle fuenf Kontakt-Links in eine Zeile. */
+  .home .socials{gap:0 14px;font-size:16px}
   .onlyMobile{display:inline}
 
   /* Keine Taskbar: die Werke wischt man, Tools steht im Footer. */

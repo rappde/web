@@ -7,13 +7,34 @@ import { SiteFooter, keepScroll } from '@/components/Shell'
 
 /* Startseite, EN unter "/" und DE unter "/de". Inhalte in content/home.ts. */
 
-function Para({ p }: { p: HomePara }) {
-  if (!p.lead) return <>{p.text}</>
+/** [Wort](https://…) im Text wird zum Link in einem neuen Tab. */
+function Rich({ text }: { text: string }) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g)
   return (
     <>
-      <em>{p.lead}</em>
+      {parts.map((part, i) => {
+        const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+        return m ? (
+          <a key={i} href={m[2]} target="_blank" rel="noopener">
+            {m[1]}
+          </a>
+        ) : (
+          part
+        )
+      })}
+    </>
+  )
+}
+
+function Para({ p }: { p: HomePara }) {
+  if (!p.lead) return <Rich text={p.text} />
+  return (
+    <>
+      <em>
+        <Rich text={p.lead} />
+      </em>
       {p.break ? <br /> : ' '}
-      {p.text}
+      <Rich text={p.text} />
     </>
   )
 }
@@ -133,8 +154,8 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
 
           <nav aria-label={c.profilesLabel}>
             <ul className="socials">
-              <li className="noMobile"><a href="https://github.com/rappde" target="_blank" rel="me noopener">GitHub</a></li>
-              <li className="noMobile"><a href="https://www.youtube.com/@demienrapp" target="_blank" rel="me noopener">YouTube</a></li>
+              <li><a href="https://github.com/rappde" target="_blank" rel="me noopener">GitHub</a></li>
+              <li><a href="https://www.youtube.com/@demienrapp" target="_blank" rel="me noopener">YouTube</a></li>
               <li><a href="https://www.linkedin.com/in/demien-rapp-983b8a1ab/" target="_blank" rel="me noopener">LinkedIn</a></li>
               <li><a href="https://www.instagram.com/rappde_" target="_blank" rel="me noopener">Instagram</a></li>
               <li><a href="mailto:demien.rp@gmail.com">Mail</a></li>
