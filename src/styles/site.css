@@ -291,6 +291,8 @@ footer{
 /* Das Jahr halb so gross wie der Titel, auf derselben Grundlinie. */
 .workYear{font-size:.5em}
 .workText .desc + .desc{margin-top:calc(var(--line) / 2)}
+/* Links im Werktext: schwarz und nur unterstrichen, nicht blau. */
+.workText .desc a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
 /* Tools steht unten in der Taskbar, aber in derselben Schriftgroesse wie die
    Werke darueber. .foot setzt sonst 16px. */
