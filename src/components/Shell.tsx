@@ -109,14 +109,19 @@ export function SiteFooter({ lang = 'en', children }: { lang?: Lang; children?: 
         <strong>Demien Rapp</strong> · <a href="mailto:demien.rp@gmail.com">demien.rp@gmail.com</a> ·{' '}
         <Link to="/impressum">Impressum</Link> · <Link to="/datenschutz">Datenschutzerklärung</Link>
       </p>
-      <p>
-        {links.map((m, i) => (
-          <span key={m.href}>
-            {i > 0 && ' · '}
-            <Link to={m.href}>{m.label}</Link>
-          </span>
-        ))}
-      </p>
+      {/* Zweitrangig: MOSH_UNIT und die Artikel liegen hinter einem kleinen
+          "+ More". Im HTML stehen sie trotzdem, Suchmaschinen folgen ihnen. */}
+      <details className="footMore">
+        <summary>{lang === 'de' ? 'Mehr' : 'More'}</summary>
+        <span>
+          {links.map((m, i) => (
+            <span key={m.href}>
+              {i > 0 && ' · '}
+              <Link to={m.href}>{m.label}</Link>
+            </span>
+          ))}
+        </span>
+      </details>
       {children}
     </footer>
   )

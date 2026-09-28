@@ -210,6 +210,17 @@ footer{
   display:flex;flex-wrap:wrap;gap:0 var(--gap);align-items:baseline;
 }
 #surprise{margin-left:auto;align-self:flex-start}
+
+/* Kleines "+ More" im Footer. Zu: nur das Wort. Auf: die Links daneben,
+   klein, schwarz, ohne Link-Blau, damit sie zweitrangig bleiben. */
+.footMore{font-size:12px;line-height:var(--line);letter-spacing:.12em;text-transform:uppercase}
+.footMore summary{display:inline;cursor:pointer;list-style:none}
+.footMore summary::-webkit-details-marker{display:none}
+.footMore summary::before{content:"+ "}
+.footMore[open] summary::before{content:"– "}
+.footMore[open]{display:flex;gap:0 var(--gap);flex-wrap:wrap}
+.footMore a{color:var(--ink);text-decoration:none}
+.footMore a:hover,.footMore a:focus-visible{text-decoration:underline}
 @media (max-width:767px){ #surprise{margin-left:0} }
 
 
