@@ -60,7 +60,6 @@ export const home: Record<Lang, HomeContent> = {
     skip: 'Skip to content',
     intro: [
       'Creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art: physical robots, generative browser tools, kinetic installations.',
-      'Self-taught, grown up with technology, from a childhood YouTube channel through electronics repair to exhibited works. Function over aesthetics.',
     ],
     qrLabel: 'QR code, links to a portrait',
     qrAlt: 'QR code linking to a portrait of Demien Rapp',
@@ -195,7 +194,6 @@ export const home: Record<Lang, HomeContent> = {
     skip: 'Zum Inhalt springen',
     intro: [
       'Künstler und Entwickler aus Düsseldorf. Arbeiten an der Schnittstelle von Technik und Kunst: Roboter, generative Browser-Tools, kinetische und interaktive Installationen.',
-      'Autodidakt, mit Technik aufgewachsen, vom YouTube-Kanal als Kind über Elektronik-Reparatur bis zu ausgestellten Werken. Funktion vor Ästhetik.',
     ],
     qrLabel: 'QR-Code, führt zu einem Porträt',
     qrAlt: 'QR-Code, der zu einem Porträt von Demien Rapp führt',

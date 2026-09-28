@@ -40,6 +40,28 @@
          (see src/components/Seo.tsx) so each language gets its own. -->
   </head>
   <body>
+    <!-- Sprache automatisch: Wer im Browser Deutsch als bevorzugte Sprache hat,
+         landet beim ersten Aufruf auf der deutschen Fassung der Seite (falls es
+         eine gibt). Es gibt keinen Umschalter. Nur in diese Richtung, nie von
+         /de weg: Googlebot kommt ohne Deutsch-Einstellung und muss /de trotzdem
+         lesen koennen, sonst verschwindet die deutsche Fassung aus der Suche.
+         Seiten ohne deutsche Fassung (Tools, Datamoshing-Artikel) bleiben. -->
+    <script>
+      ;(function () {
+        try {
+          var p = location.pathname.replace(/\/+$/, '') || '/'
+          if (!/^(\/|\/about|\/mosh_unit|\/works\/[a-z-]+)$/.test(p)) return
+          var langs = navigator.languages || [navigator.language || '']
+          for (var i = 0; i < langs.length; i++) {
+            if (/^de/i.test(langs[i])) {
+              location.replace((p === '/' ? '/de' : '/de' + p) + location.hash)
+              return
+            }
+            if (/^en/i.test(langs[i])) return
+          }
+        } catch (e) { /* dann bleibt es bei Englisch */ }
+      })()
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

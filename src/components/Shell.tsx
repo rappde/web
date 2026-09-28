@@ -137,20 +137,17 @@ export function SiteFooter({ children }: { children?: ReactNode }) {
  * Rahmen fuer alle Unterseiten, im Stil der Startseite: links die Taskbar mit
  * dem senkrechten Strich, rechts ein Fenster mit Titelzeile und Linie darunter.
  * `groups` haengt seitenspezifische Eintraege unter die festen Gruppen.
- * `alt` gibt die Gegenstuecke fuer den EN/DE-Umschalter an, falls es sie gibt.
  */
 export function Shell({
   lang = 'en',
   title,
   groups = [],
-  alt,
   children,
 }: {
   lang?: Lang
   /** Titelzeile des rechten Fensters */
   title: ReactNode
   groups?: NavGroup[]
-  alt?: { en: string; de: string }
   children: ReactNode
 }) {
   const { pathname } = useLocation()
@@ -179,18 +176,6 @@ export function Shell({
               <Group group={g} here={here} key={g.kind} />
             ))}
 
-            {alt && (
-              <div className="foot">
-                <p className="lang" role="group" aria-label="Language / Sprache">
-                  <Link to={alt.en} hrefLang="en" aria-current={lang === 'en' ? 'page' : undefined}>
-                    EN
-                  </Link>
-                  <Link to={alt.de} hrefLang="de" aria-current={lang === 'de' ? 'page' : undefined}>
-                    DE
-                  </Link>
-                </p>
-              </div>
-            )}
           </div>
         </nav>
 

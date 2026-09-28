@@ -108,10 +108,6 @@ img,video{max-width:100%}
 .foot{margin-top:auto;padding-top:var(--line);font-size:16px}
 .taskbar .foot ul{margin-bottom:0}
 
-/* EN / DE */
-.lang{display:flex;gap:var(--gap);margin-bottom:calc(var(--line) / 2)}
-.lang a{color:var(--ink)}
-.lang a[aria-current="page"]{text-decoration:none;background:var(--ink);color:var(--paper);padding:0 4px;margin:0 -4px}
 
 /* ---------- Rechtes Fenster: Panels ---------- */
 .panel{display:none}
@@ -459,7 +455,6 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
    was es kostet. Jede Ueberschrift traegt die waagerechte Linie.
    ============================================================ */
 .productBar{display:flex;justify-content:space-between;align-items:baseline;gap:var(--gap)}
-.productBar .lang{margin:0}
 
 .productHero{display:grid;grid-template-columns:2fr 3fr;gap:calc(var(--gap) * 2);align-items:start}
 .productHero h1{font-size:72px;line-height:calc(var(--line) * 3);margin-top:calc(var(--line) / 2)}

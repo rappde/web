@@ -24,7 +24,7 @@ export default function About({ lang }: { lang: Lang }) {
   return (
     <>
       <AboutSeo c={c} />
-      <Shell lang={lang} title={c.eyebrow} alt={{ en: '/about', de: '/de/about' }}>
+      <Shell lang={lang} title={c.eyebrow}>
         <h1>{c.title}</h1>
 
         {c.intro.map((para, i) => (

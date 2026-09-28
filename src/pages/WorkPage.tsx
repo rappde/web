@@ -29,7 +29,6 @@ export default function WorkPage({ lang, slug }: { lang: Lang; slug: string }) {
             links: featured.map((w) => ({ href: `${base}/works/${w.slug}`, label: w.title })),
           },
         ]}
-        alt={{ en: `/works/${slug}`, de: `/de/works/${slug}` }}
       >
         <h1>{work.title}</h1>
         <p className="meta">

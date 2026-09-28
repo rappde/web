@@ -125,12 +125,6 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
                 <li><Link to={de ? '/de/about' : '/about'}>{c.about}</Link></li>
               </ul>
               <MoreMenu />
-              {/* Kein automatisches Umleiten nach Browsersprache (Google raet
-                  davon ab), stattdessen ein sichtbarer Umschalter. */}
-              <p className="lang" role="group" aria-label="Language / Sprache">
-                <Link to="/" hrefLang="en" aria-current={de ? undefined : 'page'}>EN</Link>
-                <Link to="/de" hrefLang="de" aria-current={de ? 'page' : undefined}>DE</Link>
-              </p>
             </div>
           </div>
         </nav>

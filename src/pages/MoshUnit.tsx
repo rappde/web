@@ -85,14 +85,6 @@ export default function MoshUnit({ lang }: { lang: Lang }) {
 
       <header className="winbar productBar">
         <Link to={de ? '/de' : '/'}>← Demien Rapp</Link>
-        <span className="lang" role="group" aria-label="Language / Sprache">
-          <Link to="/mosh_unit" hrefLang="en" aria-current={de ? undefined : 'page'}>
-            EN
-          </Link>
-          <Link to="/de/mosh_unit" hrefLang="de" aria-current={de ? 'page' : undefined}>
-            DE
-          </Link>
-        </span>
       </header>
 
       <main id="main">
