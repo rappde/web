@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type RefObject } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
@@ -19,64 +19,47 @@ function Para({ p }: { p: HomePara }) {
 }
 
 
-/* Am Handy sind die Werke eine Wisch-Galerie (CSS: .viewer als
-   scroll-snap-Reihe). Dieser Hook
-   - merkt sich, welche Karte gerade vorne ist (fuer die Punkte darunter),
-   - macht die Galerie so hoch wie genau diese Karte, damit unter kurzen
-     Karten kein weisses Loch bleibt,
-   - springt bei geteilten Links wie /#gefuehle zur passenden Karte.
+/* Am Handy sind die Werke eine frei wischbare Reihe (CSS: .viewer). Dieser
+   Hook bewegt nur die duenne Leiste darunter mit, die zeigt, wie weit man
+   gewischt hat. Sie ist reine Anzeige, man kann sie nicht bedienen. Die
+   Galerie behaelt ihre Hoehe, damit beim Wischen nichts springt. Bei
+   geteilten Links wie /#gefuehle rollt die Reihe zur passenden Karte.
    Am Desktop tut er nichts. */
 const MOBILE = '(max-width: 767px)'
 
-function useSwipeGallery(ref: RefObject<HTMLDivElement>, setActive: (i: number) => void) {
+function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpanElement>) {
   useEffect(() => {
     const viewer = ref.current
-    if (!viewer) return
-    const cards = [...viewer.children] as HTMLElement[]
-    const mq = matchMedia(MOBILE)
+    if (!viewer || !matchMedia(MOBILE).matches) return
 
-    const current = () => {
-      const x = viewer.scrollLeft + viewer.offsetLeft
-      let best = 0
-      cards.forEach((card, i) => {
-        if (Math.abs(card.offsetLeft - x) < Math.abs(cards[best].offsetLeft - x)) best = i
-      })
-      return best
-    }
-    const fit = () => {
-      if (!mq.matches) {
-        viewer.style.height = ''
-        return
-      }
-      const i = current()
-      setActive(i)
-      const pad = parseFloat(getComputedStyle(viewer).paddingBottom) || 0
-      viewer.style.height = `${cards[i].offsetHeight + pad}px`
-    }
-
-    if (mq.matches && location.hash) {
+    if (location.hash) {
       const card = document.getElementById(location.hash.slice(1))
       if (card) viewer.scrollLeft = card.offsetLeft - viewer.offsetLeft
     }
 
     let frame = 0
+    const move = () => {
+      const thumb = bar.current
+      if (!thumb) return
+      const visible = viewer.clientWidth / viewer.scrollWidth
+      const max = viewer.scrollWidth - viewer.clientWidth
+      const progress = max > 0 ? viewer.scrollLeft / max : 0
+      thumb.style.width = `${visible * 100}%`
+      thumb.style.transform = `translateX(${progress * (1 / visible - 1) * 100}%)`
+    }
     const onScroll = () => {
       cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(fit)
+      frame = requestAnimationFrame(move)
     }
     viewer.addEventListener('scroll', onScroll, { passive: true })
-    // Bilder laden spaet nach, dadurch aendert sich die Kartenhoehe.
-    const ro = new ResizeObserver(fit)
-    cards.forEach((c) => ro.observe(c))
-    mq.addEventListener('change', fit)
-    fit()
+    window.addEventListener('resize', onScroll)
+    move()
     return () => {
       viewer.removeEventListener('scroll', onScroll)
-      ro.disconnect()
-      mq.removeEventListener('change', fit)
+      window.removeEventListener('resize', onScroll)
       cancelAnimationFrame(frame)
     }
-  }, [ref, setActive])
+  }, [ref, bar])
 }
 
 function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: HomeContent }) {
@@ -130,8 +113,8 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
   const c = home[lang]
 
   const viewer = useRef<HTMLDivElement>(null)
-  const [active, setActive] = useState(0)
-  useSwipeGallery(viewer, setActive)
+  const bar = useRef<HTMLSpanElement>(null)
+  useSwipeGallery(viewer, bar)
 
   return (
     <div className="home">
@@ -195,22 +178,10 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
           ))}
         </div>
 
-        {/* Nur am Handy: ein Quadrat pro Werk, das vordere gefuellt. Zeigt, dass
-            man wischen kann, und springt beim Antippen zum Werk. */}
-        <div className="dots" aria-hidden="true">
-          {c.works.map((w, i) => (
-            <button
-              key={w.id}
-              type="button"
-              tabIndex={-1}
-              className={i === active ? 'on' : undefined}
-              onClick={() => {
-                const v = viewer.current
-                const card = document.getElementById(w.id)
-                if (v && card) v.scrollTo({ left: card.offsetLeft - v.offsetLeft, behavior: 'smooth' })
-              }}
-            />
-          ))}
+        {/* Nur am Handy: duenne Linie, der schwarze Teil zeigt, wo man in der
+            Reihe gerade ist. Nur Anzeige, nicht bedienbar. */}
+        <div className="swipebar" aria-hidden="true">
+          <span ref={bar} />
         </div>
       </div>
 
