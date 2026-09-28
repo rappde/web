@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import { SiteFooter, keepScroll } from '@/components/Shell'
 import { ITCH_URL } from '@/content/mosh-unit'
 
-/* Tools, uebernommen aus public/v2/tools.html. */
-
 interface BrowserTool {
   id: string
   name: string
@@ -46,10 +44,8 @@ const EFFECTS = [
   { name: 'Melt / Transition', file: 'moshunit-melt-transition-datamosh-demo' },
 ]
 
-/* Info-Block unter einem Browser-Tool: klappt nach ein paar Sekunden von
-   selbst nach unten weg, damit das Tool die ganze Hoehe bekommt. Solange die
-   Maus darauf liegt oder ein Link darin fokussiert ist, bleibt er. Waehlt man
-   das Tool erneut an, kommt er zurueck. */
+/* Info-Block unter dem Tool, klappt nach ein paar Sekunden weg. Bleibt bei
+   Hover oder Fokus, kommt beim erneuten Anwaehlen zurueck. */
 const BANNER_MS = 6000
 let bannerTimer: ReturnType<typeof setTimeout> | undefined
 
@@ -72,11 +68,8 @@ function armBanner() {
   bannerTimer = setTimeout(hide, BANNER_MS)
 }
 
-/* Effekt-Umschalter im MOSH_UNIT-Panel: Video links, Effekte rechts daneben.
-   Ein einziges video-Element, der Klick tauscht nur die Quelle. Fuenf
-   video-Elemente wuerden fuenf Dateien laden. Das Video spielt von selbst,
-   sobald das Panel offen ist, und pausiert, wenn man es verlaesst. Nur bei
-   prefers-reduced-motion startet es nicht von allein. */
+/* Nur ein video-Element, der Klick tauscht die Quelle (fuenf wuerden fuenf
+   Dateien laden). Kein Autoplay bei prefers-reduced-motion. */
 function MoshDemo() {
   const video = useRef<HTMLVideoElement>(null)
   const [active, setActive] = useState(EFFECTS[0])
@@ -138,13 +131,8 @@ function MoshDemo() {
 }
 
 export default function Tools() {
-  /* Der iframe steht ohne src im Dokument. Erst wenn ein Tool angewaehlt
-     wird, setzt dieser Effekt die Adresse. Zwei Gruende:
-     1. Ein iframe mit src laedt auch in einem versteckten Panel. Sonst
-        wuerden beim Seitenaufruf alle Tools gleichzeitig starten.
-     2. Solange niemand ein Tool anwaehlt, geht keine Anfrage an github.io
-        raus und keine IP dorthin. Darum braucht die Seite keinen
-        Einwilligungsdialog. */
+  /* src erst beim Anwaehlen setzen: sonst laden alle versteckten iframes
+     sofort, und ohne Klick geht keine IP an github.io (kein Consent noetig). */
   useEffect(() => {
     const openTool = () => {
       if (!location.hash) return
@@ -160,8 +148,7 @@ export default function Tools() {
     }
     window.addEventListener('hashchange', onHash)
     onHash()
-    // Beim Laden mit #tool springt der Browser zum Panel. Die Seite soll
-    // aber oben stehen, das Panel ist ja ohnehin im Bild.
+    // beim Laden mit #tool nicht zum Panel springen
     if (location.hash) requestAnimationFrame(() => window.scrollTo(0, 0))
     return () => {
       window.removeEventListener('hashchange', onHash)
@@ -169,8 +156,7 @@ export default function Tools() {
     }
   }, [])
 
-  /* Ankersprung abfangen, und den Info-Block neu starten: ein zweiter Klick
-     auf dasselbe Tool feuert kein hashchange. */
+  /* zweiter Klick auf dasselbe Tool feuert kein hashchange */
   const onTaskbar = (e: MouseEvent) => {
     keepScroll(e)
     armBanner()
@@ -193,7 +179,7 @@ export default function Tools() {
       </a>
 
       <div className="layout">
-        {/* ====== Linkes Fenster ====== */}
+        {/* Linkes Fenster */}
         <nav className="win taskbar" aria-label="Tools" onClick={onTaskbar}>
           <h1 className="winbar">Tools</h1>
           <div className="winbody">
@@ -219,7 +205,7 @@ export default function Tools() {
           </div>
         </nav>
 
-        {/* ====== Rechtes Fenster ====== */}
+        {/* Rechtes Fenster */}
         <div className="viewer" id="viewer">
           <article className="win panel start">
             <h2 className="vh">Self-built tools</h2>
@@ -259,12 +245,10 @@ export default function Tools() {
             </article>
           ))}
 
-          {/* Desktop-Programm, laeuft nicht im Browser, also kein iframe.
-              Verkauf laeuft ueber itch.io, der Knopf ist ein reiner externer Link. */}
+          {/* Desktop-Programm, kein iframe. Kauf ueber itch.io (nur ein Link). */}
           <article className="win panel" id="mosh-unit">
             <h2 className="vh">MOSH_UNIT</h2>
             <div className="winbody">
-              {/* Video, Knoepfe und Text als ein Block in der Mitte des Fensters. */}
               <div className="moshWrap">
               <MoshDemo />
 
@@ -283,8 +267,7 @@ export default function Tools() {
                   <li>Runs offline. FFmpeg is bundled, nothing to install.</li>
                 </ul>
 
-                {/* TODO Demien: Preis pruefen, sobald Early Access endet. Steht auch
-                    auf itch.io und muss dort und hier gleich sein. */}
+                {/* TODO: Preis pruefen, wenn Early Access endet (gleich wie auf itch.io) */}
                 <p className="price">
                   7.99 USD, one-time. Early access price, 9.99 USD later. Sold and handled by itch.io.
                 </p>

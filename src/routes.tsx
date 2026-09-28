@@ -11,12 +11,10 @@ import Datenschutz from './pages/Datenschutz'
 import Tools from './pages/Tools'
 import NotFound from './pages/NotFound'
 
-// EN is the default at "/", DE at "/de" (both real translations, hreflang pair).
+// EN at "/", DE at "/de"
 
-// Every route nests under one pathless layout route so a single errorElement
-// catches all of them (react-router bubbles a loader/render error up to the
-// nearest ancestor errorElement). See RouteErrorBoundary for why this exists:
-// stale-hash JSON fetches after a deploy, not an actual app bug.
+// one pathless layout route so a single errorElement catches everything
+// (mostly stale loader JSON after a deploy, see RouteErrorBoundary)
 export const routes: RouteRecord[] = [
   {
     element: <Outlet />,
@@ -27,7 +25,7 @@ export const routes: RouteRecord[] = [
       { path: '/tools', element: <Tools />, entry: 'src/pages/Tools.tsx' },
       { path: '/mosh_unit', element: <MoshUnit lang="en" />, entry: 'src/pages/MoshUnit.tsx' },
       { path: '/de/mosh_unit', element: <MoshUnit lang="de" />, entry: 'src/pages/MoshUnit.tsx' },
-      // Datamoshing content hub (English only — targets an English audience; no /de twins).
+      // datamoshing articles, English only
       { path: '/datamoshing', element: <Datamoshing />, entry: 'src/pages/Datamoshing.tsx' },
       { path: '/how-to-datamosh', element: <HowToDatamosh />, entry: 'src/pages/HowToDatamosh.tsx' },
       { path: '/datamoshing-tools', element: <DatamoshingTools />, entry: 'src/pages/DatamoshingTools.tsx' },

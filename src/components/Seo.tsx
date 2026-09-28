@@ -4,10 +4,8 @@ import type { HomeContent } from '@/content/home'
 export const SITE_URL = 'https://rappde.com'
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`
 
-/** Canonical Person node id, plus a minimal reference that still carries name +
-    url. Used as author/publisher elsewhere so those references resolve to a
-    named entity even on pages that don't emit the full Person node (Rich
-    Results Test). Single source of truth for the name/url strings. */
+/** Person id plus name/url, so author/publisher refs still resolve on pages
+    without the full Person node. */
 export const PERSON_ID = `${SITE_URL}/#person`
 export const PERSON_NAME = 'Demien Rapp'
 export const personRef = {
@@ -31,13 +29,8 @@ const SAME_AS = [
   'https://www.linkedin.com/in/demien-rapp-983b8a1ab/',
 ]
 
-/**
- * Head of the start page, EN at "/" and DE at "/de": title, description,
- * canonical, hreflang pair (+ x-default), Open Graph + Twitter cards, and
- * JSON-LD Person + WebSite (REDESIGN-BRIEF §9b). Both languages list
- * themselves and each other, as Google requires for hreflang.
- * Rendered into the prehydrated HTML via react-helmet-async.
- */
+/** Head of the start page. Both languages list themselves and each other
+    in hreflang, as Google requires. */
 export function Seo({ c }: { c: HomeContent }) {
   const url = `${SITE_URL}${c.path}`
   const de = c.lang === 'de'
@@ -73,8 +66,7 @@ export function Seo({ c }: { c: HomeContent }) {
     sameAs: SAME_AS,
   }
 
-  /* Die Startseite ist ein Profil: Google kennt dafuer den Typ ProfilePage
-     (Profilseiten von Personen). mainEntity verweist auf die Person oben. */
+  /* the start page is a profile, mainEntity is the Person above */
   const profileLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
@@ -84,8 +76,7 @@ export function Seo({ c }: { c: HomeContent }) {
     mainEntity: { '@id': PERSON_ID },
   }
 
-  /* Die Werke als Liste, jedes mit Jahr, Bild und Verweis auf die Person.
-     Hilft Suchmaschinen und KI-Antworten, Werke und Person zu verbinden. */
+  /* works as a list, each linked back to the Person */
   const worksLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',

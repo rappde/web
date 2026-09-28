@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react'
 
 /**
- * Root errorElement (wired in routes.tsx as the top-level layout route).
- *
- * vite-react-ssg embeds a random build hash into every prerendered page
- * (window.__VITE_REACT_SSG_HASH__) and fetches
- * static-loader-data-manifest-<hash>.json client-side on every route change.
- * Each deploy fully replaces dist/, so that hash's JSON is gone the moment a
- * new version ships. A browser tab left open across a deploy will 404 on
- * that fetch; GitHub Pages serves 404.html (a copy of index.html) for any
- * missing path, so `.json()` tries to parse "<!doctype html>..." and throws
- * "JSON.parse: unexpected character at line 1 column 1" — react-router's
- * default errorElement then shows a raw "Unexpected Application Error!".
- *
- * A hard reload re-fetches the current HTML with the current hash and
- * self-heals immediately. Only show the manual fallback if that didn't fix
- * it (a real error, not a stale deploy), so we don't reload-loop forever.
+ * A tab left open across a deploy still has the old build hash, so the
+ * static-loader-data-manifest-<hash>.json fetch gets 404.html back and
+ * JSON.parse throws. One reload fixes that. If the error is still there
+ * after the reload, show the fallback instead of looping.
  */
 export function RouteErrorBoundary() {
   const [retried, setRetried] = useState(true)

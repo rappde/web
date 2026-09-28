@@ -1,8 +1,5 @@
-/* Image optimiser for work media. Heavy source masters live in image-masters/
-   (git-ignored, local only); optimised, progressive JPEGs are written to
-   public/images so the page stays light and loads fast on mobile (e.g. a 3.9 MB
-   master becomes ~300 KB). A tuned mozjpeg beats WebP on these detailed photos,
-   so JPEG it is. Re-run with: npm run optimize:images */
+/* image-masters/ (not in git) -> progressive JPEGs in public/images.
+   mozjpeg came out smaller than WebP on these photos. npm run optimize:images */
 import sharp from 'sharp'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
@@ -34,7 +31,7 @@ for (const [src, base, maxWidth] of jobs) {
   console.log(`${base}: ${meta.width}×${meta.height} → ${base}.jpg`)
 }
 
-// Social share card: the mine robot photo, centre-cropped to OG's 1200×630.
+// share card: mine photo, centre-cropped to 1200×630
 await sharp(join(masters, 'mine.jpg'))
   .resize(1200, 630, { fit: 'cover', position: 'centre' })
   .jpeg({ quality: 84, mozjpeg: true, progressive: true })

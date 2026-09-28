@@ -1,9 +1,6 @@
 import { Fragment } from 'react'
 
-/**
- * Renders a string, turning [[words]] into pixel-font spans — the typo-mix
- * break that carries the identity (§2c). Keep it to one word per headline.
- */
+/** [[word]] becomes a pixel-font span. One per headline is enough. */
 export function RichText({ text }: { text: string }) {
   const parts = text.split(/(\[\[[^\]]+\]\])/g)
   return (

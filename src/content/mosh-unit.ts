@@ -1,33 +1,21 @@
-/* MOSH_UNIT product page content — EN + DE, page-scoped (pattern: legal.ts).
-   All media arrays are data-driven: drop files into public/mosh/ and add an
-   entry here; the page renders aspect-locked placeholders until a src exists.
-   No em-dashes in any copy (site rule). */
+/* MOSH_UNIT page, EN + DE. New media: put the file in public/mosh/ and add
+   an entry here. Without a src the page shows a placeholder. */
 
 export const ITCH_USER = 'rappde'
 export const ITCH_GAME = 'mosh-unit'
 export const ITCH_URL = `https://${ITCH_USER}.itch.io/${ITCH_GAME}`
 
-/* Tutorial video (install & usage), lite-facade YouTube embed at the end of the
-   page. No iframe/third-party request until the visitor clicks (site rule #7);
-   the poster below is self-hosted.
-
-   Empty id = tutorial not published yet. While it is '', the whole tutorial
-   section (MoshUnit.tsx) and its VideoObject JSON-LD (MoshUnitSeo.tsx) are
-   skipped. Do not put a placeholder id back: it shipped a dead youtube link,
-   a 404 poster and an invalid VideoObject to production.
-   TODO(Demien): to publish, set the real 11-char YouTube id here, drop the
-   1280x720 poster at public/assets/mosh-unit-tutorial.webp, and adjust the
-   chapter timecodes in `tutorial.chapters` (en + de) to the cut. */
+/* Empty id hides the tutorial section and its VideoObject. Don't use a
+   placeholder id, that ships a dead link and a 404 poster.
+   TODO: set the YouTube id, add public/assets/mosh-unit-tutorial.webp
+   (1280x720) and fix the chapter timecodes (en + de). */
 export const TUTORIAL_VIDEO_ID: string = ''
 export const TUTORIAL_THUMB = '/assets/mosh-unit-tutorial.webp' // 1280x720, 16:9
 export const TUTORIAL_DURATION_ISO = 'PT7M' // ~7 min, for VideoObject JSON-LD
 export const TUTORIAL_UPLOAD_DATE = '2026-07-15' // first public date of the video
 
-/* Canonical MOSH_UNIT description — the single source of truth for the product
-   entity. Reused verbatim by the product-page <meta>, the SoftwareApplication
-   JSON-LD (MoshUnitSeo) and public/llms.txt so the entity reads identically
-   across every surface (GEO entity consistency). Em-dash-free and price-free by
-   site rule. If you change EN here, mirror it in public/llms.txt by hand. */
+/* Used for the meta description and the JSON-LD. Keep public/llms.txt in
+   sync by hand. No price in here. */
 export const MOSH_DESCRIPTION =
   'MOSH_UNIT is a Windows desktop tool that turns ordinary video into datamoshing glitch art by bending the compressed byte stream, with no After Effects, no plugins, and no subscription.'
 export const MOSH_DESCRIPTION_DE =
@@ -121,12 +109,12 @@ export interface MoshUnitContent {
     title: string
     items: MoshFaqItem[]
   }
-  /** cross-links into the datamoshing content hub (GEO) */
+  /** links to the datamoshing articles */
   learn: {
     label: string
     links: { label: string; href: string }[]
   }
-  /** install & usage video (lite-facade YouTube embed) at the end of the page */
+  /** tutorial video at the end of the page */
   tutorial: {
     title: string
     lede: string
@@ -142,7 +130,7 @@ export interface MoshUnitContent {
     watchOnYouTube: string
     /** alt text for the self-hosted poster */
     thumbAlt: string
-    /** chapters (timecodes are placeholders, adjust to the final cut) */
+    /** timecodes are placeholders for now */
     chapters: { time: string; seconds: number; label: string }[]
   }
 }

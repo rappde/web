@@ -10,7 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment, cancel in-progress runs for new pushes.
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -19,10 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Full history: generate-sitemap.mjs takes each page's <lastmod> from the
-      # last commit that touched its source file. With the default shallow
-      # clone every page would get today's date, which Bing explicitly warns
-      # against (lastmod is its main recrawl signal).
+      # full history, the sitemap takes lastmod from git log
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -40,27 +36,12 @@ jobs:
       - name: Build (static pre-render)
         run: npm run build
 
-      # GitHub Pages serves 404.html (status 404) for unknown paths, so the SPA
-      # router can still resolve them client-side. But the file is ALSO reachable
-      # at the literal /404.html with status 200, where it looks like a duplicate
-      # homepage: Google files that as "Soft 404". The noindex kills that without
-      # affecting the real 404 responses (a 404 is never indexed anyway).
+      # /404.html itself answers 200, noindex keeps it from showing up as soft 404
       - name: SPA fallback for unknown routes
         run: sed 's|<head>|<head><meta name="robots" content="noindex">|' dist/index.html > dist/404.html
 
-      # vite-react-ssg emits flat files (tools.html), which GitHub Pages serves at
-      # /tools. The trailing-slash form /tools/ looks for tools/index.html, finds
-      # nothing and returns 404 -- so every shared link with a trailing slash dies
-      # and Google logs it as "Not found (404)". Mirror each page into its own
-      # directory so both forms answer 200.
-      #
-      # Measured on the /datenschutz canary (deploy 48131d6), because GitHub Pages
-      # 301-redirects /foo -> /foo/ for project sites and doing that here would
-      # turn every canonical URL into a redirect: with both datenschutz.html and
-      # datenschutz/index.html present, /datenschutz stayed 200 with no redirect
-      # and /datenschutz/ became 200. The flat file wins, the twin is additive.
-      # Both forms carry the same self-referencing canonical, so Google
-      # consolidates them instead of seeing duplicate content.
+      # tools.html only answers /tools, /tools/ would 404. A copy as
+      # tools/index.html fixes that, /tools still gets the flat file (no redirect).
       - name: Trailing-slash twins
         run: |
           cd dist
@@ -88,8 +69,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  # Tell Bing & other IndexNow engines (Yandex, Seznam, Naver, Yep) which pages
-  # changed with this push. Google does not use IndexNow; it reads the sitemap.
+  # IndexNow for Bing and co., Google only reads the sitemap
   indexnow:
     needs: deploy
     runs-on: ubuntu-latest

@@ -1,13 +1,6 @@
-/* Meldet geaenderte Seiten per IndexNow (Bing, Yandex, Seznam, Naver, Yep).
-   Laeuft nach dem Deploy (siehe .github/workflows/deploy.yml).
-
-   Nur Seiten, deren <lastmod> in der Sitemap dem Datum des letzten Commits
-   entspricht, also die, die sich mit diesem Push wirklich geaendert haben.
-   Bing raet davon ab, bei jedem Deploy alle URLs zu schicken.
-
-   Der Schluessel liegt als public/<KEY>.txt auf der Seite, damit IndexNow
-   pruefen kann, dass die Meldung von der Domain selbst kommt. Er ist nicht
-   geheim. Google nimmt an IndexNow nicht teil, dort reicht die Sitemap. */
+/* Meldet nach dem Deploy geaenderte Seiten per IndexNow. Nur Seiten mit
+   lastmod = letzter Commit, Bing will nicht jedes Mal alle URLs.
+   Der Key liegt oeffentlich als public/<KEY>.txt, er ist nicht geheim. */
 
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'

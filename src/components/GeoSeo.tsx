@@ -4,9 +4,7 @@ import { SITE_URL, personRef } from './Seo'
 
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`
 
-/** Head for a datamoshing hub page (EN only): Article + BreadcrumbList always,
-    plus FAQPage and/or HowTo when the page provides them. Canonical is
-    self-referencing; hreflang is en + x-default to self (no German twin). */
+/** Head for the datamoshing pages (EN only, no German version). */
 export function GeoSeo({ content }: { content: GeoPageContent }) {
   const url = `${SITE_URL}${content.path}`
 

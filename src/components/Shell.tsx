@@ -27,8 +27,7 @@ function baseGroups(lang: Lang): NavGroup[] {
   ]
 }
 
-/* MOSH_UNIT und die Artikel rund ums Datamoshing stehen im Footer. In der
-   Taskbar wuerden sie die Tools-Seite doppeln, die MOSH_UNIT schon zeigt. */
+/* MOSH_UNIT und die Datamoshing-Artikel stehen im Footer, nicht in der Taskbar. */
 const MORE = [
   { href: '/datamoshing', label: 'What is datamoshing?' },
   { href: '/how-to-datamosh', label: 'How to datamosh' },
@@ -70,10 +69,7 @@ export function SmartLink({
   )
 }
 
-/* Ein Klick auf einen Anker laesst den Browser zum Ziel scrollen. Weil die
-   Panels unterhalb von Intro und Socials liegen, reisst das die Seite jedes
-   Mal nach oben. Hash setzen, damit :target und die teilbare URL erhalten
-   bleiben, und die Scrollposition sofort zuruecksetzen. */
+/* Ankerklick ohne Springen: Hash setzen (fuer :target), Scrollposition halten. */
 export function keepScroll(e: MouseEvent) {
   const link = (e.target as HTMLElement).closest('a[href^="#"]')
   if (!link) return
@@ -116,14 +112,12 @@ export function SiteFooter({ lang = 'en', children }: { lang?: Lang; children?: 
         <strong>Demien Rapp</strong> · <a href="mailto:demien.rp@gmail.com">demien.rp@gmail.com</a> ·{' '}
         <Link to="/impressum">Impressum</Link> · <Link to="/datenschutz">Datenschutzerklärung</Link>
       </p>
-      {/* Zweitrangig: MOSH_UNIT und die Artikel liegen hinter einem kleinen
-          "+ More". Im HTML stehen sie trotzdem, Suchmaschinen folgen ihnen. */}
+      {/* hinter "+ More", steht aber trotzdem im HTML */}
       <details className="footMore">
         <summary>{lang === 'de' ? 'Mehr' : 'More'}</summary>
         <span>
           {links.map((m, i) => (
-            // Der Trenner steht hinter dem Handy-Eintrag, damit am Desktop
-            // (Eintrag ausgeblendet) kein verwaistes " · " vorne bleibt.
+            // Trenner hinter dem Handy-Eintrag, sonst bleibt am Desktop vorne ein " · "
             <span key={m.href} className={'mobileOnly' in m ? 'onlyMobile' : undefined}>
               {i > 1 && ' · '}
               <Link to={m.href}>{m.label}</Link>
@@ -137,11 +131,7 @@ export function SiteFooter({ lang = 'en', children }: { lang?: Lang; children?: 
   )
 }
 
-/**
- * Rahmen fuer alle Unterseiten, im Stil der Startseite: links die Taskbar mit
- * dem senkrechten Strich, rechts ein Fenster mit Titelzeile und Linie darunter.
- * `groups` haengt seitenspezifische Eintraege unter die festen Gruppen.
- */
+/** Rahmen fuer die Unterseiten. `groups` kommt unter die festen Gruppen. */
 export function Shell({
   lang = 'en',
   title,

@@ -1,23 +1,9 @@
 import { useRef, useState } from 'react'
 
 /**
- * Lite-facade YouTube embed for the MOSH_UNIT tutorial (install & usage).
- *
- * Privacy / CSP contract (site rule #7, "click-to-load embeds"):
- *  - Before the first click NOTHING is requested from youtube: the poster is a
- *    self-hosted /assets/*.webp, so there is no request to img.youtube.com or
- *    youtube.com until the visitor decides to play.
- *  - The <iframe> is injected only on click, pointing at youtube-nocookie.com.
- *    That domain is the single exception added to `frame-src` in index.html.
- *  - An optional preconnect to youtube-nocookie.com is warmed on first
- *    hover/focus (a speculative connection, no content), never on load.
- *  - <noscript> keeps a plain YouTube link for visitors without JS.
- *
- * The chapter list matters more than the player here (the demo half of the
- * video is the interesting part), so it stays visible next to / under the
- * player, never collapsed. Clicking a chapter (re)loads the iframe at
- * ?start=<seconds>; the play button on the poster starts at 0. Every control
- * is a real <button>: keyboard operable, aria-labelled, focus visible.
+ * Click-to-load YouTube embed for the MOSH_UNIT tutorial. The poster is
+ * self-hosted and the iframe (youtube-nocookie) only appears after a click,
+ * so nothing goes to YouTube before that (privacy, and the CSP frame-src).
  */
 
 export interface VideoChapter {
@@ -62,7 +48,7 @@ export function VideoEmbed({
 
   const play = (start: number) => setActive({ start, key: (keyRef.current += 1) })
 
-  /** speculative connection on first intent — no content is fetched */
+  /** preconnect on first hover/focus, no content fetched */
   const warm = () => {
     if (warmedRef.current || typeof document === 'undefined') return
     warmedRef.current = true

@@ -1,6 +1,4 @@
-/* Erzeugt public/images/qr-code.png. Scannt man ihn mit dem Handy, oeffnet
-   sich das Portraet. Neu erzeugen: npm run gen:qr
-   Die Adresse muss absolut sein, ein Handy kennt keine relative URL. */
+/* Erzeugt public/images/qr-code.png (npm run gen:qr). Die URL muss absolut sein. */
 
 import QRCode from 'qrcode'
 

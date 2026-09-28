@@ -1,9 +1,5 @@
-/* Generates the favicon + share-asset set (REDESIGN-BRIEF §9b) from pure
-   vector shapes — a blocky "DR" glitch monogram in strict black & white.
-   No <text>, so it rasterises identically everywhere (no font dependency).
-   These are placeholders; Demien supplies the final icon / OG image later.
-
-   Run: node scripts/gen-assets.mjs   (also wired into `npm run gen:assets`) */
+/* Favicons from a blocky "DR" monogram. Only rects, no <text>, so no font
+   is needed to rasterise it. Run: npm run gen:assets */
 
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
@@ -21,7 +17,7 @@ const HI = '#FFFFFF'
 const MUTED = '#8A8A8E'
 const LINE = '#2A2A2E'
 
-// 5×5 block font, only the glyphs we need.
+// 5×5 block font, only the letters used here
 const GLYPHS = {
   D: ['11110', '10001', '10001', '10001', '11110'],
   E: ['11111', '10000', '11110', '10000', '11111'],
@@ -37,7 +33,7 @@ const GLYPHS = {
   ' ': ['00000', '00000', '00000', '00000', '00000'],
 }
 
-/** Returns cells [{x,y,row}] for a word laid out at (ox,oy) with cell size `c`. */
+/** cells [{x,y,row}] for a word at (ox,oy), cell size `c` */
 function cells(word, ox, oy, c, gap = 1) {
   const out = []
   let cx = ox
@@ -65,7 +61,7 @@ function wordWidth(word, c, gap = 1) {
   return word.length * (5 + gap) * c - gap * c
 }
 
-/** Square monogram icon SVG — light field, black DR, white displacement tear. */
+/** square icon: black DR with a white tear */
 function iconSvg(size) {
   const c = size / 16 // cell size → 5-tall glyph = ~5/16 of canvas
   const word = 'DR'
@@ -73,7 +69,7 @@ function iconSvg(size) {
   const ox = (size - w) / 2
   const oy = (size - 5 * c) / 2
   const base = cells(word, ox, oy, c)
-  // displacement: rows 1–2 torn by a white slice (right), row 3 doubled (left)
+  // rows 1-2 torn by a white slice (right), row 3 doubled (left)
   const bandWhite = base.filter((p) => p.row === 1 || p.row === 2)
   const bandMuted = base.filter((p) => p.row === 3)
   const shift = c * 0.9
@@ -85,7 +81,7 @@ ${rects(bandWhite, c, PAPER, shift)}
 </svg>`
 }
 
-/** 1200×630 Open Graph card — light field, no background pattern (§2c). */
+/** 1200×630 Open Graph card, currently unused */
 function ogSvg() {
   const W = 1200
   const H = 630
@@ -140,10 +136,8 @@ async function main() {
   const ico = await pngToIco(icoBufs)
   writeFileSync(resolve(PUBLIC, 'favicon.ico'), ico)
 
-  // OG / Twitter card lives in optimize-images.mjs now (real photo of "mine",
-  // written to public/og-image.jpg) — no generated placeholder anymore.
-
-  // silence unused-var lint for helpers kept for ad-hoc use
+  // og-image.jpg comes from optimize-images.mjs now
+  // unused helpers, kept around
   void png
   void ogSvg
 

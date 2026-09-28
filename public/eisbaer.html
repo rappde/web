@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Eisbär · Demien Rapp</title>
-<!-- Spielerei hinter dem "Eisbär"-Link im Footer. Kein Text fuer die Suche, darum noindex. -->
+<!-- Spielerei hinter dem "Eisbär"-Link, nichts fuer die Suche -->
 <meta name="robots" content="noindex, follow">
 <style>
 :root{
@@ -121,7 +121,7 @@ function loop(ts){
   requestAnimationFrame(loop);
 }
 
-// ---------- Eingabe ----------
+// Eingabe
 const active = new Map();      // aktive Pointer
 let mode = -1, px = 0, py = 0, brush = 1, pressTimer = 0, sx = 0, sy = 0;
 
@@ -173,11 +173,11 @@ cv.addEventListener('contextmenu', e => e.preventDefault());
 
 window.addEventListener('keydown', e => {
   if (e.code === 'Space'){ e.preventDefault(); restart(); }
-  if (e.code === 'Escape') location.href = '/';   // zurueck zur Startseite
+  if (e.code === 'Escape') location.href = '/';
 });
 
-// Nur neu aufbauen, wenn sich die Breite ändert – sonst startet das Handy
-// beim Ein-/Ausblenden der Adressleiste jedes Mal neu
+// nur bei neuer Breite neu aufbauen, sonst startet das Handy bei jeder
+// ein- oder ausfahrenden Adressleiste neu
 let rt = 0;
 window.addEventListener('resize', () => {
   clearTimeout(rt);

@@ -1,8 +1,6 @@
-/* Startseite (EN "/" + DE "/de"). Uebernommen aus v2, fuer die kompakte
-   Ansicht gekuerzt. Es gibt keine eigenen Werkseiten, alles steht hier.
-   Google erkennt die Sprache einer Seite nur am sichtbaren Text, darum ist
-   /de eine echte Uebersetzung und nicht dieselbe Seite mit anderem lang.
-   TODO Demien: Bild fuer Uncut Award 2026 fehlt noch. */
+/* Startseite, EN unter "/" und DE unter "/de". /de ist eine echte
+   Uebersetzung, Google erkennt die Sprache nur am sichtbaren Text.
+   TODO: Bild fuer Uncut Award 2026 fehlt noch. */
 
 import type { Lang } from './types'
 

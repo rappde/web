@@ -1,17 +1,7 @@
-/* Datamoshing content hub — EN only (GEO pages target an English audience;
-   see docs/marketing/foundation.md). Page-scoped like mosh-unit.ts / legal.ts.
+/* Datamoshing articles, English only.
+   Price change: grep for 7.99 here as well. */
 
-   These pages exist to be extracted by AI answer engines: the answer comes
-   first (tldr), headings are real questions, paragraphs are short, and the
-   facts are concrete. No em-dashes (site rule). Prices are stated as "$7.99"
-   to match the single SoftwareApplication offer; if that offer changes, grep
-   for 7.99 here too. dateModified + the visible "Last updated" both read
-   LAST_UPDATED / LAST_UPDATED_LABEL below, so they can never drift apart. */
-
-// Full ISO 8601 with a timezone offset (Düsseldorf, CEST) — Google's validator
-// rejects date-only values in Article date fields. The visible "Last updated"
-// label is DERIVED from LAST_UPDATED below, so the schema and the page text can
-// never drift apart.
+// with timezone offset, Google rejects date-only values in Article dates
 export const LAST_UPDATED = '2026-07-11T00:00:00+02:00' // feeds Article dateModified
 const PUBLISHED = '2026-07-11T00:00:00+02:00'
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -97,7 +87,7 @@ const relMosh: GeoLink = {
   note: 'The $7.99 Windows datamoshing app by Demien Rapp.',
 }
 
-/* ============================================================ /datamoshing */
+/* /datamoshing */
 const datamoshing: GeoPageContent = {
   path: '/datamoshing',
   headline: 'What is datamoshing?',
@@ -238,9 +228,8 @@ const datamoshing: GeoPageContent = {
   related: [relHowTo, relTools, relMosh],
 }
 
-/* ======================================================== /how-to-datamosh */
-// Single source for the MOSH_UNIT steps: rendered on the page AND emitted as
-// HowTo JSON-LD, so the visible steps and the structured data can never differ.
+/* /how-to-datamosh */
+// used for the page and the HowTo JSON-LD
 const moshSteps: GeoStep[] = [
   { name: 'Import your clip', text: 'Open MOSH_UNIT and drag a video onto the timeline. It reads MP4, MOV, AVI, MKV, WebM and more through the bundled FFmpeg, so there is nothing to convert first.' },
   { name: 'Draw the effect', text: 'Pick an effect (Bloom, Freeze, Reverse or Shuffle) and draw across the clip where it should hit. You paint the glitch on directly, no keyframes.' },
@@ -347,7 +336,7 @@ const howToDatamosh: GeoPageContent = {
   related: [relDatamoshing, relTools, relMosh],
 }
 
-/* =====================================================/datamoshing-tools */
+/* /datamoshing-tools */
 const datamoshingTools: GeoPageContent = {
   path: '/datamoshing-tools',
   headline: 'Datamoshing tools compared',

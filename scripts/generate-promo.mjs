@@ -1,5 +1,5 @@
-/* Promotional images, strictly on-brand monochrome. Run: node scripts/generate-promo.mjs
-   Outputs to promo/. Wordmark uses a heavy system grotesk (Bricolage is web-only). */
+/* Promo images into promo/. Run: node scripts/generate-promo.mjs
+   Wordmark uses a system grotesk, Bricolage is only a web font. */
 import sharp from 'sharp'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
@@ -17,7 +17,7 @@ const FF = "'Arial Black','Arial Bold',Arial,'Helvetica Neue',sans-serif"
 const MONO = "'Consolas','Courier New',monospace"
 const svg = (s) => Buffer.from(s)
 
-// ---- 1. Social media 1200x630 (paper field, huge type) ----
+// 1. social media 1200x630
 const social = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="${PAPER}"/>
   <rect x="80" y="86" width="120" height="4" fill="${INK}"/>
@@ -30,7 +30,7 @@ const social = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630
 </svg>`
 await sharp(svg(social)).png().toFile(join(out, 'social-1200x630.png'))
 
-// ---- 2. Favicon square (ink field, paper DR) 1024/512/256 ----
+// 2. square icon 1024/512/256
 const favSquare = `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
   <rect width="1024" height="1024" fill="${INK}"/>
   <rect x="150" y="150" width="724" height="724" fill="none" stroke="${PAPER}" stroke-width="10"/>
@@ -40,7 +40,7 @@ for (const size of [1024, 512, 256]) {
   await sharp(svg(favSquare)).resize(size, size).png().toFile(join(out, `favicon-${size}.png`))
 }
 
-// ---- 3. Wide cover 21:9 (2100x900) — mine photo + wordmark ----
+// 3. wide cover 21:9 (2100x900), mine photo + wordmark
 const coverOverlay = `<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="900" viewBox="0 0 2100 900">
   <defs>
     <linearGradient id="g" x1="0" y1="1" x2="0.55" y2="0.2">
@@ -62,8 +62,7 @@ await sharp(master)
   .jpeg({ quality: 88, mozjpeg: true })
   .toFile(join(out, 'cover-wide-21x9.jpg'))
 
-// ---- 4. Logo — transparent PNG, horizontal, readable on light AND dark ----
-// White fill + ink stroke: fill shows on dark, stroke outlines it on light.
+// 4. transparent logo. White fill for dark backgrounds, ink stroke for light ones
 const logo = `<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="440" viewBox="0 0 1800 440">
   <g font-family="${FF}" font-weight="800" letter-spacing="-6">
     <text x="20" y="250" font-size="215" fill="${PAPER}" stroke="${INK}" stroke-width="10" paint-order="stroke" stroke-linejoin="round">DEMIEN RAPP</text>

@@ -1,7 +1,5 @@
-/* Impressum & Datenschutzerklärung — deutscher Pflichttext (REDESIGN-BRIEF §9c).
-   ENTWURF / Vorlage, keine geprüfte Rechtsberatung. Vor Veröffentlichung muss
-   Demien die ladungsfähige Anschrift ergänzen (sonst ist das Impressum ungültig)
-   und den Datenschutztext gegenlesen / mit einem DSGVO-Generator absichern. */
+/* Impressum und Datenschutzerklärung. Vorlage, keine geprüfte Rechtsberatung.
+   TODO: Datenschutztext gegenlesen lassen. */
 
 export interface LegalBlock {
   heading?: string

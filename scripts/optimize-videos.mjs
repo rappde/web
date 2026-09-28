@@ -1,10 +1,6 @@
-/* Video optimiser for the MOSH_UNIT page. Heavy GIF/PNG masters live in
-   media_moshunit/ (git-ignored, local only, ~1.85 GB of raw GIFs). This writes
-   web-ready assets to public/mosh/: for each demo loop an H.264 MP4 (faststart)
-   + a VP9 WebM fallback + a poster JPG, plus optimised screenshot stills. Every
-   demo tile therefore has a poster, so it never shows a blank/black box.
-   Requires ffmpeg on PATH (override with FFMPEG=/path/to/ffmpeg).
-   Re-run with: npm run optimize:videos */
+/* media_moshunit/ (not in git) -> MP4 + WebM + poster per demo clip and
+   screenshot stills in public/mosh/. Needs ffmpeg (or FFMPEG=/path).
+   npm run optimize:videos */
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
@@ -37,22 +33,19 @@ const stills = [
 ]
 
 /* app screenshots from a PNG master: [masterPng, outBase, maxWidth].
-   export_preview_demo.png is intentionally omitted: the master is only a
-   369x208 crop of the PREVIEW/EXPORT buttons, too low-res and not an actual
-   export view, so the Export screenshot slot was dropped rather than shipped. */
+   export_preview_demo.png is left out, too small (369x208). */
 const images = [
   ['inteface_demo.png', 'moshunit-interface-timeline', 1600],
 ]
 
 for (const [src, base, posterAt] of clips) {
   const input = join(masters, src)
-  // H.264 MP4, web-optimised (faststart), muted-friendly (no audio), yuv420p for broad support
+  // H.264, faststart, no audio
   run(['-i', input, '-an', '-vf', `${scale},fps=${FPS}`,
     '-c:v', 'libx264', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
     '-preset', 'slow', '-crf', '26', '-movflags', '+faststart',
     join(out, `${base}.mp4`)])
-  // VP9 WebM fallback (cpu-used 2 = sane speed/quality balance for these clips).
-  // yuv420p is required: the source GIFs carry an alpha channel VP9 won't encode.
+  // VP9 WebM. yuv420p because the GIFs have alpha, which VP9 won't encode
   run(['-i', input, '-an', '-vf', `${scale},fps=${FPS}`,
     '-c:v', 'libvpx-vp9', '-pix_fmt', 'yuv420p', '-crf', '37', '-b:v', '0',
     '-row-mt', '1', '-deadline', 'good', '-cpu-used', '2',

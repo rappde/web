@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, URL } from 'node:url'
-// Loads the `ssgOptions` augmentation on vite's UserConfig (type-only).
+// type-only import, adds `ssgOptions` to vite's UserConfig
 import type {} from 'vite-react-ssg'
 
-// Custom domain (rappde.com) is served from the site root, so base = '/'.
-// If this is ever deployed under a project path instead, set base to '/<repo>/'.
+// custom domain, served from the root. Under a project path this would be '/<repo>/'
 export default defineConfig({
   base: '/',
   plugins: [react()],
@@ -19,7 +18,6 @@ export default defineConfig({
     cssCodeSplit: true,
     assetsInlineLimit: 2048,
   },
-  // Consumed by vite-react-ssg at build time.
   ssgOptions: {
     script: 'async',
     formatting: 'minify',

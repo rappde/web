@@ -8,12 +8,10 @@ import { SiteFooter } from '@/components/Shell'
 import { RichText } from '@/components/RichText'
 import { VideoEmbed } from '@/components/VideoEmbed'
 
-/* MOSH_UNIT als eigene Vollseite, ohne Taskbar. Nur das Wesentliche:
-   was es ist, wie es aussieht, was es kann, was es kostet. */
+/* MOSH_UNIT als Vollseite ohne Taskbar. */
 
-/* Der Kauf laeuft komplett ueber itch.io. Der Knopf ist ein reiner externer
-   Link, damit findet auf dieser Seite kein Vertragsschluss statt und vor dem
-   Klick geht keine Anfrage an itch.io raus. */
+/* Kauf nur ueber itch.io, hier nur ein Link: kein Vertragsschluss auf dieser
+   Seite, keine Anfrage an itch.io vor dem Klick. */
 function Buy({ children }: { children: string }) {
   return (
     <a className="buy" href={ITCH_URL} target="_blank" rel="noopener noreferrer">
@@ -22,8 +20,8 @@ function Buy({ children }: { children: string }) {
   )
 }
 
-/* Ein einziges video-Element, der Klick tauscht nur die Quelle (key). Bei
-   prefers-reduced-motion laeuft nichts von allein, die controls bleiben. */
+/* Ein video-Element, der Klick tauscht nur die Quelle. Kein Autoplay bei
+   prefers-reduced-motion. */
 function Demo({ c }: { c: MoshUnitContent }) {
   const [active, setActive] = useState<MoshEffect>(c.demo.effects[0])
   const [still, setStill] = useState(true)
@@ -146,7 +144,7 @@ export default function MoshUnit({ lang }: { lang: Lang }) {
           </section>
         </div>
 
-        {/* Tutorial erscheint erst, wenn es das Video gibt (TUTORIAL_VIDEO_ID). */}
+        {/* nur wenn TUTORIAL_VIDEO_ID gesetzt ist */}
         {TUTORIAL_VIDEO_ID ? (
           <section aria-labelledby="tutorial-title" className="productTutorial">
             <h2 className="winbar" id="tutorial-title">

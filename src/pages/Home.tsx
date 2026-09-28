@@ -40,12 +40,8 @@ function Para({ p }: { p: HomePara }) {
 }
 
 
-/* Am Handy sind die Werke eine frei wischbare Reihe (CSS: .viewer). Dieser
-   Hook bewegt nur die duenne Leiste darunter mit, die zeigt, wie weit man
-   gewischt hat. Sie ist reine Anzeige, man kann sie nicht bedienen. Die
-   Galerie behaelt ihre Hoehe, damit beim Wischen nichts springt. Bei
-   geteilten Links wie /#gefuehle rollt die Reihe zur passenden Karte.
-   Am Desktop tut er nichts. */
+/* Nur Handy: bewegt die Fortschrittsleiste unter der Wisch-Reihe mit und
+   rollt bei Links wie /#gefuehle zur passenden Karte. */
 const MOBILE = '(max-width: 767px)'
 
 function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpanElement>) {
@@ -139,11 +135,9 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
         {c.skip}
       </a>
 
-      {/* .screen ist genau eine Bildschirmhoehe (Desktop). Der Footer liegt
-          darunter und taucht erst beim Runterscrollen auf. */}
+      {/* Desktop: .screen ist eine Bildschirmhoehe, der Footer liegt darunter */}
       <div className="screen">
-      {/* Links Text und Profil-Links, rechts der QR-Code. Er ist genau so hoch
-          wie beides zusammen: Oberkante am Text, Unterkante an den Links. */}
+      {/* QR-Code rechts, so hoch wie Text und Links zusammen */}
       <div className="intro">
         <h1>Demien Rapp</h1>
 
@@ -195,7 +189,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
         </div>
 
         {/* Nur am Handy: duenne Linie, der schwarze Teil zeigt, wo man in der
-            Reihe gerade ist. Nur Anzeige, nicht bedienbar. */}
+            Reihe gerade ist. */}
         <div className="swipebar" aria-hidden="true">
           <span ref={bar} />
         </div>
@@ -204,8 +198,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
       </div>
 
       <SiteFooter lang={lang}>
-        {/* Normaler Link, kein Router-Link: /eisbaer ist eine eigene
-            statische Seite (public/eisbaer.html, Game of Life). */}
+        {/* kein Router-Link, /eisbaer ist statisch (public/eisbaer.html) */}
         <a id="surprise" href="/eisbaer">
           {c.surprise}
         </a>

@@ -10,20 +10,14 @@ import {
 import { SITE_URL, personRef } from './Seo'
 
 const OG_IMAGE = `${SITE_URL}/og-mosh-unit.jpg`
-/** Stable, language-independent id for the product entity, so the demo
-    VideoObjects and screenshot ImageObjects on both the EN and DE pages resolve
-    to the one SoftwareApplication. */
+/** same id on EN and DE so both pages point at one SoftwareApplication */
 const APP_ID = `${SITE_URL}/mosh_unit#software`
-/** First public date of the demo media (all clips share it). */
+/** upload date of the demo clips */
 const MEDIA_DATE = '2026-07-12'
 const abs = (path: string) => `${SITE_URL}${path}`
 
-/** Head for the MOSH_UNIT product page: SoftwareApplication JSON-LD (the FAQ is
-    no longer on the page, so no FAQPage),
-    plus a VideoObject per demo clip and an ImageObject per screenshot (so the
-    media is machine-readable even though only the active demo tile renders a
-    <video> in the static HTML), canonical + hreflang, OG/Twitter with the
-    product's own share card. */
+/** Head for /mosh_unit. The clips get VideoObjects because only the active
+    one is a real <video> in the static HTML. */
 export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
   const url = `${SITE_URL}${content.path}`
   const enUrl = `${SITE_URL}/mosh_unit`
@@ -51,8 +45,7 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
     },
   }
 
-  /* One VideoObject per demo clip that has media, wired to the Person (creator)
-     and the SoftwareApplication (isPartOf). keywords stay honest: real effect. */
+  /* one VideoObject per demo clip */
   const videoLd = content.demo.effects
     .filter((e) => e.video && e.poster)
     .map((e) => ({
@@ -69,7 +62,7 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
       isPartOf: { '@id': APP_ID },
     }))
 
-  /* One ImageObject per app screenshot, same wiring. */
+  /* one ImageObject per screenshot */
   const imageLd = content.screenshots.items
     .filter((s) => s.image)
     .map((s) => ({
@@ -82,11 +75,7 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
       isPartOf: { '@id': APP_ID },
     }))
 
-  /* The install & usage tutorial (lite-facade YouTube embed at the end of the
-     page). Added alongside the demo VideoObjects, not overwriting them: this one
-     is hosted on YouTube, so embedUrl points at youtube-nocookie and the poster
-     is the self-hosted thumbnail. Null while the video is unpublished, so we
-     never emit a VideoObject with a dead embedUrl and a 404 thumbnail. */
+  /* tutorial on YouTube, null until TUTORIAL_VIDEO_ID is set */
   const tutorialVideoLd = TUTORIAL_VIDEO_ID
     ? {
         '@context': 'https://schema.org',

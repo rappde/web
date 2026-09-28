@@ -1,13 +1,5 @@
-/* ============================================================
-   Ein Stylesheet fuer die ganze Seite. Uebernommen aus v2
-   (public/v2/site.css), jetzt fuer alle Routen.
-
-   Keine Kaesten. Nur zwei Linien tragen die Struktur:
-     1. senkrecht zwischen Taskbar und Inhalt
-     2. waagerecht unter jeder Ueberschrift
-   Startseite und Tools schalten per :target um, also ohne JavaScript,
-   und jede Auswahl hat eine eigene teilbare URL.
-   ============================================================ */
+/* Keine Kaesten, nur zwei Linien: senkrecht neben der Taskbar, waagerecht
+   unter jeder Ueberschrift. Panels schalten per :target, ohne JS. */
 :root{
   --gap:24px;
   --line:24px;
@@ -37,7 +29,7 @@ body{
   text-rendering:optimizeSpeed;
 }
 
-/* ---------- Typografie auf 24px-Baseline ---------- */
+/* Typografie auf 24px-Baseline */
 h1,h2,h3,p,ul,ol,dl,dd,figure,blockquote{margin:0}
 h1{font-size:48px;line-height:calc(var(--line) * 2);font-weight:400}
 h2,h3{font-weight:400}
@@ -55,7 +47,7 @@ img,video{max-width:100%}
   overflow:hidden;clip-path:inset(50%);white-space:nowrap;
 }
 
-/* ---------- Fenster ---------- */
+/* Fenster */
 .layout{
   display:grid;
   grid-template-columns:var(--bar) 1fr;
@@ -80,7 +72,7 @@ img,video{max-width:100%}
 .winbar a:hover,.winbar a:focus-visible{text-decoration:underline}
 .winbody{display:flex;flex-direction:column;flex:1}
 
-/* ---------- Linkes Fenster ---------- */
+/* Linkes Fenster */
 /* Der senkrechte Strich. Am Handy liegt die Taskbar oben, dort wird er
    waagerecht. */
 .taskbar{
@@ -99,7 +91,6 @@ img,video{max-width:100%}
 .taskbar li a{display:block;padding:6px 8px;margin:0 -8px;text-decoration:none;color:var(--ink)}
 .taskbar li a:hover,.taskbar li a:focus-visible,
 .taskbar li a[aria-current="page"]{background:var(--ink);color:var(--paper)}
-/* Kategorie, klein und in Grossbuchstaben, gruppiert die Namen darunter. */
 .kind{
   font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;
   margin:0 0 4px;
@@ -109,11 +100,10 @@ img,video{max-width:100%}
 .taskbar .foot ul{margin-bottom:0}
 
 
-/* ---------- Rechtes Fenster: Panels ---------- */
+/* Rechtes Fenster: Panels */
 .panel{display:none}
-/* Beim Umschalten setzt der Browser den Anker und scrollt zum Panel. Ein
-   riesiger scroll-margin laesst das Ziel oberhalb der Seite landen, der
-   Browser begrenzt es auf 0: die Seite bleibt oben stehen, nichts ruckelt. */
+/* Riesiger scroll-margin: der Browser klemmt den Ankersprung auf 0, die
+   Seite bleibt oben. */
 .home .panel,.tools .panel{scroll-margin-top:100vh}
 .panel:target{display:flex}
 /* .start ist der Zustand beim Laden. :not(:target) verhindert, dass es sich
@@ -128,7 +118,6 @@ img,video{max-width:100%}
 .desc{margin-top:calc(var(--line) / 2);max-width:70ch}
 .hint{margin-top:var(--line);font-size:16px;max-width:70ch}
 
-/* Medien sitzen ganz oben im Fenster, direkt unter der Titelzeile. */
 .frame{aspect-ratio:16/10;display:block}
 .frame iframe{width:100%;height:100%;border:0;display:block;background:var(--paper)}
 .shot{display:block;width:100%;height:auto}
@@ -149,21 +138,19 @@ img,video{max-width:100%}
 }
 .actions a:hover,.actions a:focus-visible{background:var(--ink);color:var(--paper)}
 
-/* ---------- Feature-Liste ---------- */
+/* Feature-Liste */
 .feat{list-style:none;padding:0;margin:var(--line) 0 0;max-width:70ch}
 .feat li{padding-left:1.2em;position:relative}
 /* Kleines schwarzes Quadrat als Aufzaehlungszeichen, mittig zur ersten Zeile. */
 .feat li::before{content:"";position:absolute;left:0;top:calc(var(--line) / 2 - .2em);width:.4em;height:.4em;background:var(--ink)}
 
-/* ---------- Preis und Kauf ---------- */
+/* Preis und Kauf */
 .price{margin-top:var(--line);font-size:16px;max-width:70ch}
-/* Der Kauf-Knopf ist invertiert, damit er sich von den Nebenlinks abhebt. */
 .actions a.buy{background:var(--ink);color:var(--paper)}
 .actions a.buy:hover,.actions a.buy:focus-visible{background:var(--paper);color:var(--ink)}
 
-/* ---------- Effekt-Demo ---------- */
-/* Schwarzer Kasten, darin das Demo-Video. object-fit:contain, damit nichts
-   beschnitten wird, egal welches Format exportiert wird. */
+/* Effekt-Demo */
+/* object-fit:contain, damit jedes Exportformat ganz zu sehen ist */
 .demo{
   position:relative;
   aspect-ratio:16/10;
@@ -188,11 +175,10 @@ img,video{max-width:100%}
   padding:5px 10px;cursor:pointer;
 }
 .effects button:hover,.effects button:focus-visible{background:var(--ink);color:var(--paper)}
-/* Der aktive Effekt ist invertiert. aria-pressed traegt zugleich den Zustand
-   fuer Screenreader, darum kein zweites Markup dafuer. */
+/* aktiver Effekt invertiert, ueber aria-pressed */
 .effects button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 
-/* ---------- Galerie ---------- */
+/* Galerie */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
@@ -206,7 +192,7 @@ img,video{max-width:100%}
 /* Sehr breite Bilder bekommen die ganze Zeile. */
 .gallery .full{grid-column:1 / -1}
 
-/* ---------- Footer ---------- */
+/* Footer */
 footer{
   margin-top:var(--line);
   border-top:3px solid var(--ink);
@@ -216,8 +202,7 @@ footer{
 }
 #surprise{margin-left:auto;align-self:flex-start}
 
-/* Kleines "+ More" im Footer. Zu: nur das Wort. Auf: die Links daneben,
-   klein, schwarz, ohne Link-Blau, damit sie zweitrangig bleiben. */
+/* "+ More" im Footer, die Links klein und schwarz */
 .footMore{font-size:12px;line-height:var(--line);letter-spacing:.12em;text-transform:uppercase}
 .footMore summary{display:inline;cursor:pointer;list-style:none}
 .footMore summary::-webkit-details-marker{display:none}
@@ -229,11 +214,9 @@ footer{
 @media (max-width:767px){ #surprise{margin-left:0} }
 
 
-/* ============================================================
-   Startseite
-   ============================================================ */
+/* Startseite */
 
-/* ---------- Intro: Name, Text, QR ---------- */
+/* Intro: Name, Text, QR */
 .intro{
   display:grid;
   grid-template-columns:1fr var(--bar);
@@ -244,12 +227,10 @@ footer{
 .intro h1{grid-column:1 / -1}
 .introText{max-width:70ch}
 
-/* .qrCell stretcht auf die Hoehe der Textzeile. Der QR haengt darin absolut
-   mit top:0 und bottom:0, dadurch ist die Kantenlaenge zwangslaeufig die
-   Hoehe des Textblocks. aspect-ratio leitet die Breite daraus ab. */
+/* QR absolut mit top/bottom 0, so hoch wie der Textblock. Breite per
+   aspect-ratio. */
 .qrCell{align-self:stretch;position:relative}
-/* bottom:10px: die Profil-Links haben 10px Touch-Polsterung unter der
-   Schrift, so endet der QR auf Hoehe ihres Unterstrichs. */
+/* 10px = Touch-Polsterung der Links, so endet der QR an ihrem Unterstrich */
 .qr{
   position:absolute;
   top:0;bottom:10px;left:50%;
@@ -264,7 +245,7 @@ footer{
   .qr{position:static;transform:none;width:120px;height:120px}
 }
 
-/* ---------- Werk-Panel ---------- */
+/* Werk-Panel */
 /* Text links, Bild rechts. Eine Zahl aendert das Verhaeltnis. */
 .workRow{display:grid;grid-template-columns:3fr 2fr;gap:var(--gap);align-items:start}
 @media (max-width:767px){ .workRow{grid-template-columns:1fr} }
@@ -282,38 +263,31 @@ footer{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 @media (max-width:767px){ .workMedia span{font-size:20px} }
 
-/* Der Textblock sitzt mittig neben dem Bild. */
 .workText{align-self:center}
 .workText > :first-child{margin-top:0}
-/* Titel und Jahr des Werks, direkt ueber dem Text. */
 .workTitle{font-size:32px;line-height:calc(var(--line) * 1.5);font-weight:400;margin:0 0 calc(var(--line) / 2)}
 .workTitle + .desc{margin-top:0}
 /* Das Jahr halb so gross wie der Titel, auf derselben Grundlinie. */
 .workYear{font-size:.5em}
 .workText .desc + .desc{margin-top:calc(var(--line) / 2)}
-/* Links im Werktext: schwarz und nur unterstrichen, nicht blau. */
 .workText .desc a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
-/* Tools steht unten in der Taskbar, aber in derselben Schriftgroesse wie die
-   Werke darueber. .foot setzt sonst 16px. */
+/* Tools unten in der Taskbar, gleiche Groesse wie die Werke (.foot hat 16px) */
 .home .taskbar .foot{font-size:inherit;margin-bottom:0}
 
-/* ---------- Socials ---------- */
+/* Socials */
 /* padding gibt jedem Link ca. 44px Hoehe (Touch-Target). */
 .socials{display:flex;flex-wrap:wrap;gap:0 var(--gap);list-style:none;padding:0;margin-top:calc(var(--line) - 10px)}
 .socials a{display:inline-block;padding:10px 0}
 
-/* Luft zwischen Kopfbereich und Werken. */
 .home .layout{margin-top:var(--line)}
 
-/* ---------- Galerie-Panel ---------- */
+/* Galerie-Panel */
 .panel.wide .workRow{grid-template-columns:1fr}
 .panel.wide .workText{align-self:start;max-width:70ch}
 
-/* ---------- Desktop: ein Bildschirm, Footer darunter ---------- */
-/* Intro und Werke fuellen genau die Fensterhoehe (.screen). Passt ein Text
-   nicht, scrollt nur der Fensterinhalt. Impressum & Co. im Footer liegen
-   unter der Bildschirmkante und erscheinen erst beim Runterscrollen. */
+/* Desktop: ein Bildschirm, Footer darunter */
+/* .screen ist genau eine Fensterhoehe, zu langer Text scrollt innen. */
 @media (min-width:1024px){
   .home .screen{height:calc(100dvh - var(--gap) * 2);display:flex;flex-direction:column}
 
@@ -340,20 +314,15 @@ footer{
 }
 
 
-/* ============================================================
-   Tools
-   ============================================================ */
+/* Tools */
 
-/* Info-Block unter dem Tool. .gone laesst ihn nach unten wegrutschen; das
-   Tool-Fenster darueber waechst in den frei werdenden Platz. */
+/* .gone schiebt den Info-Block raus, das Tool waechst nach. */
 .banner{overflow:hidden;max-height:480px;transition:max-height .7s ease,opacity .5s ease,transform .7s ease}
 .banner.gone{max-height:0;opacity:0;transform:translateY(24px)}
 @media (prefers-reduced-motion:reduce){ .banner{transition:none} }
 
-/* MOSH_UNIT: Video mit den Effekt-Knoepfen direkt rechts daneben, der ganze
-   Block mittig im Fenster. Die Breite ergibt sich aus der Videohoehe
-   (hoechstens 55 % des Bildschirms, 16:10) plus der Knopfspalte, so sitzen
-   die Knoepfe immer am Video und nie am Fensterrand. */
+/* Breite = Videohoehe (max. 55vh, 16:10) plus Knopfspalte, damit die
+   Knoepfe am Video kleben. */
 .moshWrap{width:min(100%, calc(55dvh * 1.6 + 180px + var(--gap)));margin-inline:auto}
 .moshStage{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:var(--gap);align-items:start}
 .moshStage .effects{flex-direction:column;align-items:stretch;margin-top:0}
@@ -363,9 +332,7 @@ footer{
   .moshStage .effects{flex-direction:row}
 }
 
-/* Desktop: Taskbar und Tool-Fenster fuellen genau den Bildschirm. Der Footer
-   liegt darunter, man erreicht ihn nur durch Scrollen, damit er dem Tool
-   keinen Platz wegnimmt. */
+/* Desktop: Tool fuellt den Bildschirm, Footer erst nach dem Scrollen. */
 @media (min-width:1024px){
   .tools .layout{height:calc(100dvh - var(--gap) * 2);align-items:stretch}
   .tools .win{max-height:100%;min-height:0}
@@ -390,16 +357,12 @@ footer{
 }
 
 
-/* ============================================================
-   Unterseiten (Werk, About, MOSH_UNIT, Datamoshing, Rechtliches)
-   Taskbar links, ein Fenster rechts, der Text laeuft darin.
-   ============================================================ */
+/* Unterseiten */
 .doc p,.doc ul,.doc ol,.doc dl{max-width:70ch}
 .doc :is(.winbody,article,section) > p{margin-top:var(--line)}
 .doc :is(.winbody,article) > :first-child{margin-top:0}
 .doc .lede{font-size:24px;line-height:calc(var(--line) * 1.5);max-width:40ch}
 
-/* Jede Zwischenueberschrift traegt die waagerechte Linie. */
 .doc h2{
   font-size:14px;line-height:20px;
   letter-spacing:.1em;text-transform:uppercase;
@@ -478,11 +441,7 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
 .video-embed__chapterslabel{margin-top:0}
 
 
-/* ============================================================
-   MOSH_UNIT: Vollseite ohne Taskbar
-   Oben Text links, Demo rechts. Darunter zwei Spalten: was es kann,
-   was es kostet. Jede Ueberschrift traegt die waagerechte Linie.
-   ============================================================ */
+/* MOSH_UNIT, Vollseite ohne Taskbar */
 .productBar{display:flex;justify-content:space-between;align-items:baseline;gap:var(--gap)}
 
 .productHero{display:grid;grid-template-columns:2fr 3fr;gap:calc(var(--gap) * 2);align-items:start}
@@ -504,13 +463,7 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
 }
 
 
-/* ============================================================
-   Startseite am Handy: kein Menue, sondern eine Wisch-Galerie.
-   Oben Name, ein Satz, Kontakt. Darunter die Werke nebeneinander,
-   jedes als Karte mit Bild zuerst, dann Titel und Text. Die naechste
-   Karte schaut rechts herein, darunter eine duenne Leiste: hier wischt man.
-   Kein Einrasten und keine wechselnde Hoehe, damit es ruhig dahinfliesst.
-   ============================================================ */
+/* Startseite am Handy: Werke als Wisch-Reihe, kein Snap. */
 .swipebar,.onlyMobile{display:none}
 
 @media (max-width:767px){
@@ -536,7 +489,6 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
      Umschalten per :target gilt nur am Desktop. */
   .home .viewer > .panel{display:flex !important;flex:0 0 80%}
 
-  /* Bild zuerst, dann Text. */
   .home .panel .winbody{display:flex;flex-direction:column}
   .home .workMedia{order:-1}
   .home .gallery{order:-1;margin:0 0 var(--gap)}
