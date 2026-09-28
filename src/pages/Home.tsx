@@ -32,7 +32,7 @@ function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: Home
         <div className="workRow">
           <div className="workText">
             <h3 className="workTitle">
-              {work.title}, {work.year}
+              {work.title} <span className="workYear">{work.year}</span>
             </h3>
             {work.desc.map((d, i) => (
               <p className="desc" key={i}>

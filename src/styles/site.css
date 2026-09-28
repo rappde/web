@@ -288,6 +288,8 @@ footer{
 /* Titel und Jahr des Werks, direkt ueber dem Text. */
 .workTitle{font-size:32px;line-height:calc(var(--line) * 1.5);font-weight:400;margin:0 0 calc(var(--line) / 2)}
 .workTitle + .desc{margin-top:0}
+/* Das Jahr halb so gross wie der Titel, auf derselben Grundlinie. */
+.workYear{font-size:.5em}
 .workText .desc + .desc{margin-top:calc(var(--line) / 2)}
 
 /* Tools steht unten in der Taskbar, aber in derselben Schriftgroesse wie die
