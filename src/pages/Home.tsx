@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent, type RefObject } from 'react'
+import { useEffect, useRef, useState, type RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
@@ -18,11 +18,6 @@ function Para({ p }: { p: HomePara }) {
   )
 }
 
-/* Ohne JS geht der Link auf das erste Werk. Mit JS auf ein zufaelliges. */
-function surprise(e: MouseEvent, works: HomeWork[]) {
-  e.preventDefault()
-  location.hash = works[Math.floor(Math.random() * works.length)].id
-}
 
 /* Am Handy sind die Werke eine Wisch-Galerie (CSS: .viewer als
    scroll-snap-Reihe). Dieser Hook
@@ -222,7 +217,9 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
       </div>
 
       <SiteFooter lang={lang}>
-        <a id="surprise" href="#mine" onClick={(e) => surprise(e, c.works)}>
+        {/* Normaler Link, kein Router-Link: /eisbaer ist eine eigene
+            statische Seite (public/eisbaer.html, Game of Life). */}
+        <a id="surprise" href="/eisbaer">
           {c.surprise}
         </a>
       </SiteFooter>

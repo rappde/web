@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Eisbär · Demien Rapp</title>
+<!-- Spielerei hinter dem "Eisbär"-Link im Footer. Kein Text fuer die Suche, darum noindex. -->
+<meta name="robots" content="noindex, follow">
+<style>
+:root{
+  --paper:#fff; --ink:#000;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  background:var(--paper);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --paper:#fff; --ink:#000; } }
+:root[data-theme="dark"]{ --paper:#fff; --ink:#000; }
+html,body{height:100%;margin:0;background:var(--paper);overflow:hidden;overscroll-behavior:none}
+canvas{display:block;width:100%;height:100%;cursor:crosshair;touch-action:none;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+// Desktop: Linksklick setzen, Rechtsklick löschen, Leertaste = neu
+// Touch:   wischen setzen, lange drücken + wischen löschen, Zwei-Finger-Tipp = neu
+const TEXT = ['RAPPDE.COM'];   // weitere Zeilen einfach ins Array
+const GENS_PER_SEC = 15;
+const INTRO_MS = 2500;         // so lange steht der Text, bevor es losgeht
+const LONG_PRESS_MS = 350;
+
+const FONT = {
+  'A':['01110','10001','10001','11111','10001','10001','10001'],
+  'C':['01110','10001','10000','10000','10000','10001','01110'],
+  'D':['11110','10001','10001','10001','10001','10001','11110'],
+  'E':['11111','10000','10000','11110','10000','10000','11111'],
+  'M':['10001','11011','10101','10101','10001','10001','10001'],
+  'O':['01110','10001','10001','10001','10001','10001','01110'],
+  'P':['11110','10001','10001','11110','10000','10000','10000'],
+  'R':['11110','10001','10001','11110','10100','10010','10001'],
+  'T':['11111','00100','00100','00100','00100','00100','00100'],
+  '.':['00000','00000','00000','00000','00000','01100','01100'],
+  ' ':['00000','00000','00000','00000','00000','00000','00000']
+};
+
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const buf = document.createElement('canvas'), bctx = buf.getContext('2d');
+let CELL = 5, cols = 0, rows = 0, grid, next, img, introUntil = 0, acc = 0, last = 0, lastW = 0;
+
+function setup(){
+  const w = cv.clientWidth, h = cv.clientHeight, dpr = window.devicePixelRatio || 1;
+  CELL = w < 700 ? 3 : 5;      // auf dem Handy feinere Zellen, damit der Text Platz hat
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cols = Math.ceil(w / CELL); rows = Math.ceil(h / CELL);
+  grid = new Uint8Array(cols * rows); next = new Uint8Array(cols * rows);
+  buf.width = cols; buf.height = rows;
+  img = bctx.createImageData(cols, rows);
+  lastW = w;
+  restart();
+}
+
+function set(x, y, v){ if (x >= 0 && y >= 0 && x < cols && y < rows) grid[y * cols + x] = v; }
+
+function writeText(){
+  grid.fill(0);
+  const lineW = Math.max(...TEXT.map(l => l.length * 6 - 1));
+  const lineH = TEXT.length * 9 - 2;
+  const s = Math.max(1, Math.floor(Math.min(cols * .9 / lineW, rows * .5 / lineH)));
+  const x0 = Math.floor((cols - lineW * s) / 2), y0 = Math.floor((rows - lineH * s) / 2);
+  TEXT.forEach((line, li) => {
+    const lx = x0 + Math.floor((lineW - (line.length * 6 - 1)) * s / 2);
+    [...line].forEach((ch, ci) => {
+      const g = FONT[ch] || FONT[' '];
+      for (let y = 0; y < 7; y++) for (let x = 0; x < 5; x++) {
+        if (g[y][x] !== '1') continue;
+        for (let sy = 0; sy < s; sy++) for (let sx = 0; sx < s; sx++)
+          set(lx + (ci * 6 + x) * s + sx, y0 + (li * 9 + y) * s + sy, 1);
+      }
+    });
+  });
+}
+
+function restart(){ writeText(); introUntil = performance.now() + INTRO_MS; acc = 0; }
+
+function step(){
+  for (let y = 0; y < rows; y++){
+    const up = ((y - 1 + rows) % rows) * cols, mid = y * cols, dn = ((y + 1) % rows) * cols;
+    for (let x = 0; x < cols; x++){
+      const l = (x - 1 + cols) % cols, r = (x + 1) % cols;
+      const n = grid[up+l] + grid[up+x] + grid[up+r] + grid[mid+l] + grid[mid+r] + grid[dn+l] + grid[dn+x] + grid[dn+r];
+      next[mid + x] = (n === 3 || (n === 2 && grid[mid + x])) ? 1 : 0;
+    }
+  }
+  [grid, next] = [next, grid];
+}
+
+function render(){
+  const d = img.data;
+  for (let i = 0, j = 0; i < grid.length; i++, j += 4){
+    const v = grid[i] ? 0 : 255;
+    d[j] = d[j+1] = d[j+2] = v; d[j+3] = 255;
+  }
+  bctx.putImageData(img, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+  const k = cv.width / cv.clientWidth;
+  ctx.drawImage(buf, 0, 0, cols * CELL * k, rows * CELL * k);
+}
+
+function loop(ts){
+  const dt = Math.min(ts - last, 100); last = ts;
+  if (ts >= introUntil){
+    acc += dt;
+    const interval = 1000 / GENS_PER_SEC;
+    while (acc >= interval){ step(); acc -= interval; }
+  }
+  render();
+  requestAnimationFrame(loop);
+}
+
+// ---------- Eingabe ----------
+const active = new Map();      // aktive Pointer
+let mode = -1, px = 0, py = 0, brush = 1, pressTimer = 0, sx = 0, sy = 0;
+
+function cellAt(e){ const r = cv.getBoundingClientRect(); return [Math.floor((e.clientX - r.left) / CELL), Math.floor((e.clientY - r.top) / CELL)]; }
+function dab(x, y, v){ for (let dy = -brush; dy <= brush; dy++) for (let dx = -brush; dx <= brush; dx++) set(x + dx, y + dy, v); }
+function strokeTo(x, y){
+  const n = Math.max(Math.abs(x - px), Math.abs(y - py), 1);
+  for (let i = 0; i <= n; i++) dab(Math.round(px + (x - px) * i / n), Math.round(py + (y - py) * i / n), mode);
+  px = x; py = y;
+}
+function cancel(){ clearTimeout(pressTimer); mode = -1; }
+
+cv.addEventListener('pointerdown', e => {
+  active.set(e.pointerId, true);
+  cv.setPointerCapture(e.pointerId);
+  if (e.pointerType !== 'mouse' && active.size === 2){ cancel(); restart(); return; }   // Zwei-Finger-Tipp
+  if (active.size > 1) return;
+  [px, py] = cellAt(e);
+  if (e.pointerType === 'mouse'){
+    brush = 1; mode = e.button === 2 ? 0 : 1; strokeTo(px, py);
+  } else {
+    brush = 2; mode = -2;       // noch offen: wischen = setzen, halten = löschen
+    sx = e.clientX; sy = e.clientY;
+    pressTimer = setTimeout(() => {
+      if (mode !== -2) return;
+      mode = 0; strokeTo(px, py);
+      if (navigator.vibrate) navigator.vibrate(15);
+    }, LONG_PRESS_MS);
+  }
+});
+
+cv.addEventListener('pointermove', e => {
+  if (!active.has(e.pointerId) || active.size > 1) return;
+  if (mode === -2){
+    if (Math.hypot(e.clientX - sx, e.clientY - sy) < 8) return;
+    clearTimeout(pressTimer); mode = 1; strokeTo(px, py);
+  }
+  if (mode >= 0) strokeTo(...cellAt(e));
+});
+
+function up(e){
+  if (mode === -2){ clearTimeout(pressTimer); mode = 1; strokeTo(px, py); }   // kurzer Tipp = setzen
+  active.delete(e.pointerId);
+  if (active.size === 0) cancel();
+}
+cv.addEventListener('pointerup', up);
+cv.addEventListener('pointercancel', e => { active.delete(e.pointerId); cancel(); });
+cv.addEventListener('contextmenu', e => e.preventDefault());
+
+window.addEventListener('keydown', e => {
+  if (e.code === 'Space'){ e.preventDefault(); restart(); }
+  if (e.code === 'Escape') location.href = '/';   // zurueck zur Startseite
+});
+
+// Nur neu aufbauen, wenn sich die Breite ändert – sonst startet das Handy
+// beim Ein-/Ausblenden der Adressleiste jedes Mal neu
+let rt = 0;
+window.addEventListener('resize', () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => {
+    if (cv.clientWidth !== lastW) { setup(); return; }
+    const dpr = window.devicePixelRatio || 1, h = cv.clientHeight;
+    const oldRows = rows; rows = Math.ceil(h / CELL);
+    cv.height = Math.round(h * dpr);
+    if (rows !== oldRows){
+      const g = new Uint8Array(cols * rows);
+      g.set(grid.subarray(0, Math.min(grid.length, g.length)));
+      grid = g; next = new Uint8Array(cols * rows);
+      buf.height = rows; img = bctx.createImageData(cols, rows);
+    }
+  }, 150);
+});
+
+setup();
+requestAnimationFrame(ts => { last = ts; loop(ts); });
+</script>
+</body>
+</html>

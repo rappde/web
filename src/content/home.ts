@@ -66,7 +66,7 @@ export const home: Record<Lang, HomeContent> = {
     profilesLabel: 'Profiles elsewhere',
     worksLabel: 'Works',
     fullPage: 'Full project page →',
-    surprise: '▓▒░ Surprise ░▒▓',
+    surprise: 'Eisbär',
     works: [
       {
         id: 'mine',
@@ -199,7 +199,7 @@ export const home: Record<Lang, HomeContent> = {
     profilesLabel: 'Profile',
     worksLabel: 'Arbeiten',
     fullPage: 'Zur Projektseite →',
-    surprise: '▓▒░ Überraschung ░▒▓',
+    surprise: 'Eisbär',
     works: [
       {
         id: 'mine',
