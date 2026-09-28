@@ -153,7 +153,7 @@ export const de: Content = {
         featured: true,
         slug: 'gefuehle',
         teaser: 'Drei gestapelte Röhrenfernseher, live von Besuchern zu Glitch-Video gemixt, ein Einblick in seine Welt.',
-        title: 'Gefühle',
+        title: 'gefühle',
         role: 'Videoinstallation',
         medium: '3 Röhrenfernseher · analoger Video-Mixer',
         place: '„Wir sehen Rot" · Kollektiv Dings · Düsseldorf',

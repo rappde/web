@@ -151,8 +151,9 @@ img,video{max-width:100%}
 
 /* ---------- Feature-Liste ---------- */
 .feat{list-style:none;padding:0;margin:var(--line) 0 0;max-width:70ch}
-.feat li{padding-left:1.4em;position:relative}
-.feat li::before{content:"▓";position:absolute;left:0}
+.feat li{padding-left:1.2em;position:relative}
+/* Kleines schwarzes Quadrat als Aufzaehlungszeichen, mittig zur ersten Zeile. */
+.feat li::before{content:"";position:absolute;left:0;top:calc(var(--line) / 2 - .2em);width:.4em;height:.4em;background:var(--ink)}
 
 /* ---------- Preis und Kauf ---------- */
 .price{margin-top:var(--line);font-size:16px;max-width:70ch}
@@ -349,8 +350,12 @@ footer{
 .banner.gone{max-height:0;opacity:0;transform:translateY(24px)}
 @media (prefers-reduced-motion:reduce){ .banner{transition:none} }
 
-/* MOSH_UNIT: Video links, Effekt-Knoepfe rechts daneben untereinander. */
-.moshStage{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:var(--gap);align-items:start}
+/* MOSH_UNIT: Video mit den Effekt-Knoepfen direkt rechts daneben, der ganze
+   Block mittig im Fenster. Die Breite ergibt sich aus der Videohoehe
+   (hoechstens 55 % des Bildschirms, 16:10) plus der Knopfspalte, so sitzen
+   die Knoepfe immer am Video und nie am Fensterrand. */
+.moshWrap{width:min(100%, calc(55dvh * 1.6 + 180px + var(--gap)));margin-inline:auto}
+.moshStage{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:var(--gap);align-items:start}
 .moshStage .effects{flex-direction:column;align-items:stretch;margin-top:0}
 .moshStage .effects button{text-align:left}
 @media (max-width:767px){
@@ -372,7 +377,6 @@ footer{
 
   .tools .frame{flex:1;min-height:120px;aspect-ratio:auto}
   /* Video etwas kleiner: hoechstens gut die Haelfte der Bildschirmhoehe. */
-  .tools .moshStage .demo{max-height:55dvh}
 
   /* Halbiert die Hoehe der Feature-Liste. */
   .tools .feat{columns:2;column-gap:var(--gap)}
@@ -412,8 +416,8 @@ footer{
 
 /* Aufzaehlungen mit denselben Blockzeichen wie die Feature-Liste. */
 .doc ul:not(.plain):not(.links){list-style:none;padding:0;margin-top:var(--line)}
-.doc ul:not(.plain):not(.links) li{padding-left:1.4em;position:relative}
-.doc ul:not(.plain):not(.links) li::before{content:"▓";position:absolute;left:0}
+.doc ul:not(.plain):not(.links) li{padding-left:1.2em;position:relative}
+.doc ul:not(.plain):not(.links) li::before{content:"";position:absolute;left:0;top:calc(var(--line) / 2 - .2em);width:.4em;height:.4em;background:var(--ink)}
 .doc ul.plain{list-style:none;padding:0}
 
 /* Nummerierte Schritte: Zahl links in der Meta-Schrift. */

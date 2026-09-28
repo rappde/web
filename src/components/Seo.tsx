@@ -17,6 +17,12 @@ export const personRef = {
   url: SITE_URL,
 } as const
 
+const AWARDS = [
+  'Audience Award, 19. Gestaltungswettbewerb, Lernort Studio Düsseldorf 2026 (mine)',
+  'Jury Award, 19. Gestaltungswettbewerb, Lernort Studio Düsseldorf 2026 (mine)',
+  'Audience Award, 18. Gestaltungswettbewerb, Lernort Studio Düsseldorf 2025 (gefühle)',
+]
+
 const SAME_AS = [
   'https://rappde.itch.io',
   'https://github.com/rappde',
@@ -60,7 +66,43 @@ export function Seo({ c }: { c: HomeContent }) {
       addressLocality: 'Düsseldorf',
       addressCountry: 'DE',
     },
+    homeLocation: { '@type': 'City', name: 'Düsseldorf' },
+    image: `${SITE_URL}/images/demien-portrait.jpg`,
+    email: 'mailto:demien.rp@gmail.com',
+    award: AWARDS,
     sameAs: SAME_AS,
+  }
+
+  /* Die Startseite ist ein Profil: Google kennt dafuer den Typ ProfilePage
+     (Profilseiten von Personen). mainEntity verweist auf die Person oben. */
+  const profileLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    url,
+    inLanguage: c.lang,
+    name: c.title,
+    mainEntity: { '@id': PERSON_ID },
+  }
+
+  /* Die Werke als Liste, jedes mit Jahr, Bild und Verweis auf die Person.
+     Hilft Suchmaschinen und KI-Antworten, Werke und Person zu verbinden. */
+  const worksLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: de ? 'Arbeiten von Demien Rapp' : 'Works by Demien Rapp',
+    itemListElement: c.works.map((w, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: w.title,
+        dateCreated: w.year,
+        description: w.desc[0].text,
+        creator: personRef,
+        url: w.page ? `${SITE_URL}${de ? '/de' : ''}/works/${w.page}` : `${url}#${w.id}`,
+        ...(w.image || w.gallery ? { image: `${SITE_URL}${(w.image ?? w.gallery![0]).src}` } : {}),
+      },
+    })),
   }
 
   const websiteLd = {
@@ -102,6 +144,8 @@ export function Seo({ c }: { c: HomeContent }) {
 
       <script type="application/ld+json">{JSON.stringify(personLd)}</script>
       <script type="application/ld+json">{JSON.stringify(websiteLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(profileLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(worksLd)}</script>
     </Head>
   )
 }

@@ -1,6 +1,6 @@
 import { Head } from 'vite-react-ssg'
 import type { Content, Work } from '@/content/types'
-import { SITE_URL } from './Seo'
+import { SITE_URL, personRef } from './Seo'
 
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`
 
@@ -18,7 +18,7 @@ export function WorkSeo({ content, work }: { content: Content; work: Work }) {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: work.title,
-    creator: { '@type': 'Person', name: 'Demien Rapp', url: SITE_URL },
+    creator: personRef,
     dateCreated: work.year,
     locationCreated: work.place,
     description,

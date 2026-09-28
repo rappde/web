@@ -6,13 +6,14 @@ Contact: demien.rp@gmail.com. Open to commissions, exhibitions and collaboration
 
 ## Works
 
-- [mine (2026)](https://rappde.com/works/mine): Interactive installation at Lernort Studio Düsseldorf. A Klann-linkage walking robot, 3D-printed and hand-lacquered, on a self-built table with ultrasonic sensors wired to an ESP. It only moves when watched; the closer you come, the harder it strains. Won the Audience Award and the Jury Award.
-- [Gefühle (2025)](https://rappde.com/works/gefuehle): Video installation, three stacked CRT TVs and an analogue video mixer. Visitors turn potentiometers to mix a self-portrait into distorted edits. Shown at "Wir sehen Rot", Kollektiv Dings, Düsseldorf.
-- [1/4 (2025)](https://rappde.com/works/ein-viertel): His contribution to BE A TRANSFORMER!, a collaborative 5 × 12 m banner at K21 Düsseldorf: one quarter of it, 100 events of this century generated as AI images.
+- [mine (2026)](https://rappde.com/works/mine): A self-built walking robot that reacts to how close visitors are: the closer someone steps up, the faster it walks. It cannot move freely through the room, it is chained to a power socket. Won the Audience Award and the Jury Award at the 19th Gestaltungswettbewerb, Lernort Studio Düsseldorf.
+- [gefühle (2025)](https://rappde.com/works/gefuehle): Video installation, three stacked CRT TVs and an analogue video mixer; visitors turn potentiometers to mix a self-portrait into distorted edits of nature and city. Won the Audience Award at the 18th Gestaltungswettbewerb, Lernort Studio Düsseldorf. The title is written in lower case.
 - [Soundwalk (2026)](https://rappde.com/works/soundwalk): Two sound works from childhood and 18th-birthday recordings, processed with self-built algorithmic tools. Werk:Klub at K21 Düsseldorf.
-- 2491 · Last Slice (2025): Director of "2491" (on surveillance); camera and technical lead on "Last Slice", which won the Audience Award at the Uncut Award, Filmwerkstatt Düsseldorf.
-- Soirée de Brioche (2024): Feature film, DOP, camera, stills and co-direction. Premiered at Metropol Kino Düsseldorf.
-- Knisternder Bahnhof (2024): Photo series shot on a circuit-bent children's camera, no post-processing. Lernort Studio.
+- [1/4 (2025)](https://rappde.com/works/ein-viertel): His part of BE A TRANSFORMER!, a collaborative 5 × 12 m banner at K21 Düsseldorf: 100 events of this century generated as AI images and composed into one picture.
+- 2491 (2025): Short film against surveillance, submitted to the Uncut Award 2025, Filmwerkstatt Düsseldorf. Also in 2025: cameraman on the film project Last Slice, which won the Audience Award.
+- Soirée de Brioche (2024): Feature film; director of photography, camera, stills and co-direction. Premiered at Metropol Kino Düsseldorf.
+- Knisternder Bahnhof (2024): Photo series in Düsseldorf, shot on a cheap camera he rebuilt through circuit bending; no post-processing.
+- Uncut Award (2026): Co-organiser (technology, presentation, social media), Filmwerkstatt Düsseldorf, 10 October 2026.
 
 ## MOSH_UNIT (app for sale)
 
@@ -26,7 +27,7 @@ Contact: demien.rp@gmail.com. Open to commissions, exhibitions and collaboration
 
 ## Tools
 
-- [Tools overview](https://rappde.com/tools): all self-built tools on one page; the browser tools run right in the page.
+- [Tools overview](https://rappde.com/tools): all self-built tools on one page; the browser tools run right in the page, MOSH_UNIT has an effect demo.
 - [Compression Unit](https://rappde.github.io/compression_unit/): browser tool for controlled JPEG artefacts and compression damage. Source: https://github.com/rappde/compression_unit
 - [Displacement Unit](https://rappde.github.io/displacement_unit/): brutalist browser signal processor, pixels displaced by luminance from images, video or live camera. Source: https://github.com/rappde/displacement_unit
 - [Paint Unit](https://rappde.github.io/paint_unit/): destructive browser paint tool, smear/slide/stamp pixels off any image. Source: https://github.com/rappde/paint_unit

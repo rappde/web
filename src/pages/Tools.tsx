@@ -11,8 +11,6 @@ interface BrowserTool {
   name: string
   url: string
   source: string
-  meta: string
-  desc: string
   camera: boolean
 }
 
@@ -22,8 +20,6 @@ const BROWSER_TOOLS: BrowserTool[] = [
     name: 'Compression Unit',
     url: 'https://rappde.github.io/compression_unit/',
     source: 'https://github.com/rappde/compression_unit',
-    meta: 'Browser tool, uses your camera on request',
-    desc: 'Real-time video signal processing. Source is the live camera or a CRT filter. Controls for compression level, resolution, RGB offset, static noise, contrast and saturation. Saves stills as PNG or records video.',
     camera: true,
   },
   {
@@ -31,8 +27,6 @@ const BROWSER_TOOLS: BrowserTool[] = [
     name: 'Displacement Unit',
     url: 'https://rappde.github.io/displacement_unit/',
     source: 'https://github.com/rappde/displacement_unit',
-    meta: 'Browser tool, uses your camera on request',
-    desc: 'Displacement mapping for images and video. Source is the live camera or an imported map. Controls for X strength, Y strength and threshold. Saves stills as PNG or records video.',
     camera: true,
   },
   {
@@ -40,8 +34,6 @@ const BROWSER_TOOLS: BrowserTool[] = [
     name: 'Paint Unit',
     url: 'https://rappde.github.io/paint_unit/',
     source: 'https://github.com/rappde/paint_unit',
-    meta: 'Browser tool',
-    desc: 'Digital painting on an imported source image. Three modes: Smear, Slide, Stamp. Brush size slider, canvas reset. Saves stills as PNG or records video.',
     camera: false,
   },
 ]
@@ -254,8 +246,6 @@ export default function Tools() {
                   />
                 </div>
                 <div className="banner auto">
-                  <p className="meta">{t.meta}</p>
-                  <p className="desc">{t.desc}</p>
                   <div className="actions">
                     <a href={t.url} target="_blank" rel="noopener">
                       Open in its own tab
@@ -274,6 +264,8 @@ export default function Tools() {
           <article className="win panel" id="mosh-unit">
             <h2 className="vh">MOSH_UNIT</h2>
             <div className="winbody">
+              {/* Video, Knoepfe und Text als ein Block in der Mitte des Fensters. */}
+              <div className="moshWrap">
               <MoshDemo />
 
               <div className="banner">
@@ -304,6 +296,7 @@ export default function Tools() {
                   <Link to="/mosh_unit">Product page</Link>
                   <Link to="/datamoshing">What is datamoshing</Link>
                 </div>
+              </div>
               </div>
             </div>
           </article>

@@ -152,7 +152,7 @@ export const en: Content = {
         featured: true,
         slug: 'gefuehle',
         teaser: 'Three stacked CRT TVs, mixed live by visitors into glitch video, a look into his world.',
-        title: 'Gefühle',
+        title: 'gefühle',
         role: 'Video installation',
         medium: '3 CRT TVs · analogue video mixer',
         place: '"Wir sehen Rot" · Kollektiv Dings · Düsseldorf',
