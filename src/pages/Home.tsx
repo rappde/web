@@ -81,6 +81,9 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
         {c.skip}
       </a>
 
+      {/* .screen ist genau eine Bildschirmhoehe (Desktop). Der Footer liegt
+          darunter und taucht erst beim Runterscrollen auf. */}
+      <div className="screen">
       {/* Links Text und Profil-Links, rechts der QR-Code. Er ist genau so hoch
           wie beides zusammen: Oberkante am Text, Unterkante an den Links. */}
       <div className="intro">
@@ -97,6 +100,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
               <li><a href="https://www.youtube.com/@demienrapp" target="_blank" rel="me noopener">YouTube</a></li>
               <li><a href="https://www.linkedin.com/in/demien-rapp-983b8a1ab/" target="_blank" rel="me noopener">LinkedIn</a></li>
               <li><a href="https://www.instagram.com/rappde_" target="_blank" rel="me noopener">Instagram</a></li>
+              <li><a href="mailto:demien.rp@gmail.com">Mail</a></li>
             </ul>
           </nav>
         </div>
@@ -131,6 +135,8 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
             <WorkPanel work={w} start={i === 0} c={c} key={w.id} />
           ))}
         </div>
+      </div>
+
       </div>
 
       <SiteFooter lang={lang}>

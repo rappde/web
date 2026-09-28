@@ -111,10 +111,10 @@ img,video{max-width:100%}
 
 /* ---------- Rechtes Fenster: Panels ---------- */
 .panel{display:none}
-/* Ein Panel liegt genau eine Rand-Breite unter der Oberkante. So zielt der
-   Ankersprung beim Umschalten auf die Stelle, an der die Seite schon steht,
-   und nichts ruckelt. */
-.tools .panel{scroll-margin-top:var(--gap)}
+/* Beim Umschalten setzt der Browser den Anker und scrollt zum Panel. Ein
+   riesiger scroll-margin laesst das Ziel oberhalb der Seite landen, der
+   Browser begrenzt es auf 0: die Seite bleibt oben stehen, nichts ruckelt. */
+.home .panel,.tools .panel{scroll-margin-top:100vh}
 .panel:target{display:flex}
 /* .start ist der Zustand beim Laden. :not(:target) verhindert, dass es sich
    selbst ausblendet, wenn genau dieses Panel angewaehlt wird. */
@@ -306,13 +306,12 @@ footer{
 .panel.wide .workRow{grid-template-columns:1fr}
 .panel.wide .workText{align-self:start;max-width:70ch}
 
-/* ---------- Desktop: One Pager, kein Scrollen ---------- */
-/* Die Seite wird genau so hoch wie das Fenster. Passt ein Text doch nicht,
-   scrollt nur der Fensterinhalt, nie das Dokument. */
+/* ---------- Desktop: ein Bildschirm, Footer darunter ---------- */
+/* Intro und Werke fuellen genau die Fensterhoehe (.screen). Passt ein Text
+   nicht, scrollt nur der Fensterinhalt. Impressum & Co. im Footer liegen
+   unter der Bildschirmkante und erscheinen erst beim Runterscrollen. */
 @media (min-width:1024px){
-  html:has(.home),html:has(.home) body,html:has(.home) #root{height:100%}
-  html:has(.home) body{overflow:hidden}
-  .home{height:100%;display:flex;flex-direction:column}
+  .home .screen{height:calc(100dvh - var(--gap) * 2);display:flex;flex-direction:column}
 
   .home .layout{flex:1;min-height:0;align-items:stretch}
   .home .win{max-height:100%}
@@ -325,18 +324,15 @@ footer{
   .home .workRow{flex:1;min-height:0;align-items:center}
   .home .workText{max-height:100%;overflow:auto}
 
-  /* Ein Galerie-Panel darf die Seite laenger machen. Nur dann wird das
-     Dokument scrollbar. */
-  html:has(.panel.wide:target),html:has(.panel.wide:target) body,html:has(.panel.wide:target) #root{height:auto}
-  html:has(.panel.wide:target) body{overflow:auto}
-  .home:has(.panel.wide:target){height:auto}
+  /* Ein Galerie-Panel darf den Bildschirm verlaengern. */
+  .home:has(.panel.wide:target) .screen{height:auto}
   .home:has(.panel.wide:target) .layout{flex:none}
   .home:has(.panel.wide:target) .win{max-height:none}
   .home:has(.panel.wide:target) .panel .winbody{overflow:visible}
   .home:has(.panel.wide:target) .workText{max-height:none;overflow:visible}
   .home:has(.panel.wide:target) .workRow{flex:none}
 
-  .home footer{flex:none}
+  .home footer{margin-top:calc(var(--line) * 2)}
 }
 
 
