@@ -6,10 +6,10 @@ Contact: demien.rp@gmail.com. Open to commissions, exhibitions and collaboration
 
 ## Works
 
-- [mine (2026)](https://rappde.com/works/mine): A self-built walking robot that reacts to how close visitors are: the closer someone steps up, the faster it walks. It cannot move freely through the room, it is chained to a power socket. Won the Audience Award and the Jury Award at the 19th Gestaltungswettbewerb, Lernort Studio Düsseldorf.
-- [gefühle (2025)](https://rappde.com/works/gefuehle): Video installation, three stacked CRT TVs and an analogue video mixer; visitors turn potentiometers to mix a self-portrait into distorted edits of nature and city. Won the Audience Award at the 18th Gestaltungswettbewerb, Lernort Studio Düsseldorf. The title is written in lower case.
-- [Soundwalk (2026)](https://rappde.com/works/soundwalk): Two sound works from childhood and 18th-birthday recordings, processed with self-built algorithmic tools. Werk:Klub at K21 Düsseldorf.
-- [1/4 (2025)](https://rappde.com/works/ein-viertel): His part of BE A TRANSFORMER!, a collaborative 5 × 12 m banner at K21 Düsseldorf: 100 events of this century generated as AI images and composed into one picture.
+- [mine (2026)](https://rappde.com/#mine): A self-built walking robot that reacts to how close visitors are: the closer someone steps up, the faster it walks. It cannot move freely through the room, it is chained to a power socket. Won the Audience Award and the Jury Award at the 19th Gestaltungswettbewerb, Lernort Studio Düsseldorf.
+- [gefühle (2025)](https://rappde.com/#gefuehle): Video installation, three stacked CRT TVs and an analogue video mixer; visitors turn potentiometers to mix a self-portrait into distorted edits of nature and city. Won the Audience Award at the 18th Gestaltungswettbewerb, Lernort Studio Düsseldorf. The title is written in lower case.
+- [Soundwalk (2026)](https://rappde.com/#soundwalk): Two sound works from childhood and 18th-birthday recordings, processed with self-built algorithmic tools. Werk:Klub at K21 Düsseldorf.
+- [1/4 (2025)](https://rappde.com/#ein-viertel): His part of BE A TRANSFORMER!, a collaborative 5 × 12 m banner at K21 Düsseldorf: 100 events of this century generated as AI images and composed into one picture.
 - 2491 (2025): Short film against surveillance, submitted to the Uncut Award 2025, Filmwerkstatt Düsseldorf. Also in 2025: cameraman on the film project Last Slice, which won the Audience Award.
 - Soirée de Brioche (2024): Feature film; director of photography, camera, stills and co-direction. Premiered at Metropol Kino Düsseldorf.
 - Knisternder Bahnhof (2024): Photo series in Düsseldorf, shot on a cheap camera he rebuilt through circuit bending; no post-processing.

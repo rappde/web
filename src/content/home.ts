@@ -1,5 +1,5 @@
 /* Startseite (EN "/" + DE "/de"). Uebernommen aus v2, fuer die kompakte
-   Ansicht gekuerzt. Die deutschen Texte stammen aus content.de.ts.
+   Ansicht gekuerzt. Es gibt keine eigenen Werkseiten, alles steht hier.
    Google erkennt die Sprache einer Seite nur am sichtbaren Text, darum ist
    /de eine echte Uebersetzung und nicht dieselbe Seite mit anderem lang.
    TODO Demien: Bild fuer Uncut Award 2026 fehlt noch. */
@@ -28,8 +28,6 @@ export interface HomeWork {
   gallery?: { src: string; alt: string; caption: string; full?: boolean }[]
   /** Platzhalter, solange ein Bild fehlt */
   placeholder?: string
-  /** eigene Werkseite /works/<slug> */
-  page?: string
 }
 
 export interface HomeContent {
@@ -43,7 +41,6 @@ export interface HomeContent {
   qrAlt: string
   profilesLabel: string
   worksLabel: string
-  fullPage: string
   surprise: string
   works: HomeWork[]
 }
@@ -65,7 +62,6 @@ export const home: Record<Lang, HomeContent> = {
     qrAlt: 'QR code linking to a portrait of Demien Rapp',
     profilesLabel: 'Profiles elsewhere',
     worksLabel: 'Works',
-    fullPage: 'Full project page →',
     surprise: 'Eisbär',
     works: [
       {
@@ -82,7 +78,6 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/mine.jpg',
           alt: 'mine: a black-and-white photograph of a low, spider-like walking robot built from 3D-printed linkages, hand-lacquered to a metallic look, on a dark table and tethered by a thin cable.',
         },
-        page: 'mine',
       },
       {
         id: 'gefuehle',
@@ -97,7 +92,6 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/gefuehle.jpg',
           alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.',
         },
-        page: 'gefuehle',
       },
       {
         id: 'soundwalk',
@@ -113,7 +107,6 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/soundwalk.jpg',
           alt: 'The Soundwalk sound works at K21, two pieces built from biographical recordings.',
         },
-        page: 'soundwalk',
       },
       {
         id: 'ein-viertel',
@@ -131,7 +124,6 @@ export const home: Record<Lang, HomeContent> = {
             full: true,
           },
         ],
-        page: 'ein-viertel',
       },
       {
         id: 'uncut-2025',
@@ -198,7 +190,6 @@ export const home: Record<Lang, HomeContent> = {
     qrAlt: 'QR-Code, der zu einem Porträt von Demien Rapp führt',
     profilesLabel: 'Profile',
     worksLabel: 'Arbeiten',
-    fullPage: 'Zur Projektseite →',
     surprise: 'Eisbär',
     works: [
       {
@@ -215,7 +206,6 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/mine.jpg',
           alt: 'mine: ein schwarz-weißes Foto eines niedrigen, spinnenartigen Laufroboters aus 3D-gedruckten Gestängen auf einem dunklen Tisch, von Hand metallisch lackiert und mit einem dünnen Kabel gefesselt.',
         },
-        page: 'mine',
       },
       {
         id: 'gefuehle',
@@ -230,7 +220,6 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/gefuehle.jpg',
           alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.',
         },
-        page: 'gefuehle',
       },
       {
         id: 'soundwalk',
@@ -246,7 +235,6 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/soundwalk.jpg',
           alt: 'Die Soundwalk-Soundarbeiten im K21, zwei Stücke aus biografischem Material.',
         },
-        page: 'soundwalk',
       },
       {
         id: 'ein-viertel',
@@ -264,7 +252,6 @@ export const home: Record<Lang, HomeContent> = {
             full: true,
           },
         ],
-        page: 'ein-viertel',
       },
       {
         id: 'uncut-2025',

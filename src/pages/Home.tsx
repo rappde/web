@@ -2,7 +2,7 @@ import { useEffect, useRef, type RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
-import { home, type HomeContent, type HomeWork, type HomePara } from '@/content/home'
+import { home, type HomeWork, type HomePara } from '@/content/home'
 import { SiteFooter, keepScroll } from '@/components/Shell'
 
 /* Startseite, EN unter "/" und DE unter "/de". Inhalte in content/home.ts. */
@@ -62,7 +62,7 @@ function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpan
   }, [ref, bar])
 }
 
-function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: HomeContent }) {
+function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
   const cls = ['win', 'panel', start && 'start', work.gallery && 'wide'].filter(Boolean).join(' ')
   return (
     <article className={cls} id={work.id}>
@@ -77,11 +77,6 @@ function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: Home
                 <Para p={d} />
               </p>
             ))}
-            {work.page && (
-              <p className="hint">
-                <Link to={`${c.lang === 'de' ? '/de' : ''}/works/${work.page}`}>{c.fullPage}</Link>
-              </p>
-            )}
           </div>
           {work.image && (
             <div className="workMedia">
@@ -174,7 +169,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
 
         <div className="viewer" id="viewer" ref={viewer}>
           {c.works.map((w, i) => (
-            <WorkPanel work={w} start={i === 0} c={c} key={w.id} />
+            <WorkPanel work={w} start={i === 0} key={w.id} />
           ))}
         </div>
 

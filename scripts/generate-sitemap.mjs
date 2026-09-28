@@ -18,8 +18,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..')
 const SITE = 'https://rappde.com'
 
-// Mirrors the FEATURED array in src/routes.tsx (kept in sync by hand — small list).
-const FEATURED = ['mine', 'gefuehle', 'ein-viertel', 'soundwalk']
 
 // `source` = the content file whose last change is this page's real lastmod.
 const pages = [
@@ -28,10 +26,6 @@ const pages = [
   { loc: '/tools', source: 'src/pages/Tools.tsx', en: '/tools' },
   { loc: '/mosh_unit', source: 'src/content/mosh-unit.ts', en: '/mosh_unit', de: '/de/mosh_unit' },
   { loc: '/de/mosh_unit', source: 'src/content/mosh-unit.ts', en: '/mosh_unit', de: '/de/mosh_unit' },
-  ...FEATURED.flatMap((slug) => [
-    { loc: `/works/${slug}`, source: 'src/content/content.en.ts', en: `/works/${slug}`, de: `/de/works/${slug}` },
-    { loc: `/de/works/${slug}`, source: 'src/content/content.de.ts', en: `/works/${slug}`, de: `/de/works/${slug}` },
-  ]),
   // Datamoshing hub (EN-only, no /de twins).
   { loc: '/datamoshing', source: 'src/content/datamoshing.ts', en: '/datamoshing' },
   { loc: '/how-to-datamosh', source: 'src/content/datamoshing.ts', en: '/how-to-datamosh' },

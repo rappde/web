@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom'
 import type { RouteRecord } from 'vite-react-ssg'
 import { RouteErrorBoundary } from './components/RouteErrorBoundary'
 import Home from './pages/Home'
-import WorkPage from './pages/WorkPage'
 import MoshUnit from './pages/MoshUnit'
 import Datamoshing from './pages/Datamoshing'
 import HowToDatamosh from './pages/HowToDatamosh'
@@ -13,22 +12,6 @@ import Tools from './pages/Tools'
 import NotFound from './pages/NotFound'
 
 // EN is the default at "/", DE at "/de" (both real translations, hreflang pair).
-// The 3 featured works get their own routes for SEO + shareable links (§2c).
-// Legal pages are German and reachable from every footer (§9c).
-const FEATURED = ['mine', 'gefuehle', 'ein-viertel', 'soundwalk'] as const
-
-const workRoutes: RouteRecord[] = FEATURED.flatMap((slug) => [
-  {
-    path: `/works/${slug}`,
-    element: <WorkPage lang="en" slug={slug} />,
-    entry: 'src/pages/WorkPage.tsx',
-  },
-  {
-    path: `/de/works/${slug}`,
-    element: <WorkPage lang="de" slug={slug} />,
-    entry: 'src/pages/WorkPage.tsx',
-  },
-])
 
 // Every route nests under one pathless layout route so a single errorElement
 // catches all of them (react-router bubbles a loader/render error up to the
@@ -42,7 +25,6 @@ export const routes: RouteRecord[] = [
       { path: '/', element: <Home />, entry: 'src/pages/Home.tsx' },
       { path: '/de', element: <Home lang="de" />, entry: 'src/pages/Home.tsx' },
       { path: '/tools', element: <Tools />, entry: 'src/pages/Tools.tsx' },
-      ...workRoutes,
       { path: '/mosh_unit', element: <MoshUnit lang="en" />, entry: 'src/pages/MoshUnit.tsx' },
       { path: '/de/mosh_unit', element: <MoshUnit lang="de" />, entry: 'src/pages/MoshUnit.tsx' },
       // Datamoshing content hub (English only — targets an English audience; no /de twins).

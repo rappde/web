@@ -99,7 +99,7 @@ export function Seo({ c }: { c: HomeContent }) {
         dateCreated: w.year,
         description: w.desc[0].text,
         creator: personRef,
-        url: w.page ? `${SITE_URL}${de ? '/de' : ''}/works/${w.page}` : `${url}#${w.id}`,
+        url: `${url}#${w.id}`,
         ...(w.image || w.gallery ? { image: `${SITE_URL}${(w.image ?? w.gallery![0]).src}` } : {}),
       },
     })),
