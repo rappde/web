@@ -54,49 +54,66 @@ const EFFECTS = [
   { name: 'Melt / Transition', file: 'moshunit-melt-transition-datamosh-demo' },
 ]
 
-/* Pfeil im Banner blendet den Textblock aus. Kein Wiederaufklappen: zurueck
-   kommt er beim Neuladen oder beim erneuten Anwaehlen eines Tools. */
-function Dismiss() {
-  return (
-    <button
-      type="button"
-      className="dismiss"
-      aria-label="Hide details"
-      title="Hide details"
-      onClick={(e) => {
-        const banner = e.currentTarget.closest('.banner') as HTMLElement | null
-        if (banner) banner.hidden = true
-      }}
-    >
-      ▼
-    </button>
-  )
+/* Info-Block unter einem Browser-Tool: klappt nach ein paar Sekunden von
+   selbst nach unten weg, damit das Tool die ganze Hoehe bekommt. Solange die
+   Maus darauf liegt oder ein Link darin fokussiert ist, bleibt er. Waehlt man
+   das Tool erneut an, kommt er zurueck. */
+const BANNER_MS = 6000
+let bannerTimer: ReturnType<typeof setTimeout> | undefined
+
+function armBanner() {
+  clearTimeout(bannerTimer)
+  document.querySelectorAll<HTMLElement>('.banner.auto').forEach((b) => {
+    b.classList.remove('gone')
+    b.inert = false
+  })
+  const banner = location.hash ? document.getElementById(location.hash.slice(1))?.querySelector<HTMLElement>('.banner.auto') : null
+  if (!banner) return
+  const hide = () => {
+    if (banner.matches(':hover') || banner.contains(document.activeElement)) {
+      bannerTimer = setTimeout(hide, 2000)
+      return
+    }
+    banner.classList.add('gone')
+    banner.inert = true
+  }
+  bannerTimer = setTimeout(hide, BANNER_MS)
 }
 
-/* Effekt-Umschalter im MOSH_UNIT-Panel. Ein einziges video-Element, der Klick
-   tauscht nur die Quelle. Sechs video-Elemente wuerden sechs Dateien laden. */
+/* Effekt-Umschalter im MOSH_UNIT-Panel: Video links, Effekte rechts daneben.
+   Ein einziges video-Element, der Klick tauscht nur die Quelle. Fuenf
+   video-Elemente wuerden fuenf Dateien laden. Das Video spielt von selbst,
+   sobald das Panel offen ist, und pausiert, wenn man es verlaesst. Nur bei
+   prefers-reduced-motion startet es nicht von allein. */
 function MoshDemo() {
   const video = useRef<HTMLVideoElement>(null)
   const [active, setActive] = useState(EFFECTS[0])
   const [state, setState] = useState<'loading' | 'ready' | 'missing'>('ready')
-  const [still, setStill] = useState(true)
+
+  const play = () => {
+    const v = video.current
+    if (!v || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    v.play().catch(() => {})
+  }
 
   useEffect(() => {
-    setStill(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    const sync = () => {
+      if (location.hash === '#mosh-unit') play()
+      else video.current?.pause()
+    }
+    window.addEventListener('hashchange', sync)
+    sync()
+    return () => window.removeEventListener('hashchange', sync)
   }, [])
 
   const pick = (fx: (typeof EFFECTS)[number]) => {
     setActive(fx)
     setState('loading')
-    // Dauerschleifen sind fuer bewegungsempfindliche Menschen ein Problem,
-    // darum startet nur ein Klick die Wiedergabe, und auch nur ohne reduced-motion.
-    requestAnimationFrame(() => {
-      if (!still) video.current?.play().catch(() => {})
-    })
+    requestAnimationFrame(play)
   }
 
   return (
-    <>
+    <div className="moshStage">
       <div className="demo">
         <video
           ref={video}
@@ -124,7 +141,7 @@ function MoshDemo() {
           </button>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -145,16 +162,26 @@ export default function Tools() {
       frame.src = frame.dataset.src as string
       frame.removeAttribute('data-src')
     }
-    window.addEventListener('hashchange', openTool)
-    openTool()
-    return () => window.removeEventListener('hashchange', openTool)
+    const onHash = () => {
+      openTool()
+      armBanner()
+    }
+    window.addEventListener('hashchange', onHash)
+    onHash()
+    // Beim Laden mit #tool springt der Browser zum Panel. Die Seite soll
+    // aber oben stehen, das Panel ist ja ohnehin im Bild.
+    if (location.hash) requestAnimationFrame(() => window.scrollTo(0, 0))
+    return () => {
+      window.removeEventListener('hashchange', onHash)
+      clearTimeout(bannerTimer)
+    }
   }, [])
 
-  /* Zwei Aufgaben: Banner zuruecksetzen (ein zweiter Klick auf dasselbe Tool
-     feuert kein hashchange) und den Ankersprung abfangen. */
+  /* Ankersprung abfangen, und den Info-Block neu starten: ein zweiter Klick
+     auf dasselbe Tool feuert kein hashchange. */
   const onTaskbar = (e: MouseEvent) => {
-    document.querySelectorAll<HTMLElement>('.banner[hidden]').forEach((b) => (b.hidden = false))
     keepScroll(e)
+    armBanner()
   }
 
   return (
@@ -226,7 +253,7 @@ export default function Tools() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="banner">
+                <div className="banner auto">
                   <p className="meta">{t.meta}</p>
                   <p className="desc">{t.desc}</p>
                   <div className="actions">
@@ -236,7 +263,6 @@ export default function Tools() {
                     <a href={t.source} target="_blank" rel="noopener">
                       Source on GitHub
                     </a>
-                    <Dismiss />
                   </div>
                 </div>
               </div>
@@ -277,7 +303,6 @@ export default function Tools() {
                   </a>
                   <Link to="/mosh_unit">Product page</Link>
                   <Link to="/datamoshing">What is datamoshing</Link>
-                  <Dismiss />
                 </div>
               </div>
             </div>

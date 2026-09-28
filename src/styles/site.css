@@ -111,6 +111,10 @@ img,video{max-width:100%}
 
 /* ---------- Rechtes Fenster: Panels ---------- */
 .panel{display:none}
+/* Ein Panel liegt genau eine Rand-Breite unter der Oberkante. So zielt der
+   Ankersprung beim Umschalten auf die Stelle, an der die Seite schon steht,
+   und nichts ruckelt. */
+.tools .panel{scroll-margin-top:var(--gap)}
 .panel:target{display:flex}
 /* .start ist der Zustand beim Laden. :not(:target) verhindert, dass es sich
    selbst ausblendet, wenn genau dieses Panel angewaehlt wird. */
@@ -339,41 +343,46 @@ footer{
    Tools
    ============================================================ */
 
-/* Der Pfeil blendet den Textblock aus. Absichtlich ohne Wiederaufklappen:
-   zurueck kommt er durch Neuladen oder durch erneutes Anwaehlen des Tools. */
-.dismiss{
-  font:inherit;font-size:20px;line-height:24px;
-  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
-  padding:8px 14px;cursor:pointer;
+/* Info-Block unter dem Tool. .gone laesst ihn nach unten wegrutschen; das
+   Tool-Fenster darueber waechst in den frei werdenden Platz. */
+.banner{overflow:hidden;max-height:480px;transition:max-height .7s ease,opacity .5s ease,transform .7s ease}
+.banner.gone{max-height:0;opacity:0;transform:translateY(24px)}
+@media (prefers-reduced-motion:reduce){ .banner{transition:none} }
+
+/* MOSH_UNIT: Video links, Effekt-Knoepfe rechts daneben untereinander. */
+.moshStage{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:var(--gap);align-items:start}
+.moshStage .effects{flex-direction:column;align-items:stretch;margin-top:0}
+.moshStage .effects button{text-align:left}
+@media (max-width:767px){
+  .moshStage{grid-template-columns:1fr}
+  .moshStage .effects{flex-direction:row}
 }
-.dismiss:hover,.dismiss:focus-visible{background:var(--ink);color:var(--paper)}
 
-/* Desktop: alles auf einen Schirm, der Demo-Kasten nimmt die Resthoehe. */
+/* Desktop: Taskbar und Tool-Fenster fuellen genau den Bildschirm. Der Footer
+   liegt darunter, man erreicht ihn nur durch Scrollen, damit er dem Tool
+   keinen Platz wegnimmt. */
 @media (min-width:1024px){
-  html:has(.tools),html:has(.tools) body,html:has(.tools) #root{height:100%}
-  html:has(.tools) body{overflow:hidden}
-  .tools{height:100%;display:flex;flex-direction:column}
-
-  .tools .layout{flex:1;min-height:0;align-items:stretch}
-  .tools .win{max-height:100%}
+  .tools .layout{height:calc(100dvh - var(--gap) * 2);align-items:stretch}
+  .tools .win{max-height:100%;min-height:0}
   .tools .taskbar{overflow:auto}
 
   .tools .viewer{min-height:0;display:flex;flex-direction:column}
   .tools .panel{flex:1;min-height:0}
   .tools .panel .winbody{min-height:0;overflow:auto}
 
-  .tools .demo{flex:1;min-height:120px;aspect-ratio:auto}
   .tools .frame{flex:1;min-height:120px;aspect-ratio:auto}
+  /* Video etwas kleiner: hoechstens gut die Haelfte der Bildschirmhoehe. */
+  .tools .moshStage .demo{max-height:55dvh}
 
   /* Halbiert die Hoehe der Feature-Liste. */
   .tools .feat{columns:2;column-gap:var(--gap)}
   .tools .feat li{break-inside:avoid}
 
   /* Enger, damit der Text in die Resthoehe passt. */
-  .tools .meta,.tools .desc,.tools .price,.tools .feat,.tools .effects{margin-top:calc(var(--line) / 2)}
+  .tools .meta,.tools .desc,.tools .price,.tools .feat{margin-top:calc(var(--line) / 2)}
   .tools .actions{margin-top:var(--line);margin-bottom:var(--line)}
 
-  .tools footer{flex:none}
+  .tools footer{margin-top:calc(var(--line) * 2)}
 }
 
 

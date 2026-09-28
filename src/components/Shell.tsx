@@ -81,6 +81,8 @@ export function keepScroll(e: MouseEvent) {
   const y = window.scrollY
   location.hash = link.getAttribute('href') as string
   window.scrollTo(0, y)
+  // Manche Browser springen erst nach dem naechsten Frame zum Anker.
+  requestAnimationFrame(() => window.scrollTo(0, y))
 }
 
 function Group({ group, here }: { group: NavGroup; here: string }) {
