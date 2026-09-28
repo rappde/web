@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+import { useEffect, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
@@ -24,10 +24,14 @@ function surprise(e: MouseEvent, works: HomeWork[]) {
   location.hash = works[Math.floor(Math.random() * works.length)].id
 }
 
-function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: HomeContent }) {
+function WorkPanel({ work, start, c, n }: { work: HomeWork; start: boolean; c: HomeContent; n: number }) {
   const cls = ['win', 'panel', start && 'start', work.gallery && 'wide'].filter(Boolean).join(' ')
   return (
     <article className={cls} id={work.id}>
+      {/* Nur am Handy sichtbar: Position in der Wisch-Galerie. */}
+      <p className="count" aria-hidden="true">
+        {n} / {c.works.length}
+      </p>
       <div className="winbody">
         <div className="workRow">
           <div className="workText">
@@ -73,6 +77,15 @@ function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: Home
 
 export default function Home({ lang = 'en' }: { lang?: Lang }) {
   const c = home[lang]
+
+  /* Am Handy sind die Werke eine Wisch-Galerie. Kommt jemand ueber einen
+     geteilten Link wie /#gefuehle, springt die Galerie zu diesem Werk. */
+  useEffect(() => {
+    if (!location.hash || !matchMedia('(max-width: 767px)').matches) return
+    const card = document.getElementById(location.hash.slice(1))
+    const viewer = card?.parentElement
+    if (card && viewer) viewer.scrollLeft = card.offsetLeft - viewer.offsetLeft
+  }, [])
 
   return (
     <div className="home">
@@ -132,7 +145,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
 
         <div className="viewer" id="viewer">
           {c.works.map((w, i) => (
-            <WorkPanel work={w} start={i === 0} c={c} key={w.id} />
+            <WorkPanel work={w} start={i === 0} c={c} n={i + 1} key={w.id} />
           ))}
         </div>
       </div>
