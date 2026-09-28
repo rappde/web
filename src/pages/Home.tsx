@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
 import { home, type HomeContent, type HomeWork, type HomePara } from '@/content/home'
-import { MoreMenu, SiteFooter, keepScroll } from '@/components/Shell'
+import { SiteFooter, keepScroll } from '@/components/Shell'
 
 /* Startseite, EN unter "/" und DE unter "/de". Inhalte in content/home.ts. */
 
@@ -28,11 +28,12 @@ function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: Home
   const cls = ['win', 'panel', start && 'start', work.gallery && 'wide'].filter(Boolean).join(' ')
   return (
     <article className={cls} id={work.id}>
-      <h3 className="vh">{work.heading}</h3>
       <div className="winbody">
         <div className="workRow">
           <div className="workText">
-            <p className="meta">{work.meta}</p>
+            <h3 className="workTitle">
+              {work.title}, {work.year}
+            </h3>
             {work.desc.map((d, i) => (
               <p className="desc" key={i}>
                 <Para p={d} />
@@ -72,7 +73,6 @@ function WorkPanel({ work, start, c }: { work: HomeWork; start: boolean; c: Home
 
 export default function Home({ lang = 'en' }: { lang?: Lang }) {
   const c = home[lang]
-  const de = lang === 'de'
 
   return (
     <div className="home">
@@ -81,6 +81,8 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
         {c.skip}
       </a>
 
+      {/* Links Text und Profil-Links, rechts der QR-Code. Er ist genau so hoch
+          wie beides zusammen: Oberkante am Text, Unterkante an den Links. */}
       <div className="intro">
         <h1>Demien Rapp</h1>
 
@@ -88,6 +90,15 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
           {c.intro.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
+
+          <nav aria-label={c.profilesLabel}>
+            <ul className="socials">
+              <li><a href="https://github.com/rappde" target="_blank" rel="me noopener">GitHub</a></li>
+              <li><a href="https://www.youtube.com/@demienrapp" target="_blank" rel="me noopener">YouTube</a></li>
+              <li><a href="https://www.linkedin.com/in/demien-rapp-983b8a1ab/" target="_blank" rel="me noopener">LinkedIn</a></li>
+              <li><a href="https://www.instagram.com/rappde_" target="_blank" rel="me noopener">Instagram</a></li>
+            </ul>
+          </nav>
         </div>
 
         <div className="qrCell">
@@ -96,15 +107,6 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
           </a>
         </div>
       </div>
-
-      <nav aria-label={c.profilesLabel}>
-        <ul className="socials">
-          <li><a href="https://github.com/rappde" target="_blank" rel="me noopener">GitHub</a></li>
-          <li><a href="https://www.youtube.com/@demienrapp" target="_blank" rel="me noopener">YouTube</a></li>
-          <li><a href="https://www.linkedin.com/in/demien-rapp-983b8a1ab/" target="_blank" rel="me noopener">LinkedIn</a></li>
-          <li><a href="https://www.instagram.com/rappde_" target="_blank" rel="me noopener">Instagram</a></li>
-        </ul>
-      </nav>
 
       <div className="layout">
         <nav className="win taskbar" aria-label={c.worksLabel} onClick={keepScroll}>
@@ -118,14 +120,9 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
               ))}
             </ul>
 
-            <div className="foot">
-              <ul>
-                <li><Link to="/tools">Tools</Link></li>
-                <li><Link to={de ? '/de/mosh_unit' : '/mosh_unit'}>MOSH_UNIT</Link></li>
-                <li><Link to={de ? '/de/about' : '/about'}>{c.about}</Link></li>
-              </ul>
-              <MoreMenu />
-            </div>
+            <ul className="foot">
+              <li><Link to="/tools">Tools</Link></li>
+            </ul>
           </div>
         </nav>
 
@@ -136,7 +133,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
         </div>
       </div>
 
-      <SiteFooter>
+      <SiteFooter lang={lang}>
         <a id="surprise" href="#mine" onClick={(e) => surprise(e, c.works)}>
           {c.surprise}
         </a>

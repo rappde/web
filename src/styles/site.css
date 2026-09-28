@@ -232,9 +232,11 @@ footer{
    mit top:0 und bottom:0, dadurch ist die Kantenlaenge zwangslaeufig die
    Hoehe des Textblocks. aspect-ratio leitet die Breite daraus ab. */
 .qrCell{align-self:stretch;position:relative}
+/* bottom:10px: die Profil-Links haben 10px Touch-Polsterung unter der
+   Schrift, so endet der QR auf Hoehe ihres Unterstrichs. */
 .qr{
   position:absolute;
-  top:0;bottom:0;left:50%;
+  top:0;bottom:10px;left:50%;
   transform:translateX(-50%);
   aspect-ratio:1;
   display:block;overflow:hidden;
@@ -267,6 +269,9 @@ footer{
 /* Der Textblock sitzt mittig neben dem Bild. */
 .workText{align-self:center}
 .workText > :first-child{margin-top:0}
+/* Titel und Jahr des Werks, direkt ueber dem Text. */
+.workTitle{font-size:32px;line-height:calc(var(--line) * 1.5);font-weight:400;margin:0 0 calc(var(--line) / 2)}
+.workTitle + .desc{margin-top:0}
 .workText .desc + .desc{margin-top:calc(var(--line) / 2)}
 
 /* Tools steht unten in der Taskbar, aber in derselben Schriftgroesse wie die
@@ -473,20 +478,3 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
   .productHero h1{font-size:40px;line-height:calc(var(--line) * 2)}
   .productDemo{margin-top:var(--line)}
 }
-
-
-/* ============================================================
-   "More" in der Taskbar: Dropdown ohne JavaScript (details/summary).
-   Sieht aus wie ein normaler Taskbar-Eintrag, der Pfeil dreht sich.
-   ============================================================ */
-.more{margin:0 0 var(--line)}
-.more summary{
-  display:flex;justify-content:space-between;
-  padding:6px 8px;margin:0 -8px;cursor:pointer;list-style:none;
-}
-.more summary::-webkit-details-marker{display:none}
-.more summary::after{content:"▾"}
-.more[open] summary::after{content:"▴"}
-.more summary:hover,.more summary:focus-visible{background:var(--ink);color:var(--paper)}
-.taskbar .more ul{margin:0 0 0 12px;padding-left:8px;border-left:3px solid var(--ink)}
-.foot .more{margin-bottom:0}

@@ -48,8 +48,8 @@ jobs:
       - name: SPA fallback for unknown routes
         run: sed 's|<head>|<head><meta name="robots" content="noindex">|' dist/index.html > dist/404.html
 
-      # vite-react-ssg emits flat files (about.html), which GitHub Pages serves at
-      # /about. The trailing-slash form /about/ looks for about/index.html, finds
+      # vite-react-ssg emits flat files (tools.html), which GitHub Pages serves at
+      # /tools. The trailing-slash form /tools/ looks for tools/index.html, finds
       # nothing and returns 404 -- so every shared link with a trailing slash dies
       # and Google logs it as "Not found (404)". Mirror each page into its own
       # directory so both forms answer 200.
@@ -70,7 +70,7 @@ jobs:
             mkdir -p "$d"
             cp "$f" "$d/index.html"
           done < /tmp/pages.txt
-          test -f about/index.html && test -f de/index.html && test -f works/mine/index.html
+          test -f tools/index.html && test -f de/index.html && test -f works/mine/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

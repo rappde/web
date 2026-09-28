@@ -16,10 +16,11 @@ export interface HomePara {
 
 export interface HomeWork {
   id: string
+  /** Eintrag in der Taskbar */
   label: string
-  /** unsichtbare Ueberschrift fuer Screenreader, "Titel, Jahr" */
-  heading: string
-  meta: string
+  /** sichtbare Ueberschrift im Panel: "Titel, Jahr" */
+  title: string
+  year: string
   desc: HomePara[]
   /** Bild rechts neben dem Text (3:2, formatfuellend) */
   image?: { src: string; alt: string }
@@ -43,7 +44,6 @@ export interface HomeContent {
   profilesLabel: string
   worksLabel: string
   fullPage: string
-  about: string
   surprise: string
   works: HomeWork[]
 }
@@ -66,19 +66,17 @@ export const home: Record<Lang, HomeContent> = {
     profilesLabel: 'Profiles elsewhere',
     worksLabel: 'Works',
     fullPage: 'Full project page →',
-    about: 'About',
     surprise: '▓▒░ Surprise ░▒▓',
     works: [
       {
         id: 'mine',
         label: 'mine',
-        heading: 'mine, 2026',
-        meta: 'Interactive installation · Klann-linkage robot, ultrasonic sensors, ESP · Lernort Studio Düsseldorf',
+        title: 'mine',
+        year: '2026',
         desc: [
-          P('The 19th Gestaltungswettbewerb, on the theme “between form and residual form”, at Lernort Studio Düsseldorf. mine is an interactive installation that only moves when it is watched. Step closer and it runs faster, straining to function as expected.'),
-          P('Everything is self-built: a walking robot on a Klann linkage, its parts 3D-printed and then finished and lacquered by hand into a deliberate metallic look. It stands on a table I built for the show, with ultrasonic sensors set into the surface and wired to an ESP; the closer a visitor comes, the harder it works.'),
-          P('A power cable binds it to the socket. The socket holds it captive; tearing loose would carry it over the edge of the table. So it keeps going, in the place and the role it was assigned, unable to escape the attempt. Between the form and what would be left of breaking free, mine stays put. What happens when you try to escape?'),
-          P('It won both the Audience Award and the Jury Award.'),
+          P('I built a robot that reacts to how close its visitors are: the closer someone steps up to it, the faster it starts to walk.'),
+          P('The twist: it cannot move freely through the room. It is chained to a power socket.'),
+          P('It won both the Audience Award and the Jury Award at the 19th Gestaltungswettbewerb at Lernort Studio Düsseldorf.'),
         ],
         image: {
           src: '/images/mine.jpg',
@@ -88,24 +86,24 @@ export const home: Record<Lang, HomeContent> = {
       },
       {
         id: 'gefuehle',
-        label: 'Gefühle',
-        heading: 'Gefühle, 2025',
-        meta: 'Video installation · 3 CRT TVs, analogue video mixer · “Wir sehen Rot”, Kollektiv Dings, Düsseldorf',
+        label: 'gefühle',
+        title: 'gefühle',
+        year: '2025',
         desc: [
-          P('Three stacked CRT TVs run through an analogue video mixer. Visitors turn potentiometers to mix a self-portrait into heavily distorted edits of nature and city, a “dirty mix” of my world. Shown in the group exhibition “Wir sehen Rot” by the collective Dings.'),
-          P('It won the Audience Award at the 18th Gestaltungswettbewerb (“Transparenz”) at Lernort Studio Düsseldorf in 2025.'),
+          P('Three stacked CRT TVs run through an analogue video mixer. Visitors turn potentiometers to mix a self-portrait into heavily distorted edits of nature and city, a “dirty mix” of my world.'),
+          P('It won the Audience Award at the 18th Gestaltungswettbewerb at Lernort Studio Düsseldorf.'),
         ],
         image: {
           src: '/images/gefuehle.jpg',
-          alt: '“Gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.',
+          alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.',
         },
         page: 'gefuehle',
       },
       {
         id: 'soundwalk',
         label: 'Soundwalk',
-        heading: 'Soundwalk, 2026',
-        meta: 'Two sound works · Sound, algorithmic processing · Werk:Klub, K21 Düsseldorf',
+        title: 'Soundwalk',
+        year: '2026',
         desc: [
           P('Two sound works built from childhood and 18th-birthday recordings, processed with self-built algorithmic tools that layer and deform the sound. Memory as something that reshapes with every playback. Made in the Werk:Klub at K21 Düsseldorf.'),
           { lead: 'Nr. 5 · 5 min', break: true, text: 'Memory does not produce a past. It produces you. Chaotic. Unclear. Foggy.' },
@@ -120,8 +118,8 @@ export const home: Record<Lang, HomeContent> = {
       {
         id: 'ein-viertel',
         label: '1/4',
-        heading: '1/4, 2025',
-        meta: 'Digital AI collage · Banner 5 × 12 m, part of BE A TRANSFORMER! · K21 Düsseldorf',
+        title: '1/4',
+        year: '2025',
         desc: [
           P('BE A TRANSFORMER! is a collaborative 5 × 12 m banner shown at K21. 1/4 is my part of it: 100 socially and politically significant events of this century, generated as AI images and composed into a single picture.'),
         ],
@@ -137,19 +135,20 @@ export const home: Record<Lang, HomeContent> = {
       },
       {
         id: 'uncut-2025',
-        label: '2491 · Last Slice',
-        heading: '2491 · Last Slice, 2025',
-        meta: 'Director (2491) · Camera and technical lead (Last Slice) · Uncut Award, Filmwerkstatt Düsseldorf',
+        label: '2491',
+        title: '2491',
+        year: '2025',
         desc: [
-          P('My own entry “2491” takes a critical look at surveillance. On “Last Slice” I was cameraman and technical lead, and that film won the Audience Award.'),
+          P('I made the short film 2491 and submitted it to the Uncut Award 2025 at the Filmwerkstatt Düsseldorf. A project against surveillance.'),
+          { lead: 'Also in 2025:', text: 'I was the cameraman on the film project Last Slice, which went on to win the Audience Award.' },
         ],
-        image: { src: '/images/uncut-2025.jpg', alt: 'Still from “2491” / “Last Slice”, shown at the Uncut Award.' },
+        image: { src: '/images/uncut-2025.jpg', alt: 'Still from the short film 2491, shown at the Uncut Award.' },
       },
       {
         id: 'soiree-de-brioche',
         label: 'Soirée de Brioche',
-        heading: 'Soirée de Brioche, 2024',
-        meta: 'DOP · Camera · Stills · Co-direction · Premiere at Metropol Kino Düsseldorf',
+        title: 'Soirée de Brioche',
+        year: '2024',
         desc: [
           P('A drama about twins raised apart, and my first large film. I was director of photography, camera, stills and part of the direction; it premiered at the Metropol Kino Düsseldorf.'),
         ],
@@ -158,11 +157,11 @@ export const home: Record<Lang, HomeContent> = {
       {
         id: 'knisternder-bahnhof',
         label: 'Knisternder Bahnhof',
-        heading: 'Knisternder Bahnhof, 2024',
-        meta: 'Circuit bending · Photo series · Lernort Studio',
+        title: 'Knisternder Bahnhof',
+        year: '2024',
         desc: [
-          P('A cheap children’s camera taken apart and rebuilt through circuit bending, it renders glitched, noisy, intensely colourful images. I shot Düsseldorf’s main station with it, no post-processing.'),
-          { lead: 'Circuit bending:', text: 'deliberately short-circuiting and altering a device’s electronics to turn unpredictable malfunctions into an artistic effect.' },
+          P('I reinvented a cheap camera by circuit bending it, and shot a photo series with it in Düsseldorf.'),
+          { lead: 'Circuit bending:', text: 'deliberately short-circuiting and altering a device’s electronics until it malfunctions in unpredictable ways. That is where these glitched, noisy, intensely colourful images come from.' },
         ],
         gallery: [
           {
@@ -174,9 +173,9 @@ export const home: Record<Lang, HomeContent> = {
       },
       {
         id: 'uncut-2026',
-        label: 'Uncut Award 2026',
-        heading: 'Uncut Award 2026',
-        meta: 'Upcoming · Tech, presentation, social media, production · Filmwerkstatt Düsseldorf',
+        label: 'Uncut Award',
+        title: 'Uncut Award',
+        year: '2026',
         desc: [
           P('Co-organiser of the Uncut Award at the Filmwerkstatt Düsseldorf, technology, presentation, social media. Taking place 10 October 2026.'),
         ],
@@ -200,19 +199,17 @@ export const home: Record<Lang, HomeContent> = {
     profilesLabel: 'Profile',
     worksLabel: 'Arbeiten',
     fullPage: 'Zur Projektseite →',
-    about: 'Über mich',
     surprise: '▓▒░ Überraschung ░▒▓',
     works: [
       {
         id: 'mine',
         label: 'mine',
-        heading: 'mine, 2026',
-        meta: 'Interaktive Installation · Klann-Mechanismus-Roboter, Ultraschallsensoren, ESP · Lernort Studio Düsseldorf',
+        title: 'mine',
+        year: '2026',
         desc: [
-          P('Der 19. Gestaltungswettbewerb zum Thema „zwischen Form und Restform“ im Lernort Studio Düsseldorf. mine ist eine interaktive Installation, die sich nur bewegt, wenn sie beobachtet wird. Tritt jemand näher, läuft sie schneller und strengt sich an, wie erwartet zu funktionieren.'),
-          P('Alles selbst gebaut: ein Laufroboter auf einem Klann-Mechanismus, die Teile 3D-gedruckt und anschließend von Hand nachbearbeitet und lackiert, bis sie bewusst wie Metall wirken. Er steht auf einem Tisch, den ich für die Ausstellung gebaut habe, mit Ultraschallsensoren in der Oberfläche, verbunden mit einem ESP; je näher ein Besucher kommt, desto mehr strengt er sich an.'),
-          P('Ein Kabel bindet sie an die Steckdose. Die Steckdose hält sie gefangen; sich loszureißen würde sie über die Tischkante tragen. Also läuft sie weiter, an der Stelle und in der Rolle, die ihr zugewiesen wurde, und kommt aus dem Versuch nicht heraus. Genau dort, zwischen der Form und dem, was vom Loslösen übrig bliebe, hält mine sich auf. Was passiert, wenn man versucht zu entkommen?'),
-          P('Ausgezeichnet mit dem Publikumspreis und dem Jurypreis.'),
+          P('Ich habe einen Roboter gebaut, der auf die Nähe der Besucher reagiert: Je näher jemand an ihn herantritt, desto schneller fängt er an zu laufen.'),
+          P('Das Besondere: Er kann sich nicht frei im Raum bewegen. Er ist an eine Steckdose gekettet.'),
+          P('Ausgezeichnet mit dem Publikumspreis und dem Jurypreis beim 19. Gestaltungswettbewerb im Lernort Studio Düsseldorf.'),
         ],
         image: {
           src: '/images/mine.jpg',
@@ -222,24 +219,24 @@ export const home: Record<Lang, HomeContent> = {
       },
       {
         id: 'gefuehle',
-        label: 'Gefühle',
-        heading: 'Gefühle, 2025',
-        meta: 'Videoinstallation · 3 Röhrenfernseher, analoger Video-Mixer · „Wir sehen Rot“, Kollektiv Dings, Düsseldorf',
+        label: 'gefühle',
+        title: 'gefühle',
+        year: '2025',
         desc: [
-          P('Drei gestapelte Röhrenfernseher laufen über einen analogen Video-Mixer. Besucher mixen per Potentiometer ein Selbstporträt in stark verzerrte Edits aus Natur und Stadt, ein „dirty mix“ meiner Welt. Gezeigt in der Gruppenausstellung „Wir sehen Rot“ des Kollektivs Dings.'),
-          P('Ausgezeichnet mit dem Publikumspreis beim 18. Gestaltungswettbewerb („Transparenz“) im Lernort Studio Düsseldorf 2025.'),
+          P('Drei gestapelte Röhrenfernseher laufen über einen analogen Video-Mixer. Besucher mixen per Potentiometer ein Selbstporträt in stark verzerrte Edits aus Natur und Stadt, ein „dirty mix“ meiner Welt.'),
+          P('Ausgezeichnet mit dem Publikumspreis beim 18. Gestaltungswettbewerb im Lernort Studio Düsseldorf.'),
         ],
         image: {
           src: '/images/gefuehle.jpg',
-          alt: '„Gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.',
+          alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.',
         },
         page: 'gefuehle',
       },
       {
         id: 'soundwalk',
         label: 'Soundwalk',
-        heading: 'Soundwalk, 2026',
-        meta: 'Zwei Soundarbeiten · Sound, algorithmische Verarbeitung · Werk:Klub, K21 Düsseldorf',
+        title: 'Soundwalk',
+        year: '2026',
         desc: [
           P('Zwei Soundarbeiten aus Aufnahmen von Kindheit und 18. Geburtstag, verarbeitet mit selbst gebauten algorithmischen Tools, die den Ton schichten und verformen. Erinnerung als etwas, das sich mit jeder Wiedergabe neu formt. Entstanden im Werk:Klub im K21 Düsseldorf.'),
           { lead: 'Nr. 5 · 5 min', break: true, text: 'Erinnerung erzeugt keine Vergangenheit. Sie erzeugt dich. Chaotisch. Unklar. Nebelig.' },
@@ -254,8 +251,8 @@ export const home: Record<Lang, HomeContent> = {
       {
         id: 'ein-viertel',
         label: '1/4',
-        heading: '1/4, 2025',
-        meta: 'Digitale KI-Collage · Banner 5 × 12 m, Teil von BE A TRANSFORMER! · K21 Düsseldorf',
+        title: '1/4',
+        year: '2025',
         desc: [
           P('BE A TRANSFORMER! ist ein gemeinschaftliches 5 × 12 m großes Banner im K21. 1/4 ist mein Teil davon: 100 gesellschaftlich und politisch relevante Ereignisse dieses Jahrhunderts, als KI-Bilder generiert und zu einem Bild zusammengesetzt.'),
         ],
@@ -271,19 +268,20 @@ export const home: Record<Lang, HomeContent> = {
       },
       {
         id: 'uncut-2025',
-        label: '2491 · Last Slice',
-        heading: '2491 · Last Slice, 2025',
-        meta: 'Regie (2491) · Kamera und Technik (Last Slice) · Uncut Award, Filmwerkstatt Düsseldorf',
+        label: '2491',
+        title: '2491',
+        year: '2025',
         desc: [
-          P('Mein eigener Beitrag „2491“ wirft einen kritischen Blick auf Überwachung. Bei „Last Slice“ war ich Kameramann und Techniker, dieser Film gewann den Publikumspreis.'),
+          P('Ich habe den Kurzfilm 2491 gemacht und beim Uncut Award 2025 in der Filmwerkstatt Düsseldorf eingereicht. Ein Projekt gegen Überwachung.'),
+          { lead: 'Außerdem 2025:', text: 'Beim Filmprojekt Last Slice war ich Kameramann, der Film hat den Publikumspreis gewonnen.' },
         ],
-        image: { src: '/images/uncut-2025.jpg', alt: 'Standbild aus „2491“ / „Last Slice“, gezeigt beim Uncut Award.' },
+        image: { src: '/images/uncut-2025.jpg', alt: 'Standbild aus dem Kurzfilm 2491, gezeigt beim Uncut Award.' },
       },
       {
         id: 'soiree-de-brioche',
         label: 'Soirée de Brioche',
-        heading: 'Soirée de Brioche, 2024',
-        meta: 'DOP · Kamera · Foto · Co-Regie · Premiere im Metropol Kino Düsseldorf',
+        title: 'Soirée de Brioche',
+        year: '2024',
         desc: [
           P('Ein Drama über ein getrennt aufgewachsenes Zwillingspaar und mein erster großer Film. Ich war Director of Photography, Kamera, Foto und teils Regie; Premiere im Metropol Kino Düsseldorf.'),
         ],
@@ -292,11 +290,11 @@ export const home: Record<Lang, HomeContent> = {
       {
         id: 'knisternder-bahnhof',
         label: 'Knisternder Bahnhof',
-        heading: 'Knisternder Bahnhof, 2024',
-        meta: 'Circuit Bending · Fotoserie · Lernort Studio',
+        title: 'Knisternder Bahnhof',
+        year: '2024',
         desc: [
-          P('Eine billige Kinder-Kamera, auseinandergebaut und per Circuit Bending umgebaut, sie erzeugt glitchende, verrauschte, sehr bunte Bilder. Damit habe ich den Düsseldorfer Hauptbahnhof fotografiert, ohne Nachbearbeitung.'),
-          { lead: 'Circuit Bending:', text: 'das gezielte Kurzschließen und Verändern der Elektronik eines Geräts, um unvorhersehbare Fehlfunktionen als künstlerischen Effekt zu nutzen.' },
+          P('Ich habe eine billige Kamera neu erfunden, indem ich sie per Circuit Bending umgebaut habe, und damit eine Fotoserie in Düsseldorf gemacht.'),
+          { lead: 'Circuit Bending:', text: 'das gezielte Kurzschließen und Verändern der Elektronik eines Geräts, bis es unvorhersehbar fehlerhaft arbeitet. Daher kommen diese glitchenden, verrauschten, sehr bunten Bilder.' },
         ],
         gallery: [
           {
@@ -308,9 +306,9 @@ export const home: Record<Lang, HomeContent> = {
       },
       {
         id: 'uncut-2026',
-        label: 'Uncut Award 2026',
-        heading: 'Uncut Award 2026',
-        meta: 'Kommend · Technik, Darstellung, Social Media, Produktion · Filmwerkstatt Düsseldorf',
+        label: 'Uncut Award',
+        title: 'Uncut Award',
+        year: '2026',
         desc: [
           P('Mitorganisator des Uncut Award an der Filmwerkstatt Düsseldorf, Technik, Darstellung, Social Media. Findet am 10. Oktober 2026 statt.'),
         ],

@@ -4,7 +4,6 @@ import { RouteErrorBoundary } from './components/RouteErrorBoundary'
 import Home from './pages/Home'
 import WorkPage from './pages/WorkPage'
 import MoshUnit from './pages/MoshUnit'
-import About from './pages/About'
 import Datamoshing from './pages/Datamoshing'
 import HowToDatamosh from './pages/HowToDatamosh'
 import DatamoshingTools from './pages/DatamoshingTools'
@@ -46,8 +45,6 @@ export const routes: RouteRecord[] = [
       ...workRoutes,
       { path: '/mosh_unit', element: <MoshUnit lang="en" />, entry: 'src/pages/MoshUnit.tsx' },
       { path: '/de/mosh_unit', element: <MoshUnit lang="de" />, entry: 'src/pages/MoshUnit.tsx' },
-      { path: '/about', element: <About lang="en" />, entry: 'src/pages/About.tsx' },
-      { path: '/de/about', element: <About lang="de" />, entry: 'src/pages/About.tsx' },
       // Datamoshing content hub (English only — targets an English audience; no /de twins).
       { path: '/datamoshing', element: <Datamoshing />, entry: 'src/pages/Datamoshing.tsx' },
       { path: '/how-to-datamosh', element: <HowToDatamosh />, entry: 'src/pages/HowToDatamosh.tsx' },

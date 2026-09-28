@@ -167,7 +167,7 @@ export default function MoshUnit({ lang }: { lang: Lang }) {
         ) : null}
       </main>
 
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </div>
   )
 }

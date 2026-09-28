@@ -4,10 +4,6 @@
 
 Contact: demien.rp@gmail.com. Open to commissions, exhibitions and collaborations. Next: Uncut Award, Filmwerkstatt Düsseldorf, 10 October 2026 (co-organiser).
 
-## About
-
-- [About](https://rappde.com/about): Background, education, focus areas and languages, in short form.
-
 ## Works
 
 - [mine (2026)](https://rappde.com/works/mine): Interactive installation at Lernort Studio Düsseldorf. A Klann-linkage walking robot, 3D-printed and hand-lacquered, on a self-built table with ultrasonic sensors wired to an ESP. It only moves when watched; the closer you come, the harder it strains. Won the Audience Award and the Jury Award.

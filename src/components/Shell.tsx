@@ -10,8 +10,8 @@ export interface NavGroup {
 }
 
 const LABELS = {
-  en: { site: 'Site', works: 'Works', about: 'About', skip: 'Skip to content', legal: 'Legal' },
-  de: { site: 'Seite', works: 'Arbeiten', about: 'Über mich', skip: 'Zum Inhalt', legal: 'Rechtliches' },
+  en: { site: 'Site', works: 'Works', skip: 'Skip to content' },
+  de: { site: 'Seite', works: 'Arbeiten', skip: 'Zum Inhalt' },
 } as const
 
 function baseGroups(lang: Lang): NavGroup[] {
@@ -21,15 +21,14 @@ function baseGroups(lang: Lang): NavGroup[] {
       kind: l.site,
       links: [
         { href: lang === 'de' ? '/de' : '/', label: l.works },
-        { href: lang === 'de' ? '/de/about' : '/about', label: l.about },
         { href: '/tools', label: 'Tools' },
-        { href: lang === 'de' ? '/de/mosh_unit' : '/mosh_unit', label: 'MOSH_UNIT' },
       ],
     },
   ]
 }
 
-/* Die Artikel rund ums Datamoshing, gesammelt unter "More". */
+/* MOSH_UNIT und die Artikel rund ums Datamoshing stehen im Footer. In der
+   Taskbar wuerden sie die Tools-Seite doppeln, die MOSH_UNIT schon zeigt. */
 const MORE = [
   { href: '/datamoshing', label: 'What is datamoshing?' },
   { href: '/how-to-datamosh', label: 'How to datamosh' },
@@ -101,32 +100,22 @@ function Group({ group, here }: { group: NavGroup; here: string }) {
   )
 }
 
-/** "More" als Dropdown in der Taskbar. Offen, wenn man gerade auf einem der
-    Artikel ist; sonst zu, ein Klick klappt es auf. */
-export function MoreMenu({ here = '' }: { here?: string }) {
-  return (
-    <details className="more" open={MORE.some((m) => m.href === here)}>
-      <summary>More</summary>
-      <ul>
-        {MORE.map((m) => (
-          <li key={m.href}>
-            <SmartLink href={m.href} current={m.href === here}>
-              {m.label}
-            </SmartLink>
-          </li>
-        ))}
-      </ul>
-    </details>
-  )
-}
-
 /** Fusszeile, auf jeder Seite gleich. children landen rechts daneben. */
-export function SiteFooter({ children }: { children?: ReactNode }) {
+export function SiteFooter({ lang = 'en', children }: { lang?: Lang; children?: ReactNode }) {
+  const links = [{ href: lang === 'de' ? '/de/mosh_unit' : '/mosh_unit', label: 'MOSH_UNIT' }, ...MORE]
   return (
     <footer>
       <p>
         <strong>Demien Rapp</strong> · <a href="mailto:demien.rp@gmail.com">demien.rp@gmail.com</a> ·{' '}
         <Link to="/impressum">Impressum</Link> · <Link to="/datenschutz">Datenschutzerklärung</Link>
+      </p>
+      <p>
+        {links.map((m, i) => (
+          <span key={m.href}>
+            {i > 0 && ' · '}
+            <Link to={m.href}>{m.label}</Link>
+          </span>
+        ))}
       </p>
       {children}
     </footer>
@@ -170,7 +159,6 @@ export function Shell({
               <Group group={g} here={here} key={g.kind} />
             ))}
 
-            <MoreMenu here={here} />
 
             {groups.map((g) => (
               <Group group={g} here={here} key={g.kind} />
@@ -185,7 +173,7 @@ export function Shell({
         </main>
       </div>
 
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </div>
   )
 }
