@@ -1,6 +1,6 @@
 import { Head } from 'vite-react-ssg'
-import { Link } from 'react-router-dom'
 import type { LegalDoc } from '@/content/legal'
+import { Shell } from './Shell'
 
 /** Shared layout for the German legal pages (Impressum, Datenschutz). */
 export function LegalLayout({ doc, metaTitle }: { doc: LegalDoc; metaTitle: string }) {
@@ -12,23 +12,31 @@ export function LegalLayout({ doc, metaTitle }: { doc: LegalDoc; metaTitle: stri
         <meta name="robots" content="noindex, follow" />
       </Head>
 
-      <main id="main" className="legal container">
-        <Link className="legal__back" to={doc.backHref}>
-          ← {doc.backLabel}
-        </Link>
-
-        <h1 className="legal__title">{doc.title}</h1>
-        <p className="legal__updated">{doc.updated}</p>
+      <Shell
+        lang="de"
+        title="Rechtliches"
+        groups={[
+          {
+            kind: 'Rechtliches',
+            links: [
+              { href: '/impressum', label: 'Impressum' },
+              { href: '/datenschutz', label: 'Datenschutz' },
+            ],
+          },
+        ]}
+      >
+        <h1>{doc.title}</h1>
+        <p className="meta">{doc.updated}</p>
 
         {doc.blocks.map((block, i) => (
-          <section className="legal__block" key={i}>
+          <section key={i}>
             {block.heading && <h2>{block.heading}</h2>}
-            {block.pre && <pre className="legal__pre">{block.pre}</pre>}
+            {block.pre && <pre>{block.pre}</pre>}
             {block.paragraphs?.map((para, j) => (
               <p key={j}>{para}</p>
             ))}
             {block.list && (
-              <ul className="legal__list">
+              <ul>
                 {block.list.map((item, j) => (
                   <li key={j}>{item}</li>
                 ))}
@@ -36,7 +44,7 @@ export function LegalLayout({ doc, metaTitle }: { doc: LegalDoc; metaTitle: stri
             )}
           </section>
         ))}
-      </main>
+      </Shell>
     </>
   )
 }

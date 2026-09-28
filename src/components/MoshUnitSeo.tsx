@@ -18,7 +18,8 @@ const APP_ID = `${SITE_URL}/mosh_unit#software`
 const MEDIA_DATE = '2026-07-12'
 const abs = (path: string) => `${SITE_URL}${path}`
 
-/** Head for the MOSH_UNIT product page: SoftwareApplication + FAQPage JSON-LD,
+/** Head for the MOSH_UNIT product page: SoftwareApplication JSON-LD (the FAQ is
+    no longer on the page, so no FAQPage),
     plus a VideoObject per demo clip and an ImageObject per screenshot (so the
     media is machine-readable even though only the active demo tile renders a
     <video> in the static HTML), canonical + hreflang, OG/Twitter with the
@@ -101,16 +102,6 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
       }
     : null
 
-  const faqLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: content.faq.items.map((item) => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
-    })),
-  }
-
   return (
     <Head>
       <html lang={content.htmlLang} />
@@ -138,7 +129,6 @@ export function MoshUnitSeo({ content }: { content: MoshUnitContent }) {
       <meta name="twitter:image" content={OG_IMAGE} />
 
       <script type="application/ld+json">{JSON.stringify(appLd)}</script>
-      <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
       {tutorialVideoLd && (
         <script type="application/ld+json">{JSON.stringify(tutorialVideoLd)}</script>
       )}

@@ -1,12 +1,12 @@
 {
   "name": "Demien Rapp",
   "short_name": "Demien Rapp",
-  "description": "Concept, design, technology and production — Demien Rapp, Düsseldorf.",
+  "description": "Demien Rapp, creative generalist and developer, Düsseldorf. Robots, installations, browser tools.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#F2F0EB",
-  "theme_color": "#F2F0EB",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "lang": "en",
   "icons": [
     {

@@ -1,5 +1,5 @@
 import { Head } from 'vite-react-ssg'
-import type { Content } from '@/content/types'
+import type { HomeContent } from '@/content/home'
 
 export const SITE_URL = 'https://rappde.com'
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`
@@ -26,12 +26,15 @@ const SAME_AS = [
 ]
 
 /**
- * Per-language head: title, description, canonical, hreflang alternates,
- * Open Graph + Twitter cards, and JSON-LD Person (REDESIGN-BRIEF §9b).
+ * Head of the start page, EN at "/" and DE at "/de": title, description,
+ * canonical, hreflang pair (+ x-default), Open Graph + Twitter cards, and
+ * JSON-LD Person + WebSite (REDESIGN-BRIEF §9b). Both languages list
+ * themselves and each other, as Google requires for hreflang.
  * Rendered into the prehydrated HTML via react-helmet-async.
  */
-export function Seo({ content }: { content: Content }) {
-  const url = `${SITE_URL}${content.path === '/' ? '/' : content.path}`
+export function Seo({ c }: { c: HomeContent }) {
+  const url = `${SITE_URL}${c.path}`
+  const de = c.lang === 'de'
 
   const personLd = {
     '@context': 'https://schema.org',
@@ -39,8 +42,8 @@ export function Seo({ content }: { content: Content }) {
     '@id': PERSON_ID,
     name: PERSON_NAME,
     url: SITE_URL,
-    description: content.meta.description,
-    jobTitle: 'Concept, design, technology & production',
+    description: c.description,
+    jobTitle: de ? 'Künstler und Entwickler' : 'Creative generalist and developer',
     knowsLanguage: ['en', 'de'],
     knowsAbout: [
       'film',
@@ -72,9 +75,9 @@ export function Seo({ content }: { content: Content }) {
 
   return (
     <Head>
-      <html lang={content.htmlLang} />
-      <title>{content.meta.title}</title>
-      <meta name="description" content={content.meta.description} />
+      <html lang={c.lang} />
+      <title>{c.title}</title>
+      <meta name="description" content={c.description} />
       <link rel="canonical" href={url} />
 
       <link rel="alternate" hrefLang="en" href={`${SITE_URL}/`} />
@@ -83,17 +86,18 @@ export function Seo({ content }: { content: Content }) {
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Demien Rapp" />
-      <meta property="og:locale" content={content.lang === 'de' ? 'de_DE' : 'en_US'} />
-      <meta property="og:title" content={content.meta.ogTitle} />
-      <meta property="og:description" content={content.meta.ogDescription} />
+      <meta property="og:locale" content={de ? 'de_DE' : 'en_US'} />
+      <meta property="og:locale:alternate" content={de ? 'en_US' : 'de_DE'} />
+      <meta property="og:title" content={c.title} />
+      <meta property="og:description" content={c.description} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={OG_IMAGE} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={content.meta.ogTitle} />
-      <meta name="twitter:description" content={content.meta.ogDescription} />
+      <meta name="twitter:title" content={c.title} />
+      <meta name="twitter:description" content={c.description} />
       <meta name="twitter:image" content={OG_IMAGE} />
 
       <script type="application/ld+json">{JSON.stringify(personLd)}</script>

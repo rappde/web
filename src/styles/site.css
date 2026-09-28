@@ -1,0 +1,497 @@
+/* ============================================================
+   Ein Stylesheet fuer die ganze Seite. Uebernommen aus v2
+   (public/v2/site.css), jetzt fuer alle Routen.
+
+   Keine Kaesten. Nur zwei Linien tragen die Struktur:
+     1. senkrecht zwischen Taskbar und Inhalt
+     2. waagerecht unter jeder Ueberschrift
+   Startseite und Tools schalten per :target um, also ohne JavaScript,
+   und jede Auswahl hat eine eigene teilbare URL.
+   ============================================================ */
+:root{
+  --gap:24px;
+  --line:24px;
+  --ink:#000;
+  --paper:#fff;
+  --bar:240px;        /* Breite des linken Fensters */
+}
+@media (max-width:1023px){ :root{ --gap:18px; --bar:200px } }
+@media (max-width:767px){  :root{ --gap:12px } }
+
+*{box-sizing:border-box}
+
+@font-face{
+  font-family:"Endless";
+  src:url("/fonts/Endless.ttf") format("truetype");
+  font-display:swap;
+}
+
+html{background:var(--paper)}
+body{
+  margin:0;padding:var(--gap);
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Endless",Arial,Helvetica,sans-serif;
+  font-size:20px;line-height:var(--line);
+  -webkit-font-smoothing:none;
+  text-rendering:optimizeSpeed;
+}
+
+/* ---------- Typografie auf 24px-Baseline ---------- */
+h1,h2,h3,p,ul,ol,dl,dd,figure,blockquote{margin:0}
+h1{font-size:48px;line-height:calc(var(--line) * 2);font-weight:400}
+h2,h3{font-weight:400}
+p+p{margin-top:var(--line)}
+a{color:#00e}
+img,video{max-width:100%}
+@media (max-width:767px){ h1{font-size:32px;line-height:calc(var(--line) * 1.5)} }
+
+.skip{position:absolute;left:-9999px}
+.skip:focus{position:static;left:auto;display:inline-block;margin-bottom:var(--line)}
+
+/* Visuell versteckt, bleibt fuer Screenreader und als Sprungziel im DOM. */
+.vh{
+  position:absolute;width:1px;height:1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+}
+
+/* ---------- Fenster ---------- */
+.layout{
+  display:grid;
+  grid-template-columns:var(--bar) 1fr;
+  gap:var(--gap);
+  align-items:start;
+}
+@media (max-width:767px){ .layout{grid-template-columns:1fr} }
+
+.win{
+  display:flex;flex-direction:column;
+  min-width:0;                 /* sonst sprengt breiter Inhalt die Grid-Spalte */
+}
+/* Ueberschrift mit Linie darunter, kein schwarzer Balken. */
+.winbar{
+  font-size:14px;line-height:20px;font-weight:400;
+  letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:3px solid var(--ink);
+  padding-bottom:calc(var(--line) / 2);
+  margin-bottom:var(--line);
+}
+.winbar a{color:inherit;text-decoration:none}
+.winbar a:hover,.winbar a:focus-visible{text-decoration:underline}
+.winbody{display:flex;flex-direction:column;flex:1}
+
+/* ---------- Linkes Fenster ---------- */
+/* Der senkrechte Strich. Am Handy liegt die Taskbar oben, dort wird er
+   waagerecht. */
+.taskbar{
+  position:sticky;top:var(--gap);
+  border-right:3px solid var(--ink);
+  padding-right:var(--gap);
+}
+@media (max-width:767px){
+  .taskbar{
+    position:static;
+    border-right:0;border-bottom:3px solid var(--ink);
+    padding:0 0 var(--line);
+  }
+}
+.taskbar ul{list-style:none;padding:0;margin:0 0 var(--line)}
+.taskbar li a{display:block;padding:6px 8px;margin:0 -8px;text-decoration:none;color:var(--ink)}
+.taskbar li a:hover,.taskbar li a:focus-visible,
+.taskbar li a[aria-current="page"]{background:var(--ink);color:var(--paper)}
+/* Kategorie, klein und in Grossbuchstaben, gruppiert die Namen darunter. */
+.kind{
+  font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;
+  margin:0 0 4px;
+}
+/* margin-top:auto drueckt den letzten Eintrag an die Unterkante des Fensters. */
+.foot{margin-top:auto;padding-top:var(--line);font-size:16px}
+.taskbar .foot ul{margin-bottom:0}
+
+/* EN / DE */
+.lang{display:flex;gap:var(--gap);margin-bottom:calc(var(--line) / 2)}
+.lang a{color:var(--ink)}
+.lang a[aria-current="page"]{text-decoration:none;background:var(--ink);color:var(--paper);padding:0 4px;margin:0 -4px}
+
+/* ---------- Rechtes Fenster: Panels ---------- */
+.panel{display:none}
+.panel:target{display:flex}
+/* .start ist der Zustand beim Laden. :not(:target) verhindert, dass es sich
+   selbst ausblendet, wenn genau dieses Panel angewaehlt wird. */
+.panel.start{display:flex}
+.viewer:has(.panel:target) .panel.start:not(:target){display:none}
+
+.meta{
+  font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;
+  margin-top:var(--line);
+}
+.desc{margin-top:calc(var(--line) / 2);max-width:70ch}
+.hint{margin-top:var(--line);font-size:16px;max-width:70ch}
+
+/* Medien sitzen ganz oben im Fenster, direkt unter der Titelzeile. */
+.frame{aspect-ratio:16/10;display:block}
+.frame iframe{width:100%;height:100%;border:0;display:block;background:var(--paper)}
+.shot{display:block;width:100%;height:auto}
+/* Platzhalter, solange ein Bild fehlt. */
+.shotph{
+  aspect-ratio:3/2;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:var(--ink);color:var(--paper);
+  padding:var(--gap);font-size:28px;
+}
+@media (max-width:767px){ .shotph{font-size:20px} }
+
+.actions{display:flex;flex-wrap:wrap;gap:var(--gap);margin-top:var(--line)}
+.actions a{
+  font-size:16px;
+  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:8px 14px;text-decoration:none;
+}
+.actions a:hover,.actions a:focus-visible{background:var(--ink);color:var(--paper)}
+
+/* ---------- Feature-Liste ---------- */
+.feat{list-style:none;padding:0;margin:var(--line) 0 0;max-width:70ch}
+.feat li{padding-left:1.4em;position:relative}
+.feat li::before{content:"▓";position:absolute;left:0}
+
+/* ---------- Preis und Kauf ---------- */
+.price{margin-top:var(--line);font-size:16px;max-width:70ch}
+/* Der Kauf-Knopf ist invertiert, damit er sich von den Nebenlinks abhebt. */
+.actions a.buy{background:var(--ink);color:var(--paper)}
+.actions a.buy:hover,.actions a.buy:focus-visible{background:var(--paper);color:var(--ink)}
+
+/* ---------- Effekt-Demo ---------- */
+/* Schwarzer Kasten, darin das Demo-Video. object-fit:contain, damit nichts
+   beschnitten wird, egal welches Format exportiert wird. */
+.demo{
+  position:relative;
+  aspect-ratio:16/10;
+  background:var(--ink);
+  display:block;
+}
+.demo video{width:100%;height:100%;display:block;object-fit:contain;background:var(--ink)}
+.demoHold{
+  position:absolute;inset:0;margin:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--paper);font-size:16px;letter-spacing:.12em;text-transform:uppercase;
+  pointer-events:none;
+}
+
+.effects{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:var(--line);
+}
+.effects button{
+  font:inherit;font-size:14px;line-height:20px;
+  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:5px 10px;cursor:pointer;
+}
+.effects button:hover,.effects button:focus-visible{background:var(--ink);color:var(--paper)}
+/* Der aktive Effekt ist invertiert. aria-pressed traegt zugleich den Zustand
+   fuer Screenreader, darum kein zweites Markup dafuer. */
+.effects button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* ---------- Galerie ---------- */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:var(--gap);
+  margin-top:var(--line);
+}
+.gallery figure{margin:0}
+/* height:auto, damit nichts beschnitten wird. */
+.gallery img{width:100%;height:auto;display:block}
+.gallery figcaption{font-size:14px;line-height:16px;margin-top:6px}
+/* Sehr breite Bilder bekommen die ganze Zeile. */
+.gallery .full{grid-column:1 / -1}
+
+/* ---------- Footer ---------- */
+footer{
+  margin-top:var(--line);
+  border-top:3px solid var(--ink);
+  padding-top:calc(var(--line) / 2);
+  font-size:16px;line-height:var(--line);
+  display:flex;flex-wrap:wrap;gap:0 var(--gap);align-items:baseline;
+}
+#surprise{margin-left:auto;align-self:flex-start}
+@media (max-width:767px){ #surprise{margin-left:0} }
+
+
+/* ============================================================
+   Startseite
+   ============================================================ */
+
+/* ---------- Intro: Name, Text, QR ---------- */
+.intro{
+  display:grid;
+  grid-template-columns:1fr var(--bar);
+  gap:var(--gap);
+}
+@media (max-width:767px){ .intro{grid-template-columns:1fr} }
+
+.intro h1{grid-column:1 / -1}
+.introText{max-width:70ch}
+
+/* .qrCell stretcht auf die Hoehe der Textzeile. Der QR haengt darin absolut
+   mit top:0 und bottom:0, dadurch ist die Kantenlaenge zwangslaeufig die
+   Hoehe des Textblocks. aspect-ratio leitet die Breite daraus ab. */
+.qrCell{align-self:stretch;position:relative}
+.qr{
+  position:absolute;
+  top:0;bottom:0;left:50%;
+  transform:translateX(-50%);
+  aspect-ratio:1;
+  display:block;overflow:hidden;
+}
+.qr img{width:100%;height:100%;object-fit:contain;display:block}
+@media (max-width:767px){
+  /* Am Handy steht kein Text daneben, an dem sich der QR messen koennte. */
+  .qrCell{position:static}
+  .qr{position:static;transform:none;width:120px;height:120px}
+}
+
+/* ---------- Werk-Panel ---------- */
+/* Text links, Bild rechts. Eine Zahl aendert das Verhaeltnis. */
+.workRow{display:grid;grid-template-columns:3fr 2fr;gap:var(--gap);align-items:start}
+@media (max-width:767px){ .workRow{grid-template-columns:1fr} }
+
+/* Feste 3:2-Flaeche, Bild formatfuellend. */
+.workMedia{
+  position:relative;
+  aspect-ratio:3/2;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.workMedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* Platzhalter, solange ein Bild fehlt. */
+.workMedia span{background:var(--ink);color:var(--paper);text-align:center;padding:var(--gap);font-size:28px;
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+@media (max-width:767px){ .workMedia span{font-size:20px} }
+
+/* Der Textblock sitzt mittig neben dem Bild. */
+.workText{align-self:center}
+.workText > :first-child{margin-top:0}
+.workText .desc + .desc{margin-top:calc(var(--line) / 2)}
+
+/* Tools steht unten in der Taskbar, aber in derselben Schriftgroesse wie die
+   Werke darueber. .foot setzt sonst 16px. */
+.home .taskbar .foot{font-size:inherit;margin-bottom:0}
+
+/* ---------- Socials ---------- */
+/* padding gibt jedem Link ca. 44px Hoehe (Touch-Target). */
+.socials{display:flex;flex-wrap:wrap;gap:0 var(--gap);list-style:none;padding:0;margin-top:calc(var(--line) - 10px)}
+.socials a{display:inline-block;padding:10px 0}
+
+/* Luft zwischen Kopfbereich und Werken. */
+.home .layout{margin-top:var(--line)}
+
+/* ---------- Galerie-Panel ---------- */
+.panel.wide .workRow{grid-template-columns:1fr}
+.panel.wide .workText{align-self:start;max-width:70ch}
+
+/* ---------- Desktop: One Pager, kein Scrollen ---------- */
+/* Die Seite wird genau so hoch wie das Fenster. Passt ein Text doch nicht,
+   scrollt nur der Fensterinhalt, nie das Dokument. */
+@media (min-width:1024px){
+  html:has(.home),html:has(.home) body,html:has(.home) #root{height:100%}
+  html:has(.home) body{overflow:hidden}
+  .home{height:100%;display:flex;flex-direction:column}
+
+  .home .layout{flex:1;min-height:0;align-items:stretch}
+  .home .win{max-height:100%}
+  .home .taskbar{overflow:auto}
+
+  .home .viewer{min-height:0;display:flex;flex-direction:column}
+  .home .panel{flex:1;min-height:0}
+  .home .panel .winbody{min-height:0;overflow:auto}
+
+  .home .workRow{flex:1;min-height:0;align-items:center}
+  .home .workText{max-height:100%;overflow:auto}
+
+  /* Ein Galerie-Panel darf die Seite laenger machen. Nur dann wird das
+     Dokument scrollbar. */
+  html:has(.panel.wide:target),html:has(.panel.wide:target) body,html:has(.panel.wide:target) #root{height:auto}
+  html:has(.panel.wide:target) body{overflow:auto}
+  .home:has(.panel.wide:target){height:auto}
+  .home:has(.panel.wide:target) .layout{flex:none}
+  .home:has(.panel.wide:target) .win{max-height:none}
+  .home:has(.panel.wide:target) .panel .winbody{overflow:visible}
+  .home:has(.panel.wide:target) .workText{max-height:none;overflow:visible}
+  .home:has(.panel.wide:target) .workRow{flex:none}
+
+  .home footer{flex:none}
+}
+
+
+/* ============================================================
+   Tools
+   ============================================================ */
+
+/* Der Pfeil blendet den Textblock aus. Absichtlich ohne Wiederaufklappen:
+   zurueck kommt er durch Neuladen oder durch erneutes Anwaehlen des Tools. */
+.dismiss{
+  font:inherit;font-size:20px;line-height:24px;
+  border:3px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:8px 14px;cursor:pointer;
+}
+.dismiss:hover,.dismiss:focus-visible{background:var(--ink);color:var(--paper)}
+
+/* Desktop: alles auf einen Schirm, der Demo-Kasten nimmt die Resthoehe. */
+@media (min-width:1024px){
+  html:has(.tools),html:has(.tools) body,html:has(.tools) #root{height:100%}
+  html:has(.tools) body{overflow:hidden}
+  .tools{height:100%;display:flex;flex-direction:column}
+
+  .tools .layout{flex:1;min-height:0;align-items:stretch}
+  .tools .win{max-height:100%}
+  .tools .taskbar{overflow:auto}
+
+  .tools .viewer{min-height:0;display:flex;flex-direction:column}
+  .tools .panel{flex:1;min-height:0}
+  .tools .panel .winbody{min-height:0;overflow:auto}
+
+  .tools .demo{flex:1;min-height:120px;aspect-ratio:auto}
+  .tools .frame{flex:1;min-height:120px;aspect-ratio:auto}
+
+  /* Halbiert die Hoehe der Feature-Liste. */
+  .tools .feat{columns:2;column-gap:var(--gap)}
+  .tools .feat li{break-inside:avoid}
+
+  /* Enger, damit der Text in die Resthoehe passt. */
+  .tools .meta,.tools .desc,.tools .price,.tools .feat,.tools .effects{margin-top:calc(var(--line) / 2)}
+  .tools .actions{margin-top:var(--line);margin-bottom:var(--line)}
+
+  .tools footer{flex:none}
+}
+
+
+/* ============================================================
+   Unterseiten (Werk, About, MOSH_UNIT, Datamoshing, Rechtliches)
+   Taskbar links, ein Fenster rechts, der Text laeuft darin.
+   ============================================================ */
+.doc p,.doc ul,.doc ol,.doc dl{max-width:70ch}
+.doc :is(.winbody,article,section) > p{margin-top:var(--line)}
+.doc :is(.winbody,article) > :first-child{margin-top:0}
+.doc .lede{font-size:24px;line-height:calc(var(--line) * 1.5);max-width:40ch}
+
+/* Jede Zwischenueberschrift traegt die waagerechte Linie. */
+.doc h2{
+  font-size:14px;line-height:20px;
+  letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:3px solid var(--ink);
+  padding-bottom:calc(var(--line) / 2);
+  margin:calc(var(--line) * 3) 0 var(--line);
+  max-width:none;
+}
+.doc h3{font-size:20px;line-height:var(--line);margin-top:var(--line)}
+.doc h2 + h3,.doc h2 + p,.doc h2 + ul,.doc h2 + ol,.doc h2 + dl,.doc h2 + div{margin-top:0}
+.doc section > :first-child{margin-top:0}
+.doc section{margin-top:calc(var(--line) * 3)}
+.doc section > h2:first-child{margin-top:0}
+
+/* Aufzaehlungen mit denselben Blockzeichen wie die Feature-Liste. */
+.doc ul:not(.plain):not(.links){list-style:none;padding:0;margin-top:var(--line)}
+.doc ul:not(.plain):not(.links) li{padding-left:1.4em;position:relative}
+.doc ul:not(.plain):not(.links) li::before{content:"▓";position:absolute;left:0}
+.doc ul.plain{list-style:none;padding:0}
+
+/* Nummerierte Schritte: Zahl links in der Meta-Schrift. */
+.steps{list-style:none;padding:0;margin-top:var(--line);counter-reset:step}
+.steps > li{display:grid;grid-template-columns:3ch 1fr;gap:0 var(--gap);counter-increment:step}
+.steps > li + li{margin-top:var(--line)}
+.steps > li::before{content:counter(step);font-size:12px;letter-spacing:.12em;line-height:var(--line)}
+.steps > li > *{grid-column:2;margin-top:0}
+
+/* Zeile mit Zeitraum links, Text rechts (About). */
+.rows{margin-top:var(--line)}
+.row{display:grid;grid-template-columns:12ch 1fr;gap:0 var(--gap);max-width:calc(70ch + 12ch + var(--gap))}
+.row + .row{margin-top:calc(var(--line) / 2)}
+.row .meta{margin-top:4px}
+@media (max-width:767px){ .row{grid-template-columns:1fr} .row .meta{margin-top:0} }
+
+/* Frage und Antwort */
+.faq{margin-top:var(--line);max-width:70ch}
+.faq details + details{margin-top:calc(var(--line) / 2)}
+.faq summary{cursor:pointer;list-style:none;padding-left:1.4em;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";position:absolute;left:0}
+.faq details[open] summary::before{content:"–"}
+.faq details > p{margin-top:calc(var(--line) / 2);padding-left:1.4em}
+.faq dt + dd{margin-top:calc(var(--line) / 2)}
+.faq dd + dt{margin-top:var(--line)}
+
+/* Link mit Anmerkung darunter */
+.links{list-style:none;padding:0;margin-top:var(--line)}
+.links li + li{margin-top:calc(var(--line) / 2)}
+.links .note{display:block;font-size:16px}
+
+/* Tabellen: nur eine Linie unter dem Kopf, keine Kaesten. */
+.tablewrap{overflow-x:auto;margin-top:var(--line)}
+.doc table{border-collapse:collapse;font-size:16px;line-height:20px;min-width:100%}
+.doc th,.doc td{text-align:left;vertical-align:top;padding:6px var(--gap) 6px 0}
+.doc thead th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-bottom:3px solid var(--ink)}
+.doc tbody th{font-weight:400}
+
+/* Bild oder Video im Textfenster */
+.media{margin-top:var(--line);background:var(--ink);position:relative;overflow:hidden}
+.media img,.media video{width:100%;height:100%;display:block;object-fit:cover}
+.media > span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:16px;letter-spacing:.12em;text-transform:uppercase}
+.doc .gallery .media{margin-top:0}
+
+pre{font:inherit;white-space:pre-wrap;margin:0}
+
+/* YouTube-Fassade (MOSH_UNIT Tutorial) */
+.video-embed{margin-top:var(--line);display:grid;grid-template-columns:2fr 1fr;gap:var(--gap)}
+@media (max-width:767px){ .video-embed{grid-template-columns:1fr} }
+.video-embed__player{aspect-ratio:16/9;background:var(--ink);position:relative}
+.video-embed__frame{width:100%;height:100%;border:0;display:block}
+.video-embed__facade{all:unset;cursor:pointer;display:block;width:100%;height:100%;position:relative}
+.video-embed__thumb{width:100%;height:100%;object-fit:cover;display:block}
+.video-embed__play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:48px}
+.video-embed__chapters{list-style:none;padding:0;margin-top:calc(var(--line) / 2)}
+.video-embed__chapter{font:inherit;font-size:16px;background:none;border:0;padding:4px 0;cursor:pointer;color:#00e;text-align:left;display:flex;gap:12px}
+.video-embed__chapterslabel{margin-top:0}
+
+
+/* ============================================================
+   MOSH_UNIT: Vollseite ohne Taskbar
+   Oben Text links, Demo rechts. Darunter zwei Spalten: was es kann,
+   was es kostet. Jede Ueberschrift traegt die waagerechte Linie.
+   ============================================================ */
+.productBar{display:flex;justify-content:space-between;align-items:baseline;gap:var(--gap)}
+.productBar .lang{margin:0}
+
+.productHero{display:grid;grid-template-columns:2fr 3fr;gap:calc(var(--gap) * 2);align-items:start}
+.productHero h1{font-size:72px;line-height:calc(var(--line) * 3);margin-top:calc(var(--line) / 2)}
+.product .lede{font-size:24px;line-height:calc(var(--line) * 1.5);max-width:40ch;margin-top:calc(var(--line) / 2)}
+.productHero .desc{margin-top:var(--line)}
+.productDemo .hint{margin-top:calc(var(--line) / 2)}
+
+.productCols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--gap) * 2);margin-top:calc(var(--line) * 3)}
+.productCols .feat{margin-top:0}
+.productCols section > .feat{margin-top:var(--line)}
+.productCols h2 + .feat{margin-top:0}
+.productTutorial{margin-top:calc(var(--line) * 3)}
+
+@media (max-width:767px){
+  .productHero,.productCols{grid-template-columns:1fr;gap:var(--line)}
+  .productHero h1{font-size:40px;line-height:calc(var(--line) * 2)}
+  .productDemo{margin-top:var(--line)}
+}
+
+
+/* ============================================================
+   "More" in der Taskbar: Dropdown ohne JavaScript (details/summary).
+   Sieht aus wie ein normaler Taskbar-Eintrag, der Pfeil dreht sich.
+   ============================================================ */
+.more{margin:0 0 var(--line)}
+.more summary{
+  display:flex;justify-content:space-between;
+  padding:6px 8px;margin:0 -8px;cursor:pointer;list-style:none;
+}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"▾"}
+.more[open] summary::after{content:"▴"}
+.more summary:hover,.more summary:focus-visible{background:var(--ink);color:var(--paper)}
+.taskbar .more ul{margin:0 0 0 12px;padding-left:8px;border-left:3px solid var(--ink)}
+.foot .more{margin-bottom:0}

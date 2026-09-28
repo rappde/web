@@ -33,10 +33,10 @@ export function RouteErrorBoundary() {
   if (retried) return null
 
   return (
-    <main className="container" style={{ paddingBlock: 'clamp(6rem, 12vh, 9rem)' }}>
-      <p className="meta">ERROR</p>
-      <h1 style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>Something broke loading this page.</h1>
-      <p>
+    <main className="win doc">
+      <p className="winbar">Error</p>
+      <h1>Something broke loading this page.</h1>
+      <p style={{ marginTop: 'var(--line)' }}>
         <a href={window.location.pathname}>Reload</a> usually fixes it. If it keeps happening,{' '}
         <a href="mailto:demien.rp@gmail.com">let me know</a>.
       </p>

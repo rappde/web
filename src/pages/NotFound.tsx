@@ -1,5 +1,6 @@
 import { Head } from 'vite-react-ssg'
 import { Link } from 'react-router-dom'
+import { Shell } from '@/components/Shell'
 
 export default function NotFound() {
   return (
@@ -10,14 +11,15 @@ export default function NotFound() {
         <meta name="robots" content="noindex" />
       </Head>
 
-      <main className="notfound" id="main">
-        <p className="eyebrow">Error 404</p>
-        <h1 className="notfound__code">404</h1>
+      <Shell title="Error 404">
+        <h1>404</h1>
         <p>This page does not exist. Diese Seite gibt es nicht.</p>
-        <Link className="btn btn--primary" to="/">
-          Back home →
-        </Link>
-      </main>
+        <div className="actions">
+          <Link className="buy" to="/">
+            Back to the start page →
+          </Link>
+        </div>
+      </Shell>
     </>
   )
 }

@@ -10,9 +10,10 @@ import HowToDatamosh from './pages/HowToDatamosh'
 import DatamoshingTools from './pages/DatamoshingTools'
 import Impressum from './pages/Impressum'
 import Datenschutz from './pages/Datenschutz'
+import Tools from './pages/Tools'
 import NotFound from './pages/NotFound'
 
-// EN is the default at "/", DE at "/de" (REDESIGN-BRIEF §1b).
+// EN is the default at "/", DE at "/de" (both real translations, hreflang pair).
 // The 3 featured works get their own routes for SEO + shareable links (§2c).
 // Legal pages are German and reachable from every footer (§9c).
 const FEATURED = ['mine', 'gefuehle', 'ein-viertel', 'soundwalk'] as const
@@ -39,8 +40,9 @@ export const routes: RouteRecord[] = [
     element: <Outlet />,
     errorElement: <RouteErrorBoundary />,
     children: [
-      { path: '/', element: <Home lang="en" />, entry: 'src/pages/Home.tsx' },
+      { path: '/', element: <Home />, entry: 'src/pages/Home.tsx' },
       { path: '/de', element: <Home lang="de" />, entry: 'src/pages/Home.tsx' },
+      { path: '/tools', element: <Tools />, entry: 'src/pages/Tools.tsx' },
       ...workRoutes,
       { path: '/mosh_unit', element: <MoshUnit lang="en" />, entry: 'src/pages/MoshUnit.tsx' },
       { path: '/de/mosh_unit', element: <MoshUnit lang="de" />, entry: 'src/pages/MoshUnit.tsx' },

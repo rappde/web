@@ -23,8 +23,9 @@ const FEATURED = ['mine', 'gefuehle', 'ein-viertel', 'soundwalk']
 
 // `source` = the content file whose last change is this page's real lastmod.
 const pages = [
-  { loc: '/', source: 'src/content/content.en.ts', en: '/', de: '/de' },
-  { loc: '/de', source: 'src/content/content.de.ts', en: '/', de: '/de' },
+  { loc: '/', source: 'src/content/home.ts', en: '/', de: '/de' },
+  { loc: '/de', source: 'src/content/home.ts', en: '/', de: '/de' },
+  { loc: '/tools', source: 'src/pages/Tools.tsx', en: '/tools' },
   { loc: '/mosh_unit', source: 'src/content/mosh-unit.ts', en: '/mosh_unit', de: '/de/mosh_unit' },
   { loc: '/de/mosh_unit', source: 'src/content/mosh-unit.ts', en: '/mosh_unit', de: '/de/mosh_unit' },
   { loc: '/about', source: 'src/content/about.ts', en: '/about', de: '/de/about' },

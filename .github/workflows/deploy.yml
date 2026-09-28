@@ -19,8 +19,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Full history: generate-sitemap.mjs takes each page's <lastmod> from the
+      # last commit that touched its source file. With the default shallow
+      # clone every page would get today's date, which Bing explicitly warns
+      # against (lastmod is its main recrawl signal).
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -81,3 +87,20 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Tell Bing & other IndexNow engines (Yandex, Seznam, Naver, Yep) which pages
+  # changed with this push. Google does not use IndexNow; it reads the sitemap.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Regenerate sitemap (same lastmod as the deployed one)
+        run: node scripts/generate-sitemap.mjs
+      - name: Submit changed URLs
+        run: node scripts/indexnow.mjs

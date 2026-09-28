@@ -1,9 +1,0 @@
-@font-face{font-family:"Endless";src:url("fonts/Endless.ttf") format("truetype");font-display:swap}
-body{margin:0 19px;font-family:"Endless",Arial,Helvetica,sans-serif;-webkit-font-smoothing:none}
-main{max-width:720px}
-h1{font-size:48px;line-height:1.1;margin:.6em 0 .4em}
-h2{font-size:24px;margin:1.4em 0 .3em}
-p,ul{font-size:18px;line-height:24px}
-ul{padding-left:1.2em}
-a{color:#00e}
-@media (max-width:440px){h1{font-size:32px}}
