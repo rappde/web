@@ -5,7 +5,23 @@
   --line:24px;
   --ink:#000;
   --paper:#fff;
+  --link:#00e;
+  --soft:#ddd;
+  /* Videoflaechen bleiben in beiden Modi schwarz, sonst weisse Balken ums Video. */
+  --stage:#000;
+  --onstage:#fff;
   --bar:240px;        /* Breite des linken Fensters */
+  color-scheme:light;
+}
+/* Dark Mode folgt der Systemeinstellung, Schwarz und Weiss tauschen. */
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#fff;
+    --paper:#000;
+    --link:#8ab4ff;
+    --soft:#333;
+    color-scheme:dark;
+  }
 }
 @media (max-width:1023px){ :root{ --gap:18px; --bar:200px } }
 @media (max-width:767px){  :root{ --gap:12px } }
@@ -34,7 +50,7 @@ h1,h2,h3,p,ul,ol,dl,dd,figure,blockquote{margin:0}
 h1{font-size:48px;line-height:calc(var(--line) * 2);font-weight:400}
 h2,h3{font-weight:400}
 p+p{margin-top:var(--line)}
-a{color:#00e}
+a{color:var(--link)}
 img,video{max-width:100%}
 @media (max-width:767px){ h1{font-size:32px;line-height:calc(var(--line) * 1.5)} }
 
@@ -154,14 +170,14 @@ img,video{max-width:100%}
 .demo{
   position:relative;
   aspect-ratio:16/10;
-  background:var(--ink);
+  background:var(--stage);
   display:block;
 }
-.demo video{width:100%;height:100%;display:block;object-fit:contain;background:var(--ink)}
+.demo video{width:100%;height:100%;display:block;object-fit:contain;background:var(--stage)}
 .demoHold{
   position:absolute;inset:0;margin:0;
   display:flex;align-items:center;justify-content:center;
-  color:var(--paper);font-size:16px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--onstage);font-size:16px;letter-spacing:.12em;text-transform:uppercase;
   pointer-events:none;
 }
 
@@ -421,9 +437,9 @@ footer{
 .doc tbody th{font-weight:400}
 
 /* Bild oder Video im Textfenster */
-.media{margin-top:var(--line);background:var(--ink);position:relative;overflow:hidden}
+.media{margin-top:var(--line);background:var(--stage);position:relative;overflow:hidden}
 .media img,.media video{width:100%;height:100%;display:block;object-fit:cover}
-.media > span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:16px;letter-spacing:.12em;text-transform:uppercase}
+.media > span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--onstage);font-size:16px;letter-spacing:.12em;text-transform:uppercase}
 .doc .gallery .media{margin-top:0}
 
 pre{font:inherit;white-space:pre-wrap;margin:0}
@@ -431,13 +447,13 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
 /* YouTube-Fassade (MOSH_UNIT Tutorial) */
 .video-embed{margin-top:var(--line);display:grid;grid-template-columns:2fr 1fr;gap:var(--gap)}
 @media (max-width:767px){ .video-embed{grid-template-columns:1fr} }
-.video-embed__player{aspect-ratio:16/9;background:var(--ink);position:relative}
+.video-embed__player{aspect-ratio:16/9;background:var(--stage);position:relative}
 .video-embed__frame{width:100%;height:100%;border:0;display:block}
 .video-embed__facade{all:unset;cursor:pointer;display:block;width:100%;height:100%;position:relative}
 .video-embed__thumb{width:100%;height:100%;object-fit:cover;display:block}
-.video-embed__play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:48px}
+.video-embed__play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--onstage);font-size:48px}
 .video-embed__chapters{list-style:none;padding:0;margin-top:calc(var(--line) / 2)}
-.video-embed__chapter{font:inherit;font-size:16px;background:none;border:0;padding:4px 0;cursor:pointer;color:#00e;text-align:left;display:flex;gap:12px}
+.video-embed__chapter{font:inherit;font-size:16px;background:none;border:0;padding:4px 0;cursor:pointer;color:var(--link);text-align:left;display:flex;gap:12px}
 .video-embed__chapterslabel{margin-top:0}
 
 
@@ -498,6 +514,6 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
   .home .desc{font-size:16px;line-height:22px}
 
   /* Duenne Linie unter der Galerie, der schwarze Balken laeuft beim Wischen mit. */
-  .home .swipebar{display:block;height:3px;background:#ddd;margin:0 0 calc(var(--line) * 2);overflow:hidden}
+  .home .swipebar{display:block;height:3px;background:var(--soft);margin:0 0 calc(var(--line) * 2);overflow:hidden}
   .home .swipebar span{display:block;height:100%;width:20%;background:var(--ink)}
 }

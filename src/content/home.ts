@@ -55,7 +55,7 @@ export const home: Record<Lang, HomeContent> = {
       'Demien Rapp is a creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art: physical robots, generative browser tools, kinetic installations.',
     skip: 'Skip to content',
     intro: [
-      'Creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art: physical robots, generative browser tools, kinetic installations.',
+      'Creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art.',
     ],
     qrLabel: 'QR code, links to a portrait',
     qrAlt: 'QR code linking to a portrait of Demien Rapp',
@@ -183,7 +183,7 @@ export const home: Record<Lang, HomeContent> = {
       'Demien Rapp ist Künstler und Entwickler aus Düsseldorf. Arbeiten zwischen Technik und Kunst: Roboter, interaktive Installationen, Videoinstallationen, Soundarbeiten und selbst gebaute Browser-Tools.',
     skip: 'Zum Inhalt springen',
     intro: [
-      'Künstler und Entwickler aus Düsseldorf. Arbeiten an der Schnittstelle von Technik und Kunst: Roboter, generative Browser-Tools, kinetische und interaktive Installationen.',
+      'Künstler und Entwickler aus Düsseldorf. Arbeiten an der Schnittstelle von Technik und Kunst.',
     ],
     qrLabel: 'QR-Code, führt zu einem Porträt',
     qrAlt: 'QR-Code, der zu einem Porträt von Demien Rapp führt',
