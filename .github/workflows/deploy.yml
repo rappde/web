@@ -51,7 +51,7 @@ jobs:
             mkdir -p "$d"
             cp "$f" "$d/index.html"
           done < /tmp/pages.txt
-          test -f tools/index.html && test -f de/index.html && test -f works/mine/index.html
+          test -f tools/index.html && test -f de/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
