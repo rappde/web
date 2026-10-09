@@ -178,6 +178,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
 
             <ul className="foot">
               <li><Link to="/tools">Tools</Link></li>
+              <li><Link to="/datamoshing">Datamoshing</Link></li>
             </ul>
           </div>
         </nav>

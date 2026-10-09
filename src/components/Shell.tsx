@@ -22,6 +22,7 @@ function baseGroups(lang: Lang): NavGroup[] {
       links: [
         { href: lang === 'de' ? '/de' : '/', label: l.works },
         { href: '/tools', label: 'Tools' },
+        { href: '/datamoshing', label: 'Datamoshing' },
       ],
     },
   ]
