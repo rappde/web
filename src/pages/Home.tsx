@@ -153,6 +153,8 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
               <li><a href="https://www.linkedin.com/in/demien-rapp-983b8a1ab/" target="_blank" rel="me noopener">LinkedIn</a></li>
               <li><a href="https://www.instagram.com/rappde_" target="_blank" rel="me noopener">Instagram</a></li>
               <li><a href="mailto:demien.rp@gmail.com">Mail</a></li>
+              {/* am Handy gibt es keine Taskbar */}
+              <li className="onlyMobile"><Link to="/datamoshing">Datamoshing</Link></li>
             </ul>
           </nav>
         </div>
