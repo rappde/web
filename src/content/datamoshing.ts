@@ -92,9 +92,9 @@ const datamoshing: GeoPageContent = {
   path: '/datamoshing',
   headline: 'What is datamoshing?',
   meta: {
-    title: 'What is datamoshing? The glitch technique explained · Demien Rapp',
+    title: 'What is datamoshing? Datamosh effect explained, with FFmpeg',
     description:
-      'Datamoshing is a video glitch technique that damages a clip’s compression data so motion bleeds across frames. Here is how it works, what it looks like, and which tools do it.',
+      'Datamoshing is a video glitch that breaks a clip’s compression so motion bleeds across frames. How the datamosh effect works and how to do it with FFmpeg.',
     ogTitle: 'What is datamoshing?',
     ogDescription:
       'A plain, fact-first guide to datamoshing: I-frame removal, P-frame duplication, AVI byte manipulation, and the tools that do it.',
