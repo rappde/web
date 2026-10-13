@@ -399,6 +399,10 @@ footer{
 .doc ul:not(.plain):not(.links) li::before{content:"";position:absolute;left:0;top:calc(var(--line) / 2 - .2em);width:.4em;height:.4em;background:var(--ink)}
 .doc ul.plain{list-style:none;padding:0}
 
+/* Manifest: bare page ohne Shell, nur Titel, nummerierte Liste, Fusszeile. */
+.manifest ol{margin-top:calc(var(--line) * 2)}
+.manifest li + li{margin-top:var(--line)}
+
 /* Nummerierte Schritte: Zahl links in der Meta-Schrift. */
 .steps{list-style:none;padding:0;margin-top:var(--line);counter-reset:step}
 .steps > li{display:grid;grid-template-columns:3ch 1fr;gap:0 var(--gap);counter-increment:step}

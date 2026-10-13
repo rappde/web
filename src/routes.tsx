@@ -9,6 +9,7 @@ import DatamoshingTools from './pages/DatamoshingTools'
 import Impressum from './pages/Impressum'
 import Datenschutz from './pages/Datenschutz'
 import Tools from './pages/Tools'
+import Manifest from './pages/Manifest'
 import NotFound from './pages/NotFound'
 
 // EN at "/", DE at "/de"
@@ -31,6 +32,7 @@ export const routes: RouteRecord[] = [
       { path: '/datamoshing-tools', element: <DatamoshingTools />, entry: 'src/pages/DatamoshingTools.tsx' },
       { path: '/impressum', element: <Impressum />, entry: 'src/pages/Impressum.tsx' },
       { path: '/datenschutz', element: <Datenschutz />, entry: 'src/pages/Datenschutz.tsx' },
+      { path: '/manifest', element: <Manifest />, entry: 'src/pages/Manifest.tsx' },
       { path: '*', element: <NotFound /> },
     ],
   },
