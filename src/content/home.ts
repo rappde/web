@@ -36,6 +36,8 @@ export interface HomeContent {
   description: string
   skip: string
   intro: string[]
+  /** letzte Intro-Zeile, `link` fuehrt aufs Manifest */
+  contact: { text: string; link: string }
   qrLabel: string
   qrAlt: string
   profilesLabel: string
@@ -55,8 +57,9 @@ export const home: Record<Lang, HomeContent> = {
       'Demien Rapp is a creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art: physical robots, generative browser tools, kinetic installations.',
     skip: 'Skip to content',
     intro: [
-      'Creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art.',
+      '18, Düsseldorf. I take technology apart and turn it into robots, films, sound and tools.',
     ],
+    contact: { text: 'Write me. Or read the', link: 'manifest' },
     qrLabel: 'QR code, links to a portrait',
     qrAlt: 'QR code linking to a portrait of Demien Rapp',
     profilesLabel: 'Profiles elsewhere',
@@ -183,8 +186,9 @@ export const home: Record<Lang, HomeContent> = {
       'Demien Rapp ist Künstler und Entwickler aus Düsseldorf. Arbeiten zwischen Technik und Kunst: Roboter, interaktive Installationen, Videoinstallationen, Soundarbeiten und selbst gebaute Browser-Tools.',
     skip: 'Zum Inhalt springen',
     intro: [
-      'Künstler und Entwickler aus Düsseldorf. Arbeiten an der Schnittstelle von Technik und Kunst.',
+      '18, Düsseldorf. Ich nehme Technik auseinander und baue daraus Roboter, Filme, Sound und Tools.',
     ],
+    contact: { text: 'Schreib mir. Oder lies das', link: 'Manifest' },
     qrLabel: 'QR-Code, führt zu einem Porträt',
     qrAlt: 'QR-Code, der zu einem Porträt von Demien Rapp führt',
     profilesLabel: 'Profile',

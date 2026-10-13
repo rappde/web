@@ -145,6 +145,9 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
           {c.intro.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
+          <p>
+            {c.contact.text} <Link to="/manifest">{c.contact.link}</Link>.
+          </p>
 
           <nav aria-label={c.profilesLabel}>
             <ul className="socials">
