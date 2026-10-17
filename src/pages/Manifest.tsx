@@ -11,7 +11,7 @@ export default function Manifest() {
       <Head>
         <html lang="en" />
         <title>RAPPDE MANIFEST</title>
-        <meta name="description" content="A five-point manifesto: cause before judgment, beauty that earns its place." />
+        <meta name="description" content="A manifesto: cause before judgment, see how it works, beauty is made, not found." />
         <link rel="canonical" href={url} />
         <link rel="alternate" hrefLang="en" href={url} />
         <link rel="alternate" hrefLang="x-default" href={url} />
@@ -23,7 +23,8 @@ export default function Manifest() {
           <ol>
             <li>Everything is a machine. You are one of its causes.</li>
             <li>Look for the cause before you judge.</li>
-            <li>Beauty has to earn its place.</li>
+            <li>If you can't see how it works, it works on you.</li>
+            <li>Beauty is made, not found.</li>
             <li>Prove this wrong and it changes.</li>
             <li>Nobody has to like anything.</li>
           </ol>
