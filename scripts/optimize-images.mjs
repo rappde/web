@@ -20,7 +20,6 @@ const jobs = [
   ['photo-unit_front.jpg', 'photo-unit', 1600],
   ['photo-unit_prints.jpg', 'photo-unit-prints', 1600],
   ['photo-unit_button.jpg', 'photo-unit-button', 1600],
-  ['photo-unit_inside.jpg', 'photo-unit-inside', 1600],
 ]
 
 for (const [src, base, maxWidth] of jobs) {

@@ -10,6 +10,8 @@ import type { Lang } from './types'
 export interface HomePara {
   lead?: string
   break?: boolean
+  /** groesser gesetzter Absatz, z. B. Aufruf zum Ausleihen */
+  big?: boolean
   text: string
 }
 
@@ -24,7 +26,7 @@ export interface HomeWork {
   /** Bild rechts neben dem Text (3:2, formatfuellend) */
   image?: { src: string; alt: string }
   /** statt Bild: Galerie unter dem Text, Originalverhaeltnis */
-  gallery?: { src: string; alt: string; caption: string; full?: boolean }[]
+  gallery?: { src: string; alt: string; caption?: string; full?: boolean }[]
   /** Platzhalter, solange ein Bild fehlt */
   placeholder?: string
 }
@@ -87,15 +89,15 @@ export const home: Record<Lang, HomeContent> = {
         title: 'PHOTO UNIT',
         year: '2026',
         desc: [
-          P('I built a photo booth into a wine crate. Press the button, three seconds countdown, and the picture comes straight out of a thermal label printer as a black-and-white dither print.'),
-          P('Inside: a ThinkPad running Linux as a pure kiosk, its webcam and a Brother label printer. A small server I wrote dithers the photo and prints it over USB, no printer driver. Power on is enough. Three looks can be switched: Atkinson, Floyd-Steinberg and Bayer.'),
-          P('Every print says: made by rappde.com.'),
+          P('I built a photo booth into a wine crate. Press the button, and a few seconds later your photo comes out of a label printer on thermal paper.'),
+          P('Inside is a ThinkPad, plus a few 3D-printed parts. You can switch between different looks, and a QR code lets you download your photo straight to your phone. One label roll lasts for around 300 photos, so a whole evening.'),
+          P('I kept everything as simple as possible: plug it in and it runs.'),
+          { big: true, text: 'Want PHOTO UNIT at your event? I am very happy to lend it out. [Write me](mailto:demien.rp@gmail.com).' },
         ],
         gallery: [
-          { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: a black wooden crate with an upright screen in a white frame, showing a live dithered image under the words PHOTO UNIT and PRESS THE BUTTON, a round white button below.', caption: 'PHOTO UNIT' },
-          { src: '/images/photo-unit-prints.jpg', alt: 'A dozen dithered black-and-white prints scattered on a metal table, each with made by rappde.com underneath.', caption: 'Prints, 54 mm thermal roll' },
-          { src: '/images/photo-unit-button.jpg', alt: 'Close-up of the crate front: the screen reads PRESS THE BUTTON with arrows pointing down to the round white button.', caption: 'Press the button' },
-          { src: '/images/photo-unit-inside.jpg', alt: 'Inside the opened crate: ThinkPad keyboard, thermal label printer and cables on a wooden frame.', caption: 'Inside the crate' },
+          { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: a black wooden crate with an upright screen in a white frame, showing a live dithered image under the words PHOTO UNIT and PRESS THE BUTTON, a round white button below.' },
+          { src: '/images/photo-unit-prints.jpg', alt: 'A dozen dithered black-and-white prints scattered on a metal table, each with made by rappde.com underneath.' },
+          { src: '/images/photo-unit-button.jpg', alt: 'Close-up of the crate front: the screen reads PRESS THE BUTTON with arrows pointing down to the round white button.' },
         ],
       },
       {
@@ -233,15 +235,15 @@ export const home: Record<Lang, HomeContent> = {
         title: 'PHOTO UNIT',
         year: '2026',
         desc: [
-          P('Ich habe eine Fotobox in eine Weinkiste gebaut. Knopf drücken, drei Sekunden Countdown, und das Foto kommt direkt aus einem Thermo-Etikettendrucker, als geditherter Schwarz-Weiß-Druck.'),
-          P('Innen: ein ThinkPad, das unter Linux als reine Fotobox läuft, seine Webcam und ein Brother-Etikettendrucker. Ein kleiner Server, den ich geschrieben habe, dithert das Foto und druckt es per USB, ohne Druckertreiber. Strom an reicht. Drei Looks lassen sich umschalten: Atkinson, Floyd-Steinberg und Bayer.'),
-          P('Auf jedem Druck steht: made by rappde.com.'),
+          P('Ich habe eine Fotobox in eine Weinkiste gebaut. Du drückst den Knopf, und ein paar Sekunden später kommt dein Foto auf Thermopapier aus dem Etikettendrucker.'),
+          P('Drin steckt ein ThinkPad, dazu ein paar 3D-gedruckte Teile. Du kannst zwischen verschiedenen Looks wählen, und über einen QR-Code lädst du dein Foto direkt aufs Handy. Eine Etikettenrolle reicht für rund 300 Fotos, also für einen ganzen Abend.'),
+          P('Alles ist so einfach wie möglich gebaut: einstecken, läuft.'),
+          { big: true, text: 'Du willst die PHOTO UNIT auf deinem Event? Ich verleihe sie sehr gerne. [Schreib mir](mailto:demien.rp@gmail.com).' },
         ],
         gallery: [
-          { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: eine schwarze Holzkiste mit hochkant stehendem Bildschirm in weißem Rahmen, darauf ein gedithertes Livebild unter den Worten PHOTO UNIT und PRESS THE BUTTON, darunter ein runder weißer Knopf.', caption: 'PHOTO UNIT' },
-          { src: '/images/photo-unit-prints.jpg', alt: 'Ein Dutzend geditherte Schwarz-Weiß-Drucke auf einem Metalltisch, unter jedem steht made by rappde.com.', caption: 'Drucke, 54-mm-Thermorolle' },
-          { src: '/images/photo-unit-button.jpg', alt: 'Nahaufnahme der Kistenfront: auf dem Bildschirm steht PRESS THE BUTTON, Pfeile zeigen auf den runden weißen Knopf.', caption: 'Press the button' },
-          { src: '/images/photo-unit-inside.jpg', alt: 'Blick in die geöffnete Kiste: ThinkPad-Tastatur, Thermo-Etikettendrucker und Kabel auf einem Holzrahmen.', caption: 'Das Innere der Kiste' },
+          { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: eine schwarze Holzkiste mit hochkant stehendem Bildschirm in weißem Rahmen, darauf ein gedithertes Livebild unter den Worten PHOTO UNIT und PRESS THE BUTTON, darunter ein runder weißer Knopf.' },
+          { src: '/images/photo-unit-prints.jpg', alt: 'Ein Dutzend geditherte Schwarz-Weiß-Drucke auf einem Metalltisch, unter jedem steht made by rappde.com.' },
+          { src: '/images/photo-unit-button.jpg', alt: 'Nahaufnahme der Kistenfront: auf dem Bildschirm steht PRESS THE BUTTON, Pfeile zeigen auf den runden weißen Knopf.' },
         ],
       },
       {

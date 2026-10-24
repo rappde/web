@@ -90,7 +90,7 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
               {work.title} <span className="workYear">{work.year}</span>
             </h3>
             {work.desc.map((d, i) => (
-              <p className="desc" key={i}>
+              <p className={d.big ? 'desc big' : 'desc'} key={i}>
                 <Para p={d} />
               </p>
             ))}
@@ -111,7 +111,7 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
             {work.gallery.map((g) => (
               <figure className={g.full ? 'full' : undefined} key={g.src}>
                 <img src={g.src} alt={g.alt} loading="lazy" />
-                <figcaption>{g.caption}</figcaption>
+                {g.caption && <figcaption>{g.caption}</figcaption>}
               </figure>
             ))}
           </div>
