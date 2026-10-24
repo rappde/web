@@ -82,6 +82,23 @@ export const home: Record<Lang, HomeContent> = {
         },
       },
       {
+        id: 'photo-unit',
+        label: 'PHOTO UNIT',
+        title: 'PHOTO UNIT',
+        year: '2026',
+        desc: [
+          P('I built a photo booth into a wine crate. Press the button, three seconds countdown, and the picture comes straight out of a thermal label printer as a black-and-white dither print.'),
+          P('Inside: a ThinkPad running Linux as a pure kiosk, its webcam and a Brother label printer. A small server I wrote dithers the photo and prints it over USB, no printer driver. Power on is enough. Three looks can be switched: Atkinson, Floyd-Steinberg and Bayer.'),
+          P('Every print says: made by rappde.com.'),
+        ],
+        gallery: [
+          { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: a black wooden crate with an upright screen in a white frame, showing a live dithered image under the words PHOTO UNIT and PRESS THE BUTTON, a round white button below.', caption: 'PHOTO UNIT' },
+          { src: '/images/photo-unit-prints.jpg', alt: 'A dozen dithered black-and-white prints scattered on a metal table, each with made by rappde.com underneath.', caption: 'Prints, 54 mm thermal roll' },
+          { src: '/images/photo-unit-button.jpg', alt: 'Close-up of the crate front: the screen reads PRESS THE BUTTON with arrows pointing down to the round white button.', caption: 'Press the button' },
+          { src: '/images/photo-unit-inside.jpg', alt: 'Inside the opened crate: ThinkPad keyboard, thermal label printer and cables on a wooden frame.', caption: 'Inside the crate' },
+        ],
+      },
+      {
         id: 'gefuehle',
         label: 'gefühle',
         title: 'gefühle',
@@ -209,6 +226,23 @@ export const home: Record<Lang, HomeContent> = {
           src: '/images/mine.jpg',
           alt: 'mine: ein schwarz-weißes Foto eines niedrigen, spinnenartigen Laufroboters aus 3D-gedruckten Gestängen auf einem dunklen Tisch, von Hand metallisch lackiert und mit einem dünnen Kabel gefesselt.',
         },
+      },
+      {
+        id: 'photo-unit',
+        label: 'PHOTO UNIT',
+        title: 'PHOTO UNIT',
+        year: '2026',
+        desc: [
+          P('Ich habe eine Fotobox in eine Weinkiste gebaut. Knopf drücken, drei Sekunden Countdown, und das Foto kommt direkt aus einem Thermo-Etikettendrucker, als geditherter Schwarz-Weiß-Druck.'),
+          P('Innen: ein ThinkPad, das unter Linux als reine Fotobox läuft, seine Webcam und ein Brother-Etikettendrucker. Ein kleiner Server, den ich geschrieben habe, dithert das Foto und druckt es per USB, ohne Druckertreiber. Strom an reicht. Drei Looks lassen sich umschalten: Atkinson, Floyd-Steinberg und Bayer.'),
+          P('Auf jedem Druck steht: made by rappde.com.'),
+        ],
+        gallery: [
+          { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: eine schwarze Holzkiste mit hochkant stehendem Bildschirm in weißem Rahmen, darauf ein gedithertes Livebild unter den Worten PHOTO UNIT und PRESS THE BUTTON, darunter ein runder weißer Knopf.', caption: 'PHOTO UNIT' },
+          { src: '/images/photo-unit-prints.jpg', alt: 'Ein Dutzend geditherte Schwarz-Weiß-Drucke auf einem Metalltisch, unter jedem steht made by rappde.com.', caption: 'Drucke, 54-mm-Thermorolle' },
+          { src: '/images/photo-unit-button.jpg', alt: 'Nahaufnahme der Kistenfront: auf dem Bildschirm steht PRESS THE BUTTON, Pfeile zeigen auf den runden weißen Knopf.', caption: 'Press the button' },
+          { src: '/images/photo-unit-inside.jpg', alt: 'Blick in die geöffnete Kiste: ThinkPad-Tastatur, Thermo-Etikettendrucker und Kabel auf einem Holzrahmen.', caption: 'Das Innere der Kiste' },
+        ],
       },
       {
         id: 'gefuehle',

@@ -17,6 +17,10 @@ const jobs = [
   ['IMG_0203.JPG', 'gefuehle', 1600],
   ['mine.jpg', 'mine', 1800],
   ['knisternder-bahnhof.jpg', 'knisternder-bahnhof', 1400],
+  ['photo-unit_front.jpg', 'photo-unit', 1600],
+  ['photo-unit_prints.jpg', 'photo-unit-prints', 1600],
+  ['photo-unit_button.jpg', 'photo-unit-button', 1600],
+  ['photo-unit_inside.jpg', 'photo-unit-inside', 1600],
 ]
 
 for (const [src, base, maxWidth] of jobs) {
