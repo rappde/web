@@ -100,6 +100,20 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
               <img src={work.image.src} alt={work.image.alt} loading="lazy" />
             </div>
           )}
+          {work.video && (
+            <div className="workMedia">
+              <video
+                src={work.video.src}
+                poster={work.video.poster}
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                aria-label={work.video.label}
+              />
+            </div>
+          )}
           {work.placeholder && (
             <div className="workMedia">
               <span>{work.placeholder}</span>

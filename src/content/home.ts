@@ -27,6 +27,8 @@ export interface HomeWork {
   image?: { src: string; alt: string }
   /** statt Bild: Galerie unter dem Text, Originalverhaeltnis */
   gallery?: { src: string; alt: string; caption?: string; full?: boolean }[]
+  /** statt Bild: Video ohne Ton, `poster` bis zum Abspielen */
+  video?: { src: string; poster: string; label: string }
   /** Platzhalter, solange ein Bild fehlt */
   placeholder?: string
 }
@@ -112,6 +114,22 @@ export const home: Record<Lang, HomeContent> = {
         image: {
           src: '/images/gefuehle.jpg',
           alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.',
+        },
+      },
+      {
+        id: 'glueck-exe',
+        label: 'glück.exe',
+        title: 'glück.exe',
+        year: '2025',
+        desc: [
+          P('Nine floppy disks on a silver plate. Each one carries a definition of happiness.'),
+          P('Large programs once came on several disks. None of them ran alone. Happiness works the same way: it only exists when all of them come together.'),
+          P('An Arduino shakes the disks at random, sometimes one, sometimes all at once, like a gift before it is opened. It never opens.'),
+        ],
+        video: {
+          src: '/images/glueck-exe.mp4',
+          poster: '/images/glueck-exe.jpg',
+          label: 'glück.exe: nine floppy disks with handwritten labels on a silver plate, shaken at random by servo motors.',
         },
       },
       {
@@ -258,6 +276,22 @@ export const home: Record<Lang, HomeContent> = {
         image: {
           src: '/images/gefuehle.jpg',
           alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.',
+        },
+      },
+      {
+        id: 'glueck-exe',
+        label: 'glück.exe',
+        title: 'glück.exe',
+        year: '2025',
+        desc: [
+          P('Neun Disketten auf einer silbernen Platte. Auf jeder steht eine Definition von Glück.'),
+          P('Große Programme kamen früher auf mehreren Disketten. Keine lief allein. Mit Glück ist es genauso: Es entsteht erst aus allen zusammen.'),
+          P('Ein Arduino schüttelt die Disketten per Zufall, mal eine, mal alle gleichzeitig, wie ein Geschenk vor dem Auspacken. Es geht nie auf.'),
+        ],
+        video: {
+          src: '/images/glueck-exe.mp4',
+          poster: '/images/glueck-exe.jpg',
+          label: 'glück.exe: neun Disketten mit handschriftlichen Etiketten auf einer silbernen Platte, von Servomotoren zufällig geschüttelt.',
         },
       },
       {

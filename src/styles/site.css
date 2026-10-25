@@ -273,7 +273,7 @@ footer{
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
 }
-.workMedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.workMedia img,.workMedia video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 /* Platzhalter, solange ein Bild fehlt. */
 .workMedia span{background:var(--ink);color:var(--paper);text-align:center;padding:var(--gap);font-size:28px;
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
