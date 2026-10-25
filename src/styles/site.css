@@ -287,6 +287,7 @@ footer{
 .workYear{font-size:.5em}
 .workText .desc + .desc{margin-top:calc(var(--line) / 2)}
 .workText .desc.big{font-size:1.4em;line-height:1.3}
+.workText audio{display:block;width:100%}
 .workText .desc a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
 /* Tools unten in der Taskbar, gleiche Groesse wie die Werke (.foot hat 16px) */

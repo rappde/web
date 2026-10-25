@@ -13,6 +13,8 @@ export interface HomePara {
   /** groesser gesetzter Absatz, z. B. Aufruf zum Ausleihen */
   big?: boolean
   text: string
+  /** selbst gehostete Audiodatei, Player unter dem Absatz */
+  audio?: string
 }
 
 export interface HomeWork {
@@ -111,10 +113,14 @@ export const home: Record<Lang, HomeContent> = {
           P('Three stacked CRT TVs run through an analogue video mixer. Visitors turn potentiometers to mix a self-portrait into heavily distorted edits of nature and city, a “dirty mix” of my world.'),
           P('It won the Audience Award at the [18th Gestaltungswettbewerb at Lernort Studio Düsseldorf](https://lernort-studio.de/18_gestaltungswettbewerb/).'),
         ],
-        image: {
-          src: '/images/gefuehle.jpg',
-          alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.',
-        },
+        gallery: [
+          { src: '/images/gefuehle.jpg', alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.', full: true },
+          { src: '/images/gefuehle-wir-sehen-rot.jpg', alt: 'Visitors in front of the stacked CRT televisions at the exhibition WIR SEHEN ROT!! by dings.' },
+          { src: '/images/gefuehle-zine-seite.jpg', alt: 'A hand holds the exhibition zine open at the page about Demien Rapp, with a photo of the stacked televisions.' },
+          { src: '/images/gefuehle-plakat-strasse.jpg', alt: 'Poster for dings. WIR SEHEN ROT!! in a display case on a street.' },
+          { src: '/images/gefuehle-plakat.jpg', alt: 'Close-up of the poster: a red hand-drawn eye and the words dings, WIR SEHEN ROT.' },
+          { src: '/images/gefuehle-zine.jpg', alt: 'Red zines laid out on a wooden counter next to a sign reading Zine & Plakat.' },
+        ],
       },
       {
         id: 'glueck-exe',
@@ -139,13 +145,17 @@ export const home: Record<Lang, HomeContent> = {
         year: '2026',
         desc: [
           P('Two sound works built from childhood and 18th-birthday recordings, processed with self-built algorithmic tools that layer and deform the sound. Memory as something that reshapes with every playback. Made in the Werk:Klub at [K21 Düsseldorf](https://www.kunstsammlung.de/en/).'),
-          { lead: 'Nr. 5 · 5 min', break: true, text: 'Memory does not produce a past. It produces you. Chaotic. Unclear. Foggy.' },
-          { lead: 'Nr. 7 · 7 min', break: true, text: 'Memory is not a storage device. It invents. Again and again. What you held to be true may never have been so.' },
+          { lead: 'Nr. 5 · Erwachsenkdfsdhfdjmadherf · 5 min', break: true, audio: '/audio/soundwalk-5.mp3', text: 'Memory does not produce a past. It produces you. Chaotic. Unclear. Foggy.' },
+          { lead: 'Nr. 7 · Kindsiuiuhfusadufnkskmdibi · 7 min', break: true, audio: '/audio/soundwalk-7.mp3', text: 'Memory is not a storage device. It invents. Again and again. What you held to be true may never have been so.' },
         ],
-        image: {
-          src: '/images/soundwalk.jpg',
-          alt: 'The Soundwalk sound works at K21, two pieces built from biographical recordings.',
-        },
+        gallery: [
+          { src: '/images/soundwalk-qr-7.jpg', alt: 'A QR code printed on the stone floor at K21, labelled Demien Rapp, Kindsiuiuhfusadufnkskmdibi, 7:00, a visitor’s shoe at its edge.', full: true },
+          { src: '/images/soundwalk-hoeren.jpg', alt: 'A visitor listens to a piece on her phone after scanning a QR code on the floor.' },
+          { src: '/images/soundwalk-qr-5.jpg', alt: 'QR code on the floor for Erwachsenkdfsdhfdjmadherf, 5:00.' },
+          { src: '/images/soundwalk-boden.jpg', alt: 'The title Soundwalk, Projektpräsentation Werk:Klub, printed on the floor.' },
+          { src: '/images/soundwalk-programm.jpg', alt: 'A visitor holds the printed programme of the Soundwalk behind their back.' },
+          { src: '/images/soundwalk-rundgang.jpg', alt: 'Visitors gathered in the glass-roofed hall of K21 during the Soundwalk.' },
+        ],
       },
       {
         id: 'ein-viertel',
@@ -273,10 +283,14 @@ export const home: Record<Lang, HomeContent> = {
           P('Drei gestapelte Röhrenfernseher laufen über einen analogen Video-Mixer. Besucher mixen per Potentiometer ein Selbstporträt in stark verzerrte Edits aus Natur und Stadt, ein „dirty mix“ meiner Welt.'),
           P('Ausgezeichnet mit dem Publikumspreis beim [18. Gestaltungswettbewerb im Lernort Studio Düsseldorf](https://lernort-studio.de/18_gestaltungswettbewerb/).'),
         ],
-        image: {
-          src: '/images/gefuehle.jpg',
-          alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.',
-        },
+        gallery: [
+          { src: '/images/gefuehle.jpg', alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.', full: true },
+          { src: '/images/gefuehle-wir-sehen-rot.jpg', alt: 'Besucher vor den gestapelten Röhrenfernsehern in der Ausstellung WIR SEHEN ROT!! von dings.' },
+          { src: '/images/gefuehle-zine-seite.jpg', alt: 'Eine Hand hält das Ausstellungs-Zine auf der Seite über Demien Rapp aufgeschlagen, mit einem Foto der gestapelten Fernseher.' },
+          { src: '/images/gefuehle-plakat-strasse.jpg', alt: 'Plakat von dings. WIR SEHEN ROT!! in einem Schaukasten an einer Straße.' },
+          { src: '/images/gefuehle-plakat.jpg', alt: 'Nahaufnahme des Plakats: ein rot gezeichnetes Auge und die Worte dings, WIR SEHEN ROT.' },
+          { src: '/images/gefuehle-zine.jpg', alt: 'Rote Zines auf einer Holztheke neben einem Schild mit der Aufschrift Zine & Plakat.' },
+        ],
       },
       {
         id: 'glueck-exe',
@@ -301,13 +315,17 @@ export const home: Record<Lang, HomeContent> = {
         year: '2026',
         desc: [
           P('Zwei Soundarbeiten aus Aufnahmen von Kindheit und 18. Geburtstag, verarbeitet mit selbst gebauten algorithmischen Tools, die den Ton schichten und verformen. Erinnerung als etwas, das sich mit jeder Wiedergabe neu formt. Entstanden im Werk:Klub im [K21 Düsseldorf](https://www.kunstsammlung.de/de/).'),
-          { lead: 'Nr. 5 · 5 min', break: true, text: 'Erinnerung erzeugt keine Vergangenheit. Sie erzeugt dich. Chaotisch. Unklar. Nebelig.' },
-          { lead: 'Nr. 7 · 7 min', break: true, text: 'Erinnerung ist kein Speicher. Sie erfindet. Immer wieder. Was du für wahr hältst war vielleicht nie so.' },
+          { lead: 'Nr. 5 · Erwachsenkdfsdhfdjmadherf · 5 min', break: true, audio: '/audio/soundwalk-5.mp3', text: 'Erinnerung erzeugt keine Vergangenheit. Sie erzeugt dich. Chaotisch. Unklar. Nebelig.' },
+          { lead: 'Nr. 7 · Kindsiuiuhfusadufnkskmdibi · 7 min', break: true, audio: '/audio/soundwalk-7.mp3', text: 'Erinnerung ist kein Speicher. Sie erfindet. Immer wieder. Was du für wahr hältst war vielleicht nie so.' },
         ],
-        image: {
-          src: '/images/soundwalk.jpg',
-          alt: 'Die Soundwalk-Soundarbeiten im K21, zwei Stücke aus biografischem Material.',
-        },
+        gallery: [
+          { src: '/images/soundwalk-qr-7.jpg', alt: 'Ein QR-Code auf dem Steinboden im K21, beschriftet mit Demien Rapp, Kindsiuiuhfusadufnkskmdibi, 7:00, am Rand der Schuh eines Besuchers.', full: true },
+          { src: '/images/soundwalk-hoeren.jpg', alt: 'Eine Besucherin hört ein Stück auf ihrem Handy, nachdem sie einen QR-Code am Boden gescannt hat.' },
+          { src: '/images/soundwalk-qr-5.jpg', alt: 'QR-Code am Boden für Erwachsenkdfsdhfdjmadherf, 5:00.' },
+          { src: '/images/soundwalk-boden.jpg', alt: 'Der Titel Soundwalk, Projektpräsentation Werk:Klub, auf den Boden gedruckt.' },
+          { src: '/images/soundwalk-programm.jpg', alt: 'Jemand hält das gedruckte Programm des Soundwalks hinter dem Rücken.' },
+          { src: '/images/soundwalk-rundgang.jpg', alt: 'Besucher in der Glashalle des K21 während des Soundwalks.' },
+        ],
       },
       {
         id: 'ein-viertel',

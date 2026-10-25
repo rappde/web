@@ -1,4 +1,4 @@
-import { useEffect, useRef, type RefObject } from 'react'
+import { Fragment, useEffect, useRef, type RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
@@ -122,9 +122,12 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
               {work.title} <span className="workYear">{work.year}</span>
             </h3>
             {work.desc.map((d, i) => (
-              <p className={d.big ? 'desc big' : 'desc'} key={i}>
-                <Para p={d} />
-              </p>
+              <Fragment key={i}>
+                <p className={d.big ? 'desc big' : 'desc'}>
+                  <Para p={d} />
+                </p>
+                {d.audio && <audio className="desc" src={d.audio} controls preload="none" aria-label={d.lead} />}
+              </Fragment>
             ))}
           </div>
           {work.image && (

@@ -3,14 +3,14 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://rappde.com/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://rappde.com/de"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/"/>
   </url>
   <url>
     <loc>https://rappde.com/de</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://rappde.com/de"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/"/>
@@ -23,33 +23,33 @@
   </url>
   <url>
     <loc>https://rappde.com/mosh_unit</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/mosh_unit"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://rappde.com/de/mosh_unit"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/mosh_unit"/>
   </url>
   <url>
     <loc>https://rappde.com/de/mosh_unit</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/mosh_unit"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://rappde.com/de/mosh_unit"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/mosh_unit"/>
   </url>
   <url>
     <loc>https://rappde.com/datamoshing</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/datamoshing"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/datamoshing"/>
   </url>
   <url>
     <loc>https://rappde.com/how-to-datamosh</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/how-to-datamosh"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/how-to-datamosh"/>
   </url>
   <url>
     <loc>https://rappde.com/datamoshing-tools</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://rappde.com/datamoshing-tools"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rappde.com/datamoshing-tools"/>
   </url>
