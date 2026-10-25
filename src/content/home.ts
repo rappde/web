@@ -122,7 +122,7 @@ export const home: Record<Lang, HomeContent> = {
         title: 'glück.exe',
         year: '2025',
         desc: [
-          P('Nine floppy disks on a silver plate. Each one carries a definition of happiness.'),
+          P('Nine floppy disks on a silver plate. Each one carries a part of happiness.'),
           P('Large programs once came on several disks. None of them ran alone. Happiness works the same way: it only exists when all of them come together.'),
           P('An Arduino shakes the disks at random, sometimes one, sometimes all at once, like a gift before it is opened. It never opens.'),
         ],
@@ -284,7 +284,7 @@ export const home: Record<Lang, HomeContent> = {
         title: 'glück.exe',
         year: '2025',
         desc: [
-          P('Neun Disketten auf einer silbernen Platte. Auf jeder steht eine Definition von Glück.'),
+          P('Neun Disketten auf einer silbernen Platte. Auf jeder steht ein Teil von Glück.'),
           P('Große Programme kamen früher auf mehreren Disketten. Keine lief allein. Mit Glück ist es genauso: Es entsteht erst aus allen zusammen.'),
           P('Ein Arduino schüttelt die Disketten per Zufall, mal eine, mal alle gleichzeitig, wie ein Geschenk vor dem Auspacken. Es geht nie auf.'),
         ],
