@@ -79,6 +79,38 @@ function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpan
   }, [ref, bar])
 }
 
+/* Startet stumm, sobald das Video zur Haelfte sichtbar ist, und pausiert
+   ausserhalb. Bei "reduzierte Bewegung" nur per Klick. */
+function AutoVideo({ video }: { video: NonNullable<HomeWork['video']> }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {})
+        else el.pause()
+      },
+      { threshold: 0.5 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return (
+    <video
+      ref={ref}
+      src={video.src}
+      poster={video.poster}
+      muted
+      loop
+      playsInline
+      controls
+      preload="metadata"
+      aria-label={video.label}
+    />
+  )
+}
+
 function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
   const cls = ['win', 'panel', start && 'start', work.gallery && 'wide'].filter(Boolean).join(' ')
   return (
@@ -102,16 +134,7 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
           )}
           {work.video && (
             <div className="workMedia">
-              <video
-                src={work.video.src}
-                poster={work.video.poster}
-                muted
-                loop
-                playsInline
-                controls
-                preload="metadata"
-                aria-label={work.video.label}
-              />
+              <AutoVideo video={work.video} />
             </div>
           )}
           {work.placeholder && (
