@@ -1,6 +1,5 @@
 /* Startseite, EN unter "/" und DE unter "/de". /de ist eine echte
-   Uebersetzung, Google erkennt die Sprache nur am sichtbaren Text.
-   TODO: Bild fuer Uncut Award 2026 fehlt noch. */
+   Uebersetzung, Google erkennt die Sprache nur am sichtbaren Text. */
 
 import type { Lang } from './types'
 
@@ -235,14 +234,32 @@ export const home: Record<Lang, HomeContent> = {
         ],
       },
       {
+        id: 'x',
+        label: 'X',
+        title: 'X',
+        year: '2026',
+        desc: [
+          P('Together with Destina Devrim Danacı I made the short film X, around 5 minutes, and submitted it to the [Uncut Award](https://www.uncut-award.de/) 2026. It is about not fitting in.'),
+          P('X is an undefined variable: no place, no meaning, always searching. A constant back and forth, endless questioning and rethinking. How far is it put on display? Is there a place for me?'),
+          P('[Watch X on YouTube](https://youtu.be/SlDFwhz2Ot0)'),
+        ],
+        gallery: [
+          { src: '/images/x-block-2.jpg', alt: 'The programme slide UNCUT-FILME 2026 / BLOCK 2 in red light, X last on the list, people with a microphone in front of it.' },
+        ],
+      },
+      {
         id: 'uncut-2026',
         label: 'Uncut Award',
         title: 'Uncut Award',
         year: '2026',
         desc: [
-          P('Coming soon…'),
+          P('The [Uncut Award](https://www.uncut-award.de/) is the festival of the [Filmwerkstatt Düsseldorf](https://www.filmwerkstatt-duesseldorf.de/). On 10 October 2026 it drew around 150 visitors. I co-organised it: social media and parts of the organisation.'),
+          P('For the evening I built a small video installation. A webcam watched the room and picked out the pixels that changed quickly when people moved. These were laid as red artefacts over black-and-white videos that members of the film club had shot at the Filmwerkstatt.'),
         ],
-        placeholder: 'Uncut Award 2026',
+        gallery: [
+          { src: '/images/uncut-2026.jpg', alt: 'Uncut Award 2026: a group on stage in red light in front of the festival logo, the audience in the foreground.' },
+          { src: '/images/uncut-2026-installation.jpg', alt: 'The video installation: a black-and-white station scene projected with red artefacts where people moved, three people at the desk in front of it.' },
+        ],
       },
     ],
   },
@@ -425,14 +442,32 @@ export const home: Record<Lang, HomeContent> = {
         ],
       },
       {
+        id: 'x',
+        label: 'X',
+        title: 'X',
+        year: '2026',
+        desc: [
+          P('Zusammen mit Destina Devrim Danacı habe ich den Kurzfilm X gemacht, rund 5 Minuten, und beim [Uncut Award](https://www.uncut-award.de/) 2026 eingereicht. Es geht ums Nicht-Reinpassen.'),
+          P('X ist eine undefinierte Variable, ohne Platz, ohne Sinn, ständig auf der Suche. Ein ständiges Hin und Her, unaufhörliches Hinterfragen und Überdenken. Wie weit wird das vorgeführt? Gibt es einen Platz für mich?'),
+          P('[X auf YouTube ansehen](https://youtu.be/SlDFwhz2Ot0)'),
+        ],
+        gallery: [
+          { src: '/images/x-block-2.jpg', alt: 'Die Programmfolie UNCUT-FILME 2026 / BLOCK 2 in rotem Licht, X steht als Letztes auf der Liste, davor Leute mit Mikrofon.' },
+        ],
+      },
+      {
         id: 'uncut-2026',
         label: 'Uncut Award',
         title: 'Uncut Award',
         year: '2026',
         desc: [
-          P('Coming soon…'),
+          P('Der [Uncut Award](https://www.uncut-award.de/) ist das Festival der [Filmwerkstatt Düsseldorf](https://www.filmwerkstatt-duesseldorf.de/). Am 10. Oktober 2026 kamen rund 150 Besucher. Ich habe es mitorganisiert: Social Media und Teile der Organisation.'),
+          P('Für den Abend habe ich eine kleine Videoinstallation gebaut. Eine Webcam war auf den Raum gerichtet und erkannte die Pixel, die sich schnell veränderten, wenn sich Leute bewegten. Die wurden als rote Artefakte über Schwarz-Weiß-Videos gelegt, die Mitglieder des Filmclubs in der Filmwerkstatt gedreht hatten.'),
         ],
-        placeholder: 'Uncut Award 2026',
+        gallery: [
+          { src: '/images/uncut-2026.jpg', alt: 'Uncut Award 2026: eine Gruppe in rotem Licht auf der Bühne vor dem Festival-Logo, im Vordergrund das Publikum.' },
+          { src: '/images/uncut-2026-installation.jpg', alt: 'Die Videoinstallation: eine schwarz-weiße Bahnhofsszene, projiziert mit roten Artefakten dort, wo sich Leute bewegten, davor drei Leute am Pult.' },
+        ],
       },
     ],
   },
