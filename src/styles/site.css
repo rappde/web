@@ -301,8 +301,12 @@ footer{
 .home .layout{margin-top:var(--line)}
 
 /* Galerie-Panel */
-.panel.wide .workRow{grid-template-columns:1fr}
-.panel.wide .workText{align-self:start;max-width:70ch}
+.panel.stack .workRow{grid-template-columns:1fr}
+.panel.stack .workText{align-self:start;max-width:70ch}
+/* Hauptbild eines Galerie-Panels, Originalverhaeltnis. Zaehler nur am Handy. */
+.workMain{margin:0}
+.workMain img{width:100%;height:auto;display:block}
+.count{display:none}
 
 /* Desktop: ein Bildschirm, Footer darunter */
 /* .screen ist genau eine Fensterhoehe, zu langer Text scrollt innen. */
@@ -516,6 +520,11 @@ pre{font:inherit;white-space:pre-wrap;margin:0}
   .home .panel .winbody{display:flex;flex-direction:column}
   .home .workMedia{order:-1}
   .home .gallery{order:-1;margin:0 0 var(--gap)}
+  /* Am Handy nur das Hauptbild, Tipp zeigt das naechste. */
+  .home .gallery.more{display:none}
+  .home .workMain{order:-1}
+  .home .workMain:has(.count){cursor:pointer}
+  .home .count{display:block;font-size:14px;line-height:16px;margin-top:6px}
   .home .gallery figcaption{display:none}
   .home .workRow{gap:calc(var(--line) / 2)}
   .home .workTitle{font-size:28px;margin-bottom:calc(var(--line) / 4)}

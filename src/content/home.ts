@@ -27,7 +27,8 @@ export interface HomeWork {
   desc: HomePara[]
   /** Bild rechts neben dem Text (3:2, formatfuellend) */
   image?: { src: string; alt: string }
-  /** statt Bild: Galerie unter dem Text, Originalverhaeltnis */
+  /** statt Bild: erstes Bild neben dem Text, die weiteren darunter (Originalverhaeltnis).
+      Ist das erste `full`, steht alles unter dem Text. */
   gallery?: { src: string; alt: string; caption?: string; full?: boolean }[]
   /** statt Bild: Video ohne Ton, `poster` bis zum Abspielen */
   video?: { src: string; poster: string; label: string }
@@ -114,7 +115,7 @@ export const home: Record<Lang, HomeContent> = {
           P('It won the Audience Award at the [18th Gestaltungswettbewerb at Lernort Studio Düsseldorf](https://lernort-studio.de/18_gestaltungswettbewerb/).'),
         ],
         gallery: [
-          { src: '/images/gefuehle.jpg', alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.', full: true },
+          { src: '/images/gefuehle.jpg', alt: '“gefühle”: three stacked CRT televisions showing glitched video, with the potentiometer stand visitors turn to mix the image.' },
           { src: '/images/gefuehle-wir-sehen-rot.jpg', alt: 'Visitors in front of the stacked CRT televisions at the exhibition WIR SEHEN ROT!! by dings.' },
           { src: '/images/gefuehle-zine-seite.jpg', alt: 'A hand holds the exhibition zine open at the page about Demien Rapp, with a photo of the stacked televisions.' },
           { src: '/images/gefuehle-plakat-strasse.jpg', alt: 'Poster for dings. WIR SEHEN ROT!! in a display case on a street.' },
@@ -149,7 +150,7 @@ export const home: Record<Lang, HomeContent> = {
           { lead: 'Nr. 7 · Kindsiuiuhfusadufnkskmdibi · 7 min', break: true, audio: '/audio/soundwalk-7.mp3', text: 'Memory is not a storage device. It invents. Again and again. What you held to be true may never have been so.' },
         ],
         gallery: [
-          { src: '/images/soundwalk-qr-7.jpg', alt: 'A QR code printed on the stone floor at K21, labelled Demien Rapp, Kindsiuiuhfusadufnkskmdibi, 7:00, a visitor’s shoe at its edge.', full: true },
+          { src: '/images/soundwalk-qr-7.jpg', alt: 'A QR code printed on the stone floor at K21, labelled Demien Rapp, Kindsiuiuhfusadufnkskmdibi, 7:00, a visitor’s shoe at its edge.' },
           { src: '/images/soundwalk-hoeren.jpg', alt: 'A visitor listens to a piece on her phone after scanning a QR code on the floor.' },
           { src: '/images/soundwalk-qr-5.jpg', alt: 'QR code on the floor for Erwachsenkdfsdhfdjmadherf, 5:00.' },
           { src: '/images/soundwalk-boden.jpg', alt: 'The title Soundwalk, Projektpräsentation Werk:Klub, printed on the floor.' },
@@ -284,7 +285,7 @@ export const home: Record<Lang, HomeContent> = {
           P('Ausgezeichnet mit dem Publikumspreis beim [18. Gestaltungswettbewerb im Lernort Studio Düsseldorf](https://lernort-studio.de/18_gestaltungswettbewerb/).'),
         ],
         gallery: [
-          { src: '/images/gefuehle.jpg', alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.', full: true },
+          { src: '/images/gefuehle.jpg', alt: '„gefühle“: drei gestapelte Röhrenfernseher mit Glitch-Video, daneben das Potentiometer-Stativ, mit dem Besucher das Bild mischen.' },
           { src: '/images/gefuehle-wir-sehen-rot.jpg', alt: 'Besucher vor den gestapelten Röhrenfernsehern in der Ausstellung WIR SEHEN ROT!! von dings.' },
           { src: '/images/gefuehle-zine-seite.jpg', alt: 'Eine Hand hält das Ausstellungs-Zine auf der Seite über Demien Rapp aufgeschlagen, mit einem Foto der gestapelten Fernseher.' },
           { src: '/images/gefuehle-plakat-strasse.jpg', alt: 'Plakat von dings. WIR SEHEN ROT!! in einem Schaukasten an einer Straße.' },
@@ -319,7 +320,7 @@ export const home: Record<Lang, HomeContent> = {
           { lead: 'Nr. 7 · Kindsiuiuhfusadufnkskmdibi · 7 min', break: true, audio: '/audio/soundwalk-7.mp3', text: 'Erinnerung ist kein Speicher. Sie erfindet. Immer wieder. Was du für wahr hältst war vielleicht nie so.' },
         ],
         gallery: [
-          { src: '/images/soundwalk-qr-7.jpg', alt: 'Ein QR-Code auf dem Steinboden im K21, beschriftet mit Demien Rapp, Kindsiuiuhfusadufnkskmdibi, 7:00, am Rand der Schuh eines Besuchers.', full: true },
+          { src: '/images/soundwalk-qr-7.jpg', alt: 'Ein QR-Code auf dem Steinboden im K21, beschriftet mit Demien Rapp, Kindsiuiuhfusadufnkskmdibi, 7:00, am Rand der Schuh eines Besuchers.' },
           { src: '/images/soundwalk-hoeren.jpg', alt: 'Eine Besucherin hört ein Stück auf ihrem Handy, nachdem sie einen QR-Code am Boden gescannt hat.' },
           { src: '/images/soundwalk-qr-5.jpg', alt: 'QR-Code am Boden für Erwachsenkdfsdhfdjmadherf, 5:00.' },
           { src: '/images/soundwalk-boden.jpg', alt: 'Der Titel Soundwalk, Projektpräsentation Werk:Klub, auf den Boden gedruckt.' },

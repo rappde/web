@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, type RefObject } from 'react'
+import { Fragment, useEffect, useRef, useState, type RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { Seo } from '@/components/Seo'
 import type { Lang } from '@/content/types'
@@ -111,8 +111,27 @@ function AutoVideo({ video }: { video: NonNullable<HomeWork['video']> }) {
   )
 }
 
+/* Hauptbild neben dem Text. Am Handy sind die weiteren Bilder ausgeblendet,
+   ein Tipp aufs Bild zeigt das naechste. */
+function MainImage({ images }: { images: NonNullable<HomeWork['gallery']> }) {
+  const [i, setI] = useState(0)
+  const next = () => {
+    if (matchMedia('(max-width:767px)').matches) setI((i + 1) % images.length)
+  }
+  return (
+    <figure className="workMain" onClick={images.length > 1 ? next : undefined}>
+      <img src={images[i].src} alt={images[i].alt} />
+      {images.length > 1 && <figcaption className="count">{i + 1}/{images.length}</figcaption>}
+    </figure>
+  )
+}
+
 function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
-  const cls = ['win', 'panel', start && 'start', work.gallery && 'wide'].filter(Boolean).join(' ')
+  const hasMain = !!work.gallery && !work.gallery[0].full
+  const more = hasMain ? work.gallery!.slice(1) : work.gallery
+  const cls = ['win', 'panel', start && 'start', work.gallery && 'wide', work.gallery && !hasMain && 'stack']
+    .filter(Boolean)
+    .join(' ')
   return (
     <article className={cls} id={work.id}>
       <div className="winbody">
@@ -140,15 +159,16 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
               <AutoVideo video={work.video} />
             </div>
           )}
+          {hasMain && <MainImage images={work.gallery!} />}
           {work.placeholder && (
             <div className="workMedia">
               <span>{work.placeholder}</span>
             </div>
           )}
         </div>
-        {work.gallery && (
-          <div className="gallery">
-            {work.gallery.map((g) => (
+        {more && more.length > 0 && (
+          <div className={hasMain ? 'gallery more' : 'gallery'}>
+            {more.map((g) => (
               <figure className={g.full ? 'full' : undefined} key={g.src}>
                 <img src={g.src} alt={g.alt} loading="lazy" />
                 {g.caption && <figcaption>{g.caption}</figcaption>}
