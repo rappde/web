@@ -324,13 +324,13 @@ footer{
   .home .workRow{flex:1;min-height:0;align-items:center}
   .home .workText{max-height:100%;overflow:auto}
 
-  /* Ein Galerie-Panel darf den Bildschirm verlaengern. */
-  .home:has(.panel.wide:target) .screen{height:auto}
-  .home:has(.panel.wide:target) .layout{flex:none}
-  .home:has(.panel.wide:target) .win{max-height:none}
-  .home:has(.panel.wide:target) .panel .winbody{overflow:visible}
-  .home:has(.panel.wide:target) .workText{max-height:none;overflow:visible}
-  .home:has(.panel.wide:target) .workRow{flex:none}
+  /* Ein Galerie-Panel darf den Bildschirm verlaengern, auch als Startpanel ohne Anker. */
+  .home:is(:has(.panel.wide:target),:not(:has(.panel:target)):has(.panel.wide.start)) .screen{height:auto}
+  .home:is(:has(.panel.wide:target),:not(:has(.panel:target)):has(.panel.wide.start)) .layout{flex:none}
+  .home:is(:has(.panel.wide:target),:not(:has(.panel:target)):has(.panel.wide.start)) .win{max-height:none}
+  .home:is(:has(.panel.wide:target),:not(:has(.panel:target)):has(.panel.wide.start)) .panel .winbody{overflow:visible}
+  .home:is(:has(.panel.wide:target),:not(:has(.panel:target)):has(.panel.wide.start)) .workText{max-height:none;overflow:visible}
+  .home:is(:has(.panel.wide:target),:not(:has(.panel:target)):has(.panel.wide.start)) .workRow{flex:none}
 
   .home footer{margin-top:calc(var(--line) * 2)}
 }
