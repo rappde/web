@@ -51,7 +51,8 @@ function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpan
 
     if (location.hash) {
       const card = document.getElementById(location.hash.slice(1))
-      if (card) viewer.scrollLeft = card.offsetLeft - viewer.offsetLeft
+      // padding abziehen, sonst klebt die Karte am Bildschirmrand
+      if (card) viewer.scrollLeft = card.offsetLeft - viewer.offsetLeft - parseFloat(getComputedStyle(viewer).paddingLeft)
     }
 
     let frame = 0
@@ -80,12 +81,15 @@ function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpan
 }
 
 /* Startet stumm, sobald das Video zur Haelfte sichtbar ist, und pausiert
-   ausserhalb. Bei "reduzierte Bewegung" nur per Klick. */
-function AutoVideo({ video }: { video: NonNullable<HomeWork['video']> }) {
+   ausserhalb. Bei "reduzierte Bewegung" nur per Klick, dann immer mit
+   Controls. */
+function AutoVideo({ video, controls = true }: { video: NonNullable<HomeWork['video']>; controls?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null)
+  const [still, setStill] = useState(false)
   useEffect(() => {
     const el = ref.current
-    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!el) return
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return setStill(true)
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) el.play().catch(() => {})
@@ -104,15 +108,25 @@ function AutoVideo({ video }: { video: NonNullable<HomeWork['video']> }) {
       muted
       loop
       playsInline
-      controls
+      controls={controls || still}
       preload="metadata"
       aria-label={video.label}
     />
   )
 }
 
+/** Bild oder, mit `poster`, Video ohne Ton. */
+function GalleryMedia({ g, controls, lazy }: { g: NonNullable<HomeWork['gallery']>[number]; controls?: boolean; lazy?: boolean }) {
+  return g.poster ? (
+    <AutoVideo key={g.src} video={{ src: g.src, poster: g.poster, label: g.alt }} controls={controls} />
+  ) : (
+    <img src={g.src} alt={g.alt} loading={lazy ? 'lazy' : undefined} />
+  )
+}
+
 /* Hauptbild neben dem Text. Am Handy sind die weiteren Bilder ausgeblendet,
-   ein Tipp aufs Bild zeigt das naechste. */
+   ein Tipp aufs Bild zeigt das naechste. Ein Video hat dann keine Controls,
+   sonst faengt es den Tipp ab. */
 function MainImage({ images }: { images: NonNullable<HomeWork['gallery']> }) {
   const [i, setI] = useState(0)
   const next = () => {
@@ -120,7 +134,7 @@ function MainImage({ images }: { images: NonNullable<HomeWork['gallery']> }) {
   }
   return (
     <figure className="workMain" onClick={images.length > 1 ? next : undefined}>
-      <img src={images[i].src} alt={images[i].alt} />
+      <GalleryMedia g={images[i]} controls={images.length === 1} />
       {images.length > 1 && <figcaption className="count">{i + 1}/{images.length}</figcaption>}
     </figure>
   )
@@ -170,7 +184,7 @@ function WorkPanel({ work, start }: { work: HomeWork; start: boolean }) {
           <div className={hasMain ? 'gallery more' : 'gallery'}>
             {more.map((g) => (
               <figure className={g.full ? 'full' : undefined} key={g.src}>
-                <img src={g.src} alt={g.alt} loading="lazy" />
+                <GalleryMedia g={g} lazy />
                 {g.caption && <figcaption>{g.caption}</figcaption>}
               </figure>
             ))}

@@ -26,6 +26,8 @@ const jobs = [
   ['IMG_0210.JPG', 'gefuehle-zine', 1600],
   ['IMG_0248.JPG', 'gefuehle-zine-seite', 1600, { rotate: 0 }], // EXIF orientation is wrong here,
   ['mine.jpg', 'mine', 1800],
+  ['mine_robotdonesilver.jpg', 'mine-silber', 1600],
+  ['mine_robotinprocess.jpg', 'mine-prozess', 1600],
   ['knisternder-bahnhof.jpg', 'knisternder-bahnhof', 1400],
   ['photo-unit_front.jpg', 'photo-unit', 1600],
   ['photo-unit_prints.jpg', 'photo-unit-prints', 1600],

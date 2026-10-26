@@ -203,7 +203,7 @@ img,video{max-width:100%}
 }
 .gallery figure{margin:0}
 /* height:auto, damit nichts beschnitten wird. */
-.gallery img{width:100%;height:auto;display:block}
+.gallery img,.gallery video{width:100%;height:auto;display:block}
 .gallery figcaption{font-size:14px;line-height:16px;margin-top:6px}
 /* Sehr breite Bilder bekommen die ganze Zeile. */
 .gallery .full{grid-column:1 / -1}
@@ -305,7 +305,7 @@ footer{
 .panel.stack .workText{align-self:start;max-width:70ch}
 /* Hauptbild eines Galerie-Panels, Originalverhaeltnis. Zaehler nur am Handy. */
 .workMain{margin:0}
-.workMain img{width:100%;height:auto;display:block}
+.workMain img,.workMain video{width:100%;height:auto;display:block}
 .count{display:none}
 
 /* Desktop: ein Bildschirm, Footer darunter */

@@ -28,8 +28,9 @@ export interface HomeWork {
   /** Bild rechts neben dem Text (3:2, formatfuellend) */
   image?: { src: string; alt: string }
   /** statt Bild: erstes Bild neben dem Text, die weiteren darunter (Originalverhaeltnis).
-      Ist das erste `full`, steht alles unter dem Text. */
-  gallery?: { src: string; alt: string; caption?: string; full?: boolean }[]
+      Ist das erste `full`, steht alles unter dem Text. Mit `poster` ist der
+      Eintrag ein Video ohne Ton. */
+  gallery?: { src: string; alt: string; caption?: string; full?: boolean; poster?: string }[]
   /** statt Bild: Video ohne Ton, `poster` bis zum Abspielen */
   video?: { src: string; poster: string; label: string }
   /** Platzhalter, solange ein Bild fehlt */
@@ -64,7 +65,7 @@ export const home: Record<Lang, HomeContent> = {
       'Demien Rapp is a creative generalist and solo developer based in Düsseldorf. Work at the intersection of engineering and art: physical robots, generative browser tools, kinetic installations.',
     skip: 'Skip to content',
     intro: [
-      '18, Düsseldorf. I use technology as a medium to express my world. I build installations, software and machines. Whatever I need, I bring into reality.',
+      '19, Düsseldorf. I use technology as a medium to express my world. I build installations, software and machines. Whatever I need, I bring into reality.',
     ],
     contact: { text: 'Write me. Or read the', link: 'manifest' },
     qrLabel: 'QR code, links to a portrait',
@@ -83,10 +84,14 @@ export const home: Record<Lang, HomeContent> = {
           P('The twist: it cannot move freely through the room. It is chained to a power socket.'),
           P('It won both the Audience Award and the Jury Award at the 19th Gestaltungswettbewerb at Lernort Studio Düsseldorf.'),
         ],
-        image: {
-          src: '/images/mine.jpg',
-          alt: 'mine: a black-and-white photograph of a low, spider-like walking robot built from 3D-printed linkages, hand-lacquered to a metallic look, on a dark table and tethered by a thin cable.',
-        },
+        gallery: [
+          { src: '/images/mine-publikum.mp4', poster: '/images/mine-publikum.jpg', alt: 'mine: two visitors step up to the black plinth the robot stands on.' },
+          { src: '/images/mine-silber.jpg', alt: 'The finished robot, lacquered silver, held in one hand above a street.' },
+          { src: '/images/mine-prozess.jpg', alt: 'A single leg linkage of the robot held in a paint-stained hand above the workbench.' },
+          { src: '/images/mine.jpg', alt: 'mine: a black-and-white photograph of a low, spider-like walking robot built from 3D-printed linkages, hand-lacquered to a metallic look, on a dark table and tethered by a thin cable.' },
+          { src: '/images/mine-praesentation.mp4', poster: '/images/mine-praesentation.jpg', alt: 'The robot on its black plinth, tethered by a cable to a power socket, seen from several angles.' },
+          { src: '/images/mine-unlackiert.mp4', poster: '/images/mine-unlackiert.jpg', alt: 'The robot before lacquering, black and yellow, held in one hand at the desk.' },
+        ],
       },
       {
         id: 'photo-unit',
@@ -103,6 +108,22 @@ export const home: Record<Lang, HomeContent> = {
           { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: a black wooden crate with an upright screen in a white frame, showing a live dithered image under the words PHOTO UNIT and PRESS THE BUTTON, a round white button below.' },
           { src: '/images/photo-unit-prints.jpg', alt: 'A dozen dithered black-and-white prints scattered on a metal table, each with made by rappde.com underneath.' },
           { src: '/images/photo-unit-button.jpg', alt: 'Close-up of the crate front: the screen reads PRESS THE BUTTON with arrows pointing down to the round white button.' },
+        ],
+      },
+      {
+        id: 'mosh-unit',
+        label: 'MOSH_UNIT',
+        title: 'MOSH_UNIT',
+        year: '2026',
+        desc: [
+          P('MOSH_UNIT is a Windows desktop tool I built that turns ordinary video into datamoshing glitch art by bending the compressed byte stream. You import clips, draw where the effect should hit, stack effects like BLOOM, FREEZE, REVERSE and SHUFFLE, and export an MP4.'),
+          P('[Get MOSH_UNIT](/mosh_unit)'),
+        ],
+        gallery: [
+          { src: '/mosh/moshunit-bloom-datamosh-demo.mp4', poster: '/mosh/moshunit-bloom-datamosh-demo.jpg', alt: 'MOSH_UNIT: a clip dissolving into smeared, blooming datamosh pixels.' },
+          { src: '/mosh/moshunit-interface-timeline.jpg', alt: 'MOSH_UNIT interface with the clip timeline.' },
+          { src: '/mosh/moshunit-drawing-effect-zone.jpg', alt: 'Drawing the zone in which the effect hits.' },
+          { src: '/mosh/moshunit-effect-stacking-inspector.jpg', alt: 'Inspector with several stacked effects.' },
         ],
       },
       {
@@ -234,7 +255,7 @@ export const home: Record<Lang, HomeContent> = {
       'Demien Rapp ist Künstler und Entwickler aus Düsseldorf. Arbeiten zwischen Technik und Kunst: Roboter, interaktive Installationen, Videoinstallationen, Soundarbeiten und selbst gebaute Browser-Tools.',
     skip: 'Zum Inhalt springen',
     intro: [
-      '18, Düsseldorf. Ich nutze Technik als Medium, um meine Welt auszudrücken. Ich baue Installationen, Software und Maschinen. Was ich brauche, bringe ich in die Wirklichkeit.',
+      '19, Düsseldorf. Ich nutze Technik als Medium, um meine Welt auszudrücken. Ich baue Installationen, Software und Maschinen. Was ich brauche, bringe ich in die Wirklichkeit.',
     ],
     contact: { text: 'Schreib mir. Oder lies das', link: 'Manifest' },
     qrLabel: 'QR-Code, führt zu einem Porträt',
@@ -253,10 +274,14 @@ export const home: Record<Lang, HomeContent> = {
           P('Das Besondere: Er kann sich nicht frei im Raum bewegen. Er ist an eine Steckdose gekettet.'),
           P('Ausgezeichnet mit dem Publikumspreis und dem Jurypreis beim 19. Gestaltungswettbewerb im Lernort Studio Düsseldorf.'),
         ],
-        image: {
-          src: '/images/mine.jpg',
-          alt: 'mine: ein schwarz-weißes Foto eines niedrigen, spinnenartigen Laufroboters aus 3D-gedruckten Gestängen auf einem dunklen Tisch, von Hand metallisch lackiert und mit einem dünnen Kabel gefesselt.',
-        },
+        gallery: [
+          { src: '/images/mine-publikum.mp4', poster: '/images/mine-publikum.jpg', alt: 'mine: zwei Besucher treten an den schwarzen Sockel, auf dem der Roboter steht.' },
+          { src: '/images/mine-silber.jpg', alt: 'Der fertige Roboter, silbern lackiert, in einer Hand über einer Straße.' },
+          { src: '/images/mine-prozess.jpg', alt: 'Ein einzelnes Beingestänge des Roboters in einer farbverschmierten Hand über der Werkbank.' },
+          { src: '/images/mine.jpg', alt: 'mine: ein schwarz-weißes Foto eines niedrigen, spinnenartigen Laufroboters aus 3D-gedruckten Gestängen auf einem dunklen Tisch, von Hand metallisch lackiert und mit einem dünnen Kabel gefesselt.' },
+          { src: '/images/mine-praesentation.mp4', poster: '/images/mine-praesentation.jpg', alt: 'Der Roboter auf seinem schwarzen Sockel, per Kabel an eine Steckdose gefesselt, aus mehreren Blickwinkeln.' },
+          { src: '/images/mine-unlackiert.mp4', poster: '/images/mine-unlackiert.jpg', alt: 'Der Roboter vor dem Lackieren, schwarz und gelb, in einer Hand am Schreibtisch.' },
+        ],
       },
       {
         id: 'photo-unit',
@@ -273,6 +298,22 @@ export const home: Record<Lang, HomeContent> = {
           { src: '/images/photo-unit.jpg', alt: 'PHOTO UNIT: eine schwarze Holzkiste mit hochkant stehendem Bildschirm in weißem Rahmen, darauf ein gedithertes Livebild unter den Worten PHOTO UNIT und PRESS THE BUTTON, darunter ein runder weißer Knopf.' },
           { src: '/images/photo-unit-prints.jpg', alt: 'Ein Dutzend geditherte Schwarz-Weiß-Drucke auf einem Metalltisch, unter jedem steht made by rappde.com.' },
           { src: '/images/photo-unit-button.jpg', alt: 'Nahaufnahme der Kistenfront: auf dem Bildschirm steht PRESS THE BUTTON, Pfeile zeigen auf den runden weißen Knopf.' },
+        ],
+      },
+      {
+        id: 'mosh-unit',
+        label: 'MOSH_UNIT',
+        title: 'MOSH_UNIT',
+        year: '2026',
+        desc: [
+          P('MOSH_UNIT ist ein Windows-Desktop-Tool, das ich gebaut habe: Es verwandelt gewöhnliches Video in Datamoshing-Glitch-Art, indem es den komprimierten Byte-Stream verbiegt. Du importierst Clips, zeichnest ein, wo der Effekt greifen soll, stapelst Effekte wie BLOOM, FREEZE, REVERSE und SHUFFLE und exportierst ein MP4.'),
+          P('[MOSH_UNIT holen](/de/mosh_unit)'),
+        ],
+        gallery: [
+          { src: '/mosh/moshunit-bloom-datamosh-demo.mp4', poster: '/mosh/moshunit-bloom-datamosh-demo.jpg', alt: 'MOSH_UNIT: ein Clip zerfließt in verschmierte, aufblühende Datamosh-Pixel.' },
+          { src: '/mosh/moshunit-interface-timeline.jpg', alt: 'Die Oberfläche von MOSH_UNIT mit der Clip-Timeline.' },
+          { src: '/mosh/moshunit-drawing-effect-zone.jpg', alt: 'Einzeichnen der Zone, in der der Effekt greift.' },
+          { src: '/mosh/moshunit-effect-stacking-inspector.jpg', alt: 'Inspector mit mehreren gestapelten Effekten.' },
         ],
       },
       {
