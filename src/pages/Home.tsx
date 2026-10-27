@@ -80,6 +80,25 @@ function useSwipeGallery(ref: RefObject<HTMLDivElement>, bar: RefObject<HTMLSpan
   }, [ref, bar])
 }
 
+/* Der QR steht mittig in seiner Spalte, seine Breite folgt der Texthoehe.
+   Sein Abstand zum rechten Rand wird --qrEdge, daran enden die Werke. */
+function useQrEdge(intro: RefObject<HTMLDivElement>, qr: RefObject<HTMLAnchorElement>) {
+  useEffect(() => {
+    const box = intro.current
+    const code = qr.current
+    if (!box || !code) return
+    const measure = () => {
+      const q = code.getBoundingClientRect()
+      // am Handy ist der QR ausgeblendet, Breite 0
+      const edge = q.width ? box.getBoundingClientRect().right - q.right : 0
+      box.parentElement!.style.setProperty('--qrEdge', `${edge}px`)
+    }
+    const ro = new ResizeObserver(measure)
+    ro.observe(box)
+    return () => ro.disconnect()
+  }, [intro, qr])
+}
+
 /* Startet stumm, sobald das Video zur Haelfte sichtbar ist, und pausiert
    ausserhalb. Bei "reduzierte Bewegung" nur per Klick, dann immer mit
    Controls. */
@@ -201,6 +220,9 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
   const viewer = useRef<HTMLDivElement>(null)
   const bar = useRef<HTMLSpanElement>(null)
   useSwipeGallery(viewer, bar)
+  const intro = useRef<HTMLDivElement>(null)
+  const qr = useRef<HTMLAnchorElement>(null)
+  useQrEdge(intro, qr)
 
   return (
     <div className="home">
@@ -212,7 +234,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
       {/* Desktop: .screen ist eine Bildschirmhoehe, der Footer liegt darunter */}
       <div className="screen">
       {/* QR-Code rechts, so hoch wie Text und Links zusammen */}
-      <div className="intro">
+      <div className="intro" ref={intro}>
         <h1>Demien Rapp</h1>
 
         <div className="introText">
@@ -237,7 +259,7 @@ export default function Home({ lang = 'en' }: { lang?: Lang }) {
         </div>
 
         <div className="qrCell">
-          <a className="qr" href="/images/demien-portrait.jpg" target="_blank" rel="noopener" aria-label={c.qrLabel}>
+          <a className="qr" ref={qr} href="/images/demien-portrait.jpg" target="_blank" rel="noopener" aria-label={c.qrLabel}>
             <img src="/images/qr-code.png" alt={c.qrAlt} loading="lazy" />
           </a>
         </div>
