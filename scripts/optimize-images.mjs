@@ -11,6 +11,9 @@ const out = join(root, 'public', 'images')
 // [masterFile (in image-masters/), outputBasename (matches the work slug), maxWidth, { crop?, rotate? }]
 const jobs = [
   ['k21_banner_als_gesamt_digital.png', 'ein-viertel-banner', 2000],
+  ['k21_halle.jpg', 'ein-viertel-halle', 1600],
+  ['k21_seite.jpg', 'ein-viertel-seite', 1600],
+  ['k21_publikum.jpg', 'ein-viertel-publikum', 1600],
   ['sdb_cover.jpg', 'soiree-de-brioche', 1600],
   ['2491_cover.jpg', 'uncut-2025', 1400],
   ['soundwalk_NET02392-2.jpg', 'soundwalk-qr-7', 2000],

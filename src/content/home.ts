@@ -193,6 +193,10 @@ export const home: Record<Lang, HomeContent> = {
             caption: 'BE A TRANSFORMER!, 5 × 12 m, K21 Düsseldorf',
             full: true,
           },
+          { src: '/images/ein-viertel-halle.jpg', alt: 'The BE A TRANSFORMER! banner hanging on a free-standing white wall under the glass dome of K21.' },
+          { src: '/images/ein-viertel-seite.jpg', alt: 'The banner seen from the side, the 1/4 collage in the lower left corner, sunlight falling through the glass roof.' },
+          { src: '/images/ein-viertel-publikum.jpg', alt: 'A group of visitors standing in front of the banner at K21, 1/4 at the lower left.' },
+          { src: '/images/ein-viertel-collage.mp4', poster: '/images/ein-viertel-collage.jpg', alt: 'A slow pan across the 1/4 collage: dense, colourful AI images of events of this century.' },
         ],
       },
       {
@@ -401,6 +405,10 @@ export const home: Record<Lang, HomeContent> = {
             caption: 'BE A TRANSFORMER!, 5 × 12 m, K21 Düsseldorf',
             full: true,
           },
+          { src: '/images/ein-viertel-halle.jpg', alt: 'Das Banner BE A TRANSFORMER! an einer frei stehenden weißen Wand unter der Glaskuppel des K21.' },
+          { src: '/images/ein-viertel-seite.jpg', alt: 'Das Banner von der Seite, die Collage 1/4 unten links, Sonnenlicht fällt durch das Glasdach.' },
+          { src: '/images/ein-viertel-publikum.jpg', alt: 'Eine Gruppe Besucher*innen steht vor dem Banner im K21, 1/4 unten links.' },
+          { src: '/images/ein-viertel-collage.mp4', poster: '/images/ein-viertel-collage.jpg', alt: 'Ein langsamer Schwenk über die Collage 1/4: dichte, bunte KI-Bilder von Ereignissen dieses Jahrhunderts.' },
         ],
       },
       {
